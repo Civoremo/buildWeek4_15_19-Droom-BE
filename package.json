@@ -1,0 +1,38 @@
+{
+  "name": "buildweek4_15_19-droom-be",
+  "version": "1.0.0",
+  "description": "Droom back-end",
+  "main": "server.js",
+  "scripts": {
+    "start": "node start.js",
+    "server": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/droombuildweek/buildWeek4_15_19-Droom-BE.git"
+  },
+  "author": "Skyelar Carroll <https://github.com/Fractured2K>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/droombuildweek/buildWeek4_15_19-Droom-BE/issues"
+  },
+  "homepage": "https://github.com/droombuildweek/buildWeek4_15_19-Droom-BE#readme",
+  "dependencies": {
+    "@sentry/node": "^5.0.8",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "helmet": "^3.16.0",
+    "jsonwebtoken": "^8.5.1",
+    "knex": "^0.16.5",
+    "knex-cleaner": "^1.1.4",
+    "morgan": "^1.9.1",
+    "pg": "^7.9.0",
+    "sqlite3": "^4.0.6"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
