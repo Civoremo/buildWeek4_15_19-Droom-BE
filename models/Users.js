@@ -19,6 +19,11 @@ async function add(user) {
 }
 
 // Get all users
-async function find() {
+function find() {
 	return db('users');
+}
+
+// Get user by filter
+function findBy(filter) {
+	return db('users').where(filter);
 }
