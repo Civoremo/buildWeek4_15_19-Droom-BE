@@ -1,5 +1,4 @@
 const router = require('express').Router();
-
-router.post('/register', async (req, res) => {});
+const Users = require('../models/Users');
 
 module.exports = router;
