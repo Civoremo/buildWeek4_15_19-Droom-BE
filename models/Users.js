@@ -32,3 +32,12 @@ function findById(id) {
 		.where({ id })
 		.first();
 }
+
+// Update user
+async function update(id, user) {
+	await db('users')
+		.where({ id })
+		.update(user);
+
+	return findById(id);
+}
