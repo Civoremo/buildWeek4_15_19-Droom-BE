@@ -1,12 +1,17 @@
 require('dotenv').config();
 const express = require('express');
+const Sentry = require('@sentry/node');
 
 const middleware = require('./middleware/config');
 const errorMiddleware = require('./middleware/errorReporting');
 
 const usersController = require('./controllers/users');
 
+// initializations
 const server = express();
+Sentry.init({
+	dsn: process.env.SENTRY_DSN
+});
 
 // middleware
 middleware(server);
