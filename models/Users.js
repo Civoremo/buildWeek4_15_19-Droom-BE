@@ -41,3 +41,10 @@ async function update(id, user) {
 
 	return findById(id);
 }
+
+// Delete user
+function remove(id) {
+	return db('users')
+		.where({ id })
+		.del();
+}
