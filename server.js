@@ -5,7 +5,7 @@ const Sentry = require('@sentry/node');
 const middleware = require('./middleware/config');
 const errorMiddleware = require('./middleware/errorReporting');
 
-const usersController = require('./controllers/users');
+const authController = require('./controllers/auth');
 
 // initializations
 const server = express();
@@ -17,7 +17,7 @@ Sentry.init({
 middleware(server);
 
 // controllers
-server.use('/api/auth', usersController);
+server.use('/api/auth', authController);
 
 // error reporting middleware (Must be after all requests)
 errorMiddleware(server);
