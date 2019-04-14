@@ -6,3 +6,6 @@ node_modules/
 .env
 
 
+# Databases
+**/*.db3
+**/*.sqlite3
