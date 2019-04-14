@@ -6,6 +6,7 @@ const middleware = require('./middleware/config');
 const errorMiddleware = require('./middleware/errorReporting');
 
 const authController = require('./controllers/auth');
+const comController = require('./controllers/companies');
 
 // initializations
 const server = express();
@@ -18,6 +19,7 @@ middleware(server);
 
 // controllers
 server.use('/api/auth', authController);
+server.use('/api/companies', comController);
 
 // error reporting middleware (Must be after all requests)
 errorMiddleware(server);
