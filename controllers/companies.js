@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const Companies = require('../models/Companies.js');
+const authenticate = require('../middleware/authenticate');
 
-router.get('/', async (req, res) => {
+router.get('/', authenticate, async (req, res) => {
 	try {
 		const companies = await Companies.find();
 
