@@ -23,6 +23,25 @@ router.post('/register', async (req, res) => {
 	}
 });
 
-router.post('/login', async (req, res) => {});
+router.post('/login', async (req, res) => {
+	try {
+		const { email, password } = req.body;
+		const user = await Users.findBy({ email }).first();
+
+		if (user && bcrypt.compareSync(password, user.password)) {
+			const token = generateToken(user);
+			return res.status(200).json(token);
+		}
+
+		return res.status(401).json({
+			message: 'Sorry, incorrect username or password'
+		});
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while logging in'
+		});
+	}
+});
 
 module.exports = router;
