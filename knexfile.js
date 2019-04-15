@@ -1,11 +1,13 @@
-const localPG = {
-	host: 'localhost',
-	database: 'hobbits',
-	user: 'student',
-	password: 'hired'
+const localPg = {
+	host: process.env.DB_HOST,
+	database: process.env.DB_NAME,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASS
 };
+const pg = require('pg');
+pg.defaults.ssl = true;
 
-const productionDbConnection = process.env.DATABASE_URL || localPG; // used to prevent random errors
+const dbConnection = process.env.DATABASE_URL || localPg; // used to prevent random errors
 
 module.exports = {
 	development: {
@@ -39,14 +41,22 @@ module.exports = {
 			max: 10
 		},
 		migrations: {
-			tableName: 'knex_migrations'
+			directory: './database/migrations'
+		},
+		seeds: {
+			directory: './database/seeds'
 		}
 	},
 
 	production: {
 		client: 'pg',
+<<<<<<< HEAD
 		connection: productionDbConnection,
 		useNullAsDefault: true,
+=======
+		connection: dbConnection,
+		useNullAsDefault: true, // used to avoid warning on console
+>>>>>>> a18aa206a39835a57c7da98a25e3246729f74299
 		migrations: {
 			directory: './database/migrations'
 		},
