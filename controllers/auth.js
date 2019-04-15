@@ -18,10 +18,13 @@ router.post('/register', async (req, res) => {
 	}
 
 	try {
-		let newUser = await Users.add(creds);
-		const token = await generateToken(newUser);
+		const [id] = await db('users').add(creds);
+		const user = await db('users')
+			.where({ id })
+			.first();
 
-		res.status(201).json({ newUser, token });
+		const token = generateToken(user);
+		res.status(201).json({ user, token });
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({
