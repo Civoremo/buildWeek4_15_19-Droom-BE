@@ -13,6 +13,12 @@ exports.up = function(knex) {
 		tbl.string('jobName', 255).notNullable();
 
 		tbl.string('jobDescription').notNullable();
+
+		tbl.string('jobExperienceRequired').notNullable();
+
+		tbl.string('jobExperiencePreferred').notNullable();
+
+		tbl.string('jobApplyBy').notNullable();
 	});
 };
 
