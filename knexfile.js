@@ -1,4 +1,12 @@
-// Update with your config settings.
+const localPG = {
+	host: 'localhost',
+	database: 'hobbits',
+	user: 'student',
+	password: 'hired'
+};
+
+const productionDbConnection = process.env.DATABASE_URL || localPG; // used to prevent random errors
+
 module.exports = {
 	development: {
 		client: 'sqlite3',
@@ -36,18 +44,13 @@ module.exports = {
 	},
 
 	production: {
-		client: 'postgresql',
-		connection: {
-			database: 'my_db',
-			user: 'username',
-			password: 'password'
-		},
-		pool: {
-			min: 2,
-			max: 10
-		},
+		client: 'pg',
+		connection: productionDbConnection,
 		migrations: {
-			tableName: 'knex_migrations'
+			directory: './database/migrations'
+		},
+		seeds: {
+			directory: './database/seeds'
 		}
 	}
 };
