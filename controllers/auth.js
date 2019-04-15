@@ -6,7 +6,7 @@ const { generateToken } = require('../helpers/generateToken');
 
 router.post('/register', async (req, res) => {
 	try {
-		const user = req.body;
+		let user = req.body;
 
 		if (!user.email || !user.password) {
 			return res.status(400).json({
@@ -19,12 +19,8 @@ router.post('/register', async (req, res) => {
 		let newUser = await Users.add(user);
 		token = await generateToken(newUser);
 
-		res.status(201).json({
-			message: 'Registration is successful',
-			token
-		});
+		res.status(201).json({ token });
 	} catch (err) {
-		console.log(err);
 		res.status(500).json({
 			message:
 				'Sorry, but something went wrong while registering',
