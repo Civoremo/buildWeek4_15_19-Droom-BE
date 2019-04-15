@@ -1,6 +1,6 @@
 # Droom BACK-END
 
-Backend Project
+Back-end build week project for droom
 
 ## Table of Contents
 
