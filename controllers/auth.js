@@ -5,17 +5,17 @@ const Users = require('../models/Users');
 const { generateToken } = require('../helpers/generateToken');
 
 router.post('/register', async (req, res) => {
-	const user = req.body;
-	let { email, password } = user;
-
-	if (!email || !password) {
-		return res.status(400).json({
-			message:
-				'Submit both an email and password when registering.'
-		});
-	}
-
 	try {
+		const user = req.body;
+		let { email, password } = user;
+
+		if (!email || !password) {
+			return res.status(400).json({
+				message:
+					'Submit both an email and password when registering.'
+			});
+		}
+
 		password = await bcrypt.hashSync(password, 10);
 		let newUser = await Users.add(user);
 		token = await generateToken(newUser);
