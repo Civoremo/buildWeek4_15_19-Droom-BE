@@ -17,6 +17,7 @@ router.post('/register', async (req, res) => {
 
 		user.password = await bcrypt.hashSync(user.password, 10);
 		console.log(user.password);
+		console.log(user);
 		let newUser = await Users.add(user);
 		console.log(newUser);
 		token = await generateToken(newUser);
