@@ -50,13 +50,8 @@ module.exports = {
 
 	production: {
 		client: 'pg',
-<<<<<<< HEAD
-		connection: productionDbConnection,
-		useNullAsDefault: true,
-=======
 		connection: dbConnection,
 		useNullAsDefault: true, // used to avoid warning on console
->>>>>>> a18aa206a39835a57c7da98a25e3246729f74299
 		migrations: {
 			directory: './database/migrations'
 		},
