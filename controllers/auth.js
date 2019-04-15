@@ -7,9 +7,8 @@ const { generateToken } = require('../helpers/generateToken');
 router.post('/register', async (req, res) => {
 	try {
 		const user = req.body;
-		let { email, password } = user;
 
-		if (!email || !password) {
+		if (!user.email || !user.password) {
 			return res.status(400).json({
 				message:
 					'Submit both an email and password when registering.'
