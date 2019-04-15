@@ -1,5 +1,5 @@
 exports.up = function(knex) {
-	return knex.schema.createTable('companies', tbl => {
+	return knex.schema.createTable('seekers', tbl => {
 		tbl.increments();
 
 		tbl.integer('userId', 128)
@@ -10,11 +10,17 @@ exports.up = function(knex) {
 			.onDelete('CASCADE')
 			.onUpdate('CASCADE');
 
-		tbl.string('companyName', 255).notNullable();
+		tbl.string('firstName', 255).notNullable();
 
-		tbl.string('companyPicture');
+		tbl.string('lastName').notNullable();
 
-		tbl.string('companyDescription').notNullable();
+		tbl.string('profilePicture').notNullable();
+
+		tbl.integer('month').notNullable();
+
+		tbl.integer('day').notNullable();
+
+		tbl.integer('year').notNullable();
 
 		tbl.string('country').notNullable();
 
@@ -27,5 +33,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-	return knex.schema.dropTable('companies');
+	return knex.schema.dropTable('seekers');
 };
