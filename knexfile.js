@@ -1,11 +1,13 @@
-const localPG = {
-	host: 'localhost',
-	database: 'hobbits',
-	user: 'student',
-	password: 'hired'
+const localPg = {
+	host: process.env.DB_HOST,
+	database: process.env.DB_NAME,
+	user: process.env.DB_USER,
+	password: process.env.DB_PASS
 };
+const pg = require('pg');
+pg.defaults.ssl = true;
 
-const productionDbConnection = process.env.DATABASE_URL || localPG; // used to prevent random errors
+const dbConnection = process.env.DATABASE_URL || localPg; // used to prevent random errors
 
 module.exports = {
 	development: {
@@ -45,7 +47,8 @@ module.exports = {
 
 	production: {
 		client: 'pg',
-		connection: productionDbConnection,
+		connection: dbConnection,
+		useNullAsDefault: true, // used to avoid warning on console
 		migrations: {
 			directory: './database/migrations'
 		},
