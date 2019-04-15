@@ -5,29 +5,31 @@ const Users = require('../models/Users');
 const { generateToken } = require('../helpers/generateToken');
 
 router.post('/register', async (req, res) => {
-	const user = req.body;
-	let { email, password } = user;
-
-	if (!email || !password) {
-		return res.status(400).json({
-			message:
-				'Submit both an email and password when registering.'
-		});
-	}
-
 	try {
-		password = await bcrypt.hashSync(password, 10);
-		let newUser = await Users.add(user);
-		token = await generateToken(newUser);
+		let user = req.body;
 
-		res.status(201).json({
-			message: 'Registration is successful',
-			token
-		});
+		if (!user.email || !user.password) {
+			return res.status(400).json({
+				message:
+					'Submit both an email and password when registering.'
+			});
+		}
+
+		user.password = await bcrypt.hashSync(user.password, 10);
+		console.log(user.password);
+		console.log(user);
+		let newUser = await Users.add(user);
+		console.log(newUser);
+		token = await generateToken(newUser);
+		console.log(token);
+
+		res.status(201).json({ token });
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({
 			message:
-				'Sorry, but something went wrong while registering'
+				'Sorry, but something went wrong while registering',
+			err
 		});
 
 		throw new Error(err);

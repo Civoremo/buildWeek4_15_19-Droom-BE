@@ -12,9 +12,7 @@ module.exports = {
 
 // Create user
 async function add(user) {
-	const [id] = await db('users').insert(user);
-
-	return findById(id);
+	return await db('users').insert(user);
 }
 
 // Get all users
