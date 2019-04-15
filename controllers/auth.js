@@ -19,6 +19,7 @@ router.post('/register', async (req, res) => {
 
 	try {
 		const [id] = await db('users').insert(creds);
+		console.log(id);
 		const user = await db('users')
 			.where({ id })
 			.first();
