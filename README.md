@@ -2,6 +2,10 @@
 
 Back-end build week project for droom
 
+### Deployed Backend
+
+- https://droom-buildweek-4-15-19.herokuapp.com/
+
 ## Table of Contents
 
 - [Test User Accounts](#test-user-accounts)
@@ -55,7 +59,6 @@ _example:_
 
 ```
 {
-    message: 'Registration is successful',
     token: "eyJhbGciOiJIUzI1NiIsInR5cCI3IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xFXoX"
 }
 ```
