@@ -6,9 +6,8 @@ const { generateToken } = require('../helpers/generateToken');
 
 router.post('/register', async (req, res) => {
 	const user = req.body;
-	let { email, password } = user;
 
-	if (!email || !password) {
+	if (!user.email || !user.password) {
 		return res.status(400).json({
 			message:
 				'Submit both an email and password when registering.'
@@ -18,7 +17,7 @@ router.post('/register', async (req, res) => {
 	try {
 		user.password = await bcrypt.hashSync(user.password, 10);
 		let newUser = await Users.add(user);
-		token = await generateToken(newUser);
+		const token = await generateToken(newUser);
 
 		res.status(201).json({
 			message: 'Registration is successful',
