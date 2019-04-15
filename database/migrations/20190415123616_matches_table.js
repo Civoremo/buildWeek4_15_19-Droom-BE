@@ -21,5 +21,8 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-	return knex.schema.dropTable('matches');
+	return knex.schema
+		.cascade()
+		.cascade()
+		.dropTable('matches');
 };
