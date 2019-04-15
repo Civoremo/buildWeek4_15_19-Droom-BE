@@ -6,7 +6,8 @@ module.exports = {
 	findBy,
 	findById,
 	update,
-	remove
+	remove,
+	getProfile
 };
 
 // Create user
@@ -47,4 +48,23 @@ function remove(id) {
 	return db('users')
 		.where({ id })
 		.del();
+}
+
+// Get User Profile
+function getProfile(id) {
+	const seeker = db('users')
+		.where({ id })
+		.first()
+		.join('seekers', 'users.id', '=', 'seekers.userId')
+		.select('seekers.id', 'name', 'occupation', 'experience');
+
+	const interests = db('interests').where({ userId: id });
+
+	const profile = {
+		profile: {
+			...seeker,
+			...interests
+		}
+	};
+	return profile;
 }
