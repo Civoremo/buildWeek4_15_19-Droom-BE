@@ -15,9 +15,9 @@ router.post('/register', async (req, res) => {
 			});
 		}
 
-		user.password = await bcrypt.hashSync(password, 10);
+		user.password = await bcrypt.hashSync(user.password, 10);
 		let newUser = await Users.add(user);
-		console.log(user);
+		console.log(newUser);
 		token = await generateToken(newUser);
 
 		res.status(201).json({
@@ -25,6 +25,7 @@ router.post('/register', async (req, res) => {
 			token
 		});
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({
 			message:
 				'Sorry, but something went wrong while registering',
