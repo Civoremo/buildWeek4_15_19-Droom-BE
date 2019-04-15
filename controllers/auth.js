@@ -23,7 +23,7 @@ router.post('/register', async (req, res) => {
 		token = await generateToken(newUser);
 		console.log(token);
 
-		res.status(201).json({ token });
+		res.status(201).json({ token: token });
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({
@@ -51,7 +51,7 @@ router.post('/login', async (req, res) => {
 
 		if (user && bcrypt.compareSync(password, user.password)) {
 			const token = generateToken(user);
-			return res.status(200).json(token);
+			return res.status(200).json({ token: token });
 		}
 
 		return res.status(401).json({
