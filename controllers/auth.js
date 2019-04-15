@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
-
+const db = require('../database/dbConfig');
 const Users = require('../models/Users');
 const { generateToken } = require('../helpers/generateToken');
 
@@ -18,7 +18,7 @@ router.post('/register', async (req, res) => {
 	}
 
 	try {
-		const [id] = await db('users').add(creds);
+		const [id] = await db('users').insert(creds);
 		const user = await db('users')
 			.where({ id })
 			.first();
