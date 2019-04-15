@@ -9,12 +9,10 @@ router.post('/register', async (req, res) => {
 	let { email, password } = user;
 
 	if (!email || !password) {
-		return res
-			.status(400)
-			.json({
-				message:
-					'Submit both an email and password when registering.'
-			});
+		return res.status(400).json({
+			message:
+				'Submit both an email and password when registering.'
+		});
 	}
 
 	try {
