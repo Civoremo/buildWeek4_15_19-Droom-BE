@@ -11,19 +11,22 @@ router.post('/register', async (req, res) => {
 		if (!user.email || !user.password) {
 			return res.status(400).json({
 				message:
-					'Submit both an email and password when registering.'
+					'Submit both an email and password when registering'
 			});
 		}
 
-		user.password = await bcrypt.hashSync(user.password, 10);
-		console.log(user.password);
-		console.log(user);
-		let newUser = await Users.add(user);
-		console.log(newUser);
-		token = await generateToken(newUser);
-		console.log(token);
+		const findUser = Users.findBy({ email });
 
-		res.status(201).json({ token });
+		if (findUser)
+			return res.status(409).json({
+				message: 'Sorry, but that user already exists'
+			});
+
+		user.password = await bcrypt.hashSync(user.password, 10);
+		let newUser = await Users.add(user);
+		token = await generateToken(newUser);
+
+		res.status(201).json({ token: token });
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({
@@ -51,7 +54,7 @@ router.post('/login', async (req, res) => {
 
 		if (user && bcrypt.compareSync(password, user.password)) {
 			const token = generateToken(user);
-			return res.status(200).json(token);
+			return res.status(200).json({ token: token });
 		}
 
 		return res.status(401).json({
