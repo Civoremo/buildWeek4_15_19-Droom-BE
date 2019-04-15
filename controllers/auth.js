@@ -17,7 +17,7 @@ router.post('/register', async (req, res) => {
 	try {
 		user.password = await bcrypt.hashSync(user.password, 10);
 		let newUser = await Users.add(user);
-		const token = await generateToken(newUser);
+		token = await generateToken(newUser);
 
 		res.status(201).json({
 			message: 'Registration is successful',
