@@ -37,6 +37,14 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
 	try {
 		const { email, password } = req.body;
+
+		if (!email || !password) {
+			return res.status(400).json({
+				message:
+					'Submit both an email and password when trying to login.'
+			});
+		}
+
 		const user = await Users.findBy({ email }).first();
 
 		if (user && bcrypt.compareSync(password, user.password)) {
