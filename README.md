@@ -153,3 +153,312 @@ _example:_
   "message": 'Sorry, but something went wrong while logging in'
 }
 ```
+# COMPANY ROUTES
+
+### **Get all companies**
+
+_Method Url:_ `/api/companies`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name              | type   | required | description              |
+| ----------------- | ------ | -------- | ------------------------ |
+| `Content-Type`    | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token                               |
+
+#### Response
+
+##### 200 (OK)
+
+> If companies are found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+```
+{
+  "message": "The companies were found in the database.",
+  "companies": [
+    {
+    "information": {
+        "companyName": "",
+        "companyPicture": "",
+        "companyDescription": "",
+        "location": {
+            "country": "",
+            "state": "",
+            "city": "",
+            "zipcode": ""
+        },
+    "jobs": []
+    }
+  ]
+}
+```
+
+#### 404 (Not Found)
+
+> If there are no companies in the database, the endpoint will return an HTTP response with a status code 404 and a body as below.
+
+```
+{
+  "companies": [],
+  "message": "The companies could not be found in the database."
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while retrieving the companies.'
+}
+```
+
+### **Get all companies**
+
+_Method Url:_ `/api/companies/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Parameters
+
+| name   | type    | required | description              |
+| ------ | ------- | -------- | ------------------------ |
+| id | Integer | Yes      | ID of a specific company |
+
+
+#### Response
+
+##### 200 (OK)
+
+> 
+If a company with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+```
+{
+  "message": "The company was retrieved successfully.",
+  "company": [
+    {
+    "information": {
+        "companyName": "",
+        "companyPicture": "",
+        "companyDescription": "",
+        "location": {
+            "country": "",
+            "state": "",
+            "city": "",
+            "zipcode": ""
+        },
+    "jobs": []
+    }
+  ]
+}
+```
+
+#### 404 (Not Found)
+
+> If the requested company does not exist, the endpoint will return an HTTP response with a status code 404 and a body as below.
+
+```
+{
+  "company": [],
+  "message": "The company could not be found in the database."
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while retrieving the company.'
+}
+```
+
+### **Adds a Company**
+
+_Method Url:_ `/api/companies`
+
+_HTTP method:_ **[POST]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Body
+
+| name                 | type    | required | description                            |
+| -------------------- | ------- | -------- | -------------------------------------- |
+| `userId`             | Integer | Yes      | Must match a user's id in the database |
+| `companyName`        | String  | Yes      | Cannot be an empty field               |
+| `companyPicture`     | String  | Yes      | Can be an empty field                  |
+| `companyDescription` | String  | Yes      | Cannot be an empty field               |
+| `country`            | String  | Yes      | Cannot be an empty field               |
+| `state`              | String  | Yes      | Cannot be an empty field               |
+| `city`               | String  | Yes      | Cannot be an empty field               |
+| `zipcode`            | Integer | Yes      | Cannot be an empty field               |
+
+_example:_
+
+```
+{
+  "userId": 1,
+  "companyName": "Apple",
+  "companyPicture": "url string (exclude for MVP)",
+  "companyDescription": "An About me for the company",
+  "country": "United States of America",
+  "state": "California",
+  "city": "Cupertino",
+  "zipcode": "40000",
+}
+```
+
+#### Response
+
+##### 201 (Created)
+
+> If you successfully register a user the endpoint will return an HTTP response with a status code `201` and a body as below.
+
+```
+{
+    "information": {
+        "companyName": "Apple",
+        "companyPicture": "url",
+        "companyDescription": "An About me for the company",
+        "location": {
+            "country": "United States of America",
+            "state": "California",
+            "city": "Cupertino",
+            "zipcode": "40000"
+        }
+    },
+    "jobs": []
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code 400 and a body as below.
+
+```
+{
+    message: 'Please submit a company with all of the required fields.'
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while adding the company.'
+}
+```
+
+## **UPDATE COMPANY**
+
+### **Update a Company by user ID**
+
+_Method Url:_ `/api/companies/:id`
+
+_HTTP method:_ **[PUT]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Parameters
+
+| name   | type    | required | description              |
+| ------ | ------- | -------- | ------------------------ |
+| id | Integer | Yes      | ID of a specific company |
+
+
+#### Body
+
+| name                 | type    | required | description                            |
+| -------------------- | ------- | -------- | -------------------------------------- |
+| `userId`             | Integer | Yes      | Must match a user's id in the database |
+| `companyName`        | String  | Yes      | Cannot be an empty field               |
+| `companyPicture`     | String  | No      | Can be an empty field                  |
+| `companyDescription` | String  | Yes      | Cannot be an empty field               |
+| `country`            | String  | Yes      | Cannot be an empty field               |
+| `state`              | String  | Yes      | Cannot be an empty field               |
+| `city`               | String  | Yes      | Cannot be an empty field               |
+| `zipcode`            | Integer | Yes      | Cannot be an empty field               |
+
+_example:_
+
+```
+{
+  "userId": 1,
+  "companyName": "Apple",
+  "companyPicture": "url string (exclude for MVP)",
+  "companyDescription": "An About me for the company",
+  "country": "United States of America",
+  "state": "California",
+  "city": "Cupertino",
+  "zipcode": "40000",
+}
+```
+
+#### Response
+
+##### 200 (OK)
+
+> If a company with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+```
+{
+    "information": {
+        "companyName": "Apple",
+        "companyPicture": "url",
+        "companyDescription": "An About me for the company",
+        "location": {
+            "country": "United States of America",
+            "state": "California",
+            "city": "Cupertino",
+            "zipcode": "40000"
+        }
+    },
+    "jobs": []
+}
+```
+
+#### 406 (Not Acceptable)
+
+> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `406` and a body as below.
+
+```
+{
+    message: 'Please submit a company with all of the required fields.'
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while updating the company.'
+}
+```
+
