@@ -15,9 +15,8 @@ router.post('/register', async (req, res) => {
 			});
 		}
 
-		const findUser = Users.findBy({ email });
-
-		if (findUser)
+		const findUser = await Users.findBy({ email: user.email });
+		if (findUser.length)
 			return res.status(409).json({
 				message: 'Sorry, but that user already exists'
 			});
