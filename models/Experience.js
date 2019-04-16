@@ -2,7 +2,8 @@ const db = require('../database/dbConfig');
 
 module.exports = {
 	add,
-	find
+	find,
+	update
 };
 
 // Add experience to seeker profile
@@ -37,5 +38,15 @@ function findSeeker(id) {
 	return db('seekers')
 		.where({ userId: id })
 		.select('id')
+		.first();
+}
+
+async function update(id, experience) {
+	await db('experience')
+		.where({ id })
+		.update(experience);
+
+	return db('experience')
+		.where({ id })
 		.first();
 }
