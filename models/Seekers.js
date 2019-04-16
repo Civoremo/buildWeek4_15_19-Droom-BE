@@ -43,10 +43,11 @@ async function update(id, profile) {
 		.first();
 }
 
+// Delete seeker profile
 async function remove(id) {
 	await db('seekers')
 		.where({ userId: id })
 		.del();
 
-	return { message: 'Successfully deleted' };
+	return parseInt(id, 10);
 }
