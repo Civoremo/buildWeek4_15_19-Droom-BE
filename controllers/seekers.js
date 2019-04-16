@@ -32,6 +32,22 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update seeker profile
-router.put('/:id', async (req, res) => {});
+router.put('/:id', async (req, res) => {
+	try {
+		const updatedProfile = await Seekers.update(
+			req.params.id,
+			req.body
+		);
+
+		res.status(200).json(updatedProfile);
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while updating that profile'
+		});
+		console.log(err);
+		throw new Error(err);
+	}
+});
 
 module.exports = router;
