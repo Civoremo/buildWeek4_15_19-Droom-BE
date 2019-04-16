@@ -1,8 +1,8 @@
 const db = require('../database/dbConfig');
 
 module.exports = {
-	add
-	// findById,
+	add,
+	find
 	// update,
 	// remove
 };
@@ -22,6 +22,14 @@ async function add({ userId, seekerSkills }) {
 		.returning('id');
 
 	// return all skills related to seeker profile
+	return db('seeker_skills').where({ seekerId });
+}
+
+// Find all skills for seeker
+async function find(userId) {
+	let { id } = await findSeeker(userId);
+	seekerId = id;
+
 	return db('seeker_skills').where({ seekerId });
 }
 
