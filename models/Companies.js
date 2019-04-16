@@ -34,27 +34,26 @@ function findBy(filter) {
 
 // Get company by Id
 async function findById(id) {
-	//console.log(id);
 	const company = await db('companies')
 		.where({ id })
 		.first();
-	//console.log(company);
+
 	const companyJobs = await db('jobs').where({ companyId: id });
 	//console.log(companyJobs);
-	const mappedJobs = await companyJobs.map(async job => {
-		//console.log(job);
-		//return { ...job };
-		const jobSkills = await db('jobs_skills').where({
-			jobId: job.id
-		});
-		console.log(jobSkills);
-		return { ...job, jobSkills };
-	});
-	const stitchedCompany = await {
+	const mappedJobs = await Promise.all(
+		companyJobs.map(async job => {
+			const jobSkills = await db('jobs_skills').where({
+				jobId: job.id
+			});
+			console.log(jobSkills);
+			return { ...job, jobSkills };
+		})
+	);
+
+	const stitchedCompany = {
 		...company,
 		jobs: mappedJobs
 	};
-
 	console.log(stitchedCompany);
 	return stitchedCompany;
 }
