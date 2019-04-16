@@ -32,4 +32,22 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
+// Update a single education object by id
+router.put('/:id', async (req, res) => {
+	try {
+		const updatedEducation = await Education.update(
+			req.params.id,
+			req.body
+		);
+		res.status(200).json(updatedEducation);
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while updating education'
+		});
+
+		throw new Error(err);
+	}
+});
+
 module.exports = router;
