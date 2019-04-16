@@ -4,11 +4,17 @@ const bcrypt = require('bcryptjs');
 const Users = require('../models/Users');
 const { generateToken } = require('../helpers/generateToken');
 
-const {} = require('../middleware/validation');
+const { authValidation } = require('../middleware/validation');
 
-router.post('/register', async (req, res) => {
+router.post('/register', authValidation, async (req, res) => {
 	try {
 		let user = req.body;
+
+		let existingUser = await Users.findBy({ email: user.email });
+		if (existingUser.length)
+			return res.status(409).json({
+				message: 'Sorry, but that email already exists'
+			});
 
 		user.password = await bcrypt.hashSync(user.password, 10);
 		let newUser = await Users.add(user);
@@ -27,16 +33,9 @@ router.post('/register', async (req, res) => {
 	}
 });
 
-router.post('/login', async (req, res) => {
+router.post('/login', authValidation, async (req, res) => {
 	try {
 		const { email, password } = req.body;
-
-		if (!email || !password) {
-			return res.status(400).json({
-				message:
-					'Submit both an email and password when trying to login.'
-			});
-		}
 
 		const user = await Users.findBy({ email }).first();
 
