@@ -10,4 +10,7 @@ router.get('/', async (req, res) => {});
 // Update individual experience
 router.put('/', async (req, res) => {});
 
+// Delete individual experience
+router.delete('/', async (req, res) => {});
+
 module.exports = router;
