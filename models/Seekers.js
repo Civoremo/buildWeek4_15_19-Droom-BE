@@ -3,7 +3,8 @@ const db = require('../database/dbConfig');
 module.exports = {
 	add,
 	findById,
-	update
+	update,
+	remove
 };
 
 // Add job seeker profile
@@ -47,5 +48,5 @@ async function remove(id) {
 		.where({ userId: id })
 		.del();
 
-	return 'Successfully deleted';
+	return { message: 'Successfully deleted' };
 }

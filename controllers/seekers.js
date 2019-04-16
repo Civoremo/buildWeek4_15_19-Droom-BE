@@ -51,6 +51,16 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete seeker profile
-router.delete('/:id', async (req, res) => {});
+router.delete('/:id', async (req, res) => {
+	try {
+		const deletedProfile = await Seekers.remove(req.params.id);
+		res.status(200).json(deletedProfile);
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while deleting that profile'
+		});
+	}
+});
 
 module.exports = router;
