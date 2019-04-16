@@ -4,22 +4,11 @@ const bcrypt = require('bcryptjs');
 const Users = require('../models/Users');
 const { generateToken } = require('../helpers/generateToken');
 
+const {} = require('../middleware/validation');
+
 router.post('/register', async (req, res) => {
 	try {
 		let user = req.body;
-
-		if (!user.email || !user.password) {
-			return res.status(400).json({
-				message:
-					'Submit both an email and password when registering'
-			});
-		}
-
-		const findUser = await Users.findBy({ email: user.email });
-		if (findUser.length)
-			return res.status(409).json({
-				message: 'Sorry, but that user already exists'
-			});
 
 		user.password = await bcrypt.hashSync(user.password, 10);
 		let newUser = await Users.add(user);
