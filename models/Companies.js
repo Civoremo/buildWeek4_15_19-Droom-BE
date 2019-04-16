@@ -14,6 +14,7 @@ async function add(company) {
 	const [id] = await db('companies')
 		.insert(company)
 		.returning('id');
+
 	return findById(id);
 }
 

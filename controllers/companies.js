@@ -1,10 +1,11 @@
 const router = require('express').Router();
 const Companies = require('../models/Companies.js');
 const Jobs = require('../models/Jobs.js');
+const Skills = require('../models/JobSkills');
 const authenticate = require('../middleware/authenticate');
 const { companyValidation } = require('../middleware/validation');
 
-router.get('/', authenticate, async (req, res) => {
+router.get('/', async (req, res) => {
 	try {
 		const companies = await Companies.find();
 		//const jobs = await Jobs.findBy(companyId);
@@ -24,11 +25,18 @@ router.get('/:id', async (req, res) => {
 		const { id } = req.params;
 
 		const company = await Companies.findById(id);
-		console.log(company);
-		//const jobs = await Jobs.findBy(company.id);
+		//console.log(company);
+		const jobs = await Jobs.findBy(company.id);
 		//console.log(jobs);
-		//res.status(200).json({ ...companies, jobs });
-		res.status(200).json({ ...companies, jobs });
+		const mappedJobs = jobs.map(async job => {
+			const skills = await Skills.findBy(job.id);
+			const skilledJobs = { ...job, skills };
+			console.log(skilledJobs);
+			return skilledJobs;
+		});
+		//console.log(mappedJobs);
+		console.log({ ...company, jobs: mappedJobs });
+		res.status(200).json({ ...company, jobs: mappedJobs });
 	} catch (err) {
 		res.status(500).json({
 			message:
@@ -52,6 +60,56 @@ router.post('/', async (req, res) => {
 		res.status(500).json({
 			message:
 				'Sorry, but something went wrong while adding the company.'
+		});
+
+		throw new Error(err);
+	}
+});
+
+router.delete('/:id', async (req, res) => {
+	const { id } = req.params;
+
+	try {
+		const count = await Companies.remove(id);
+		console.log(count);
+		if (count > 0) {
+			res.status(204).json({
+				message:
+					'The company has been successfully deleted.'
+			});
+		} else {
+			res.status(404).json({
+				message: 'The company could not be found.'
+			});
+		}
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while deleting the company.'
+		});
+
+		throw new Error(err);
+	}
+});
+
+router.put('/:id', async (req, res) => {
+	try {
+		const { id } = req.params;
+		const updated = req.body;
+
+		const updatedCompany = await Companies.update(id, updated);
+		console.log(updatedCompany);
+		if (updatedCompany.id) {
+			res.status(200).json(updatedCompany);
+		} else {
+			res.status(200).json({
+				message: 'Company could not be found.'
+			});
+		}
+	} catch (error) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while updating the company.'
 		});
 
 		throw new Error(err);
