@@ -11,6 +11,7 @@ router.post('/', async (req, res) => {
 			message:
 				'Sorry, but something went wrong while trying to add skills'
 		});
+		console.log(err);
 		throw new Error(err);
 	}
 });

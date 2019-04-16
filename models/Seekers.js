@@ -29,7 +29,8 @@ async function add(profile) {
 function findById(id) {
 	return db('seekers')
 		.where({ userId: id })
-		.first();
+		.first()
+		.returning('id');
 }
 
 // Update job seeker profile

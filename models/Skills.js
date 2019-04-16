@@ -8,8 +8,13 @@ module.exports = {
 };
 
 async function add({ userId, seekerSkills }) {
-	let { id } = await findSeeker(userId);
-	seekerId = id;
+	let id = db('seekers')
+		.where({ userId: userId })
+		.select('id')
+		.first()
+		.returning('id');
+
+	let seekerId = id;
 
 	// add seekerId prop to skills object
 	const updatedSkills = seekerSkills.map(skill => {
@@ -27,8 +32,13 @@ async function add({ userId, seekerSkills }) {
 
 // Find all skills for seeker
 async function find(userId) {
-	let { id } = await findSeeker(userId);
-	seekerId = id;
+	let id = db('seekers')
+		.where({ userId: userId })
+		.select('id')
+		.first()
+		.returning('id');
+
+	let seekerId = id;
 
 	return db('seeker_skills').where({ seekerId });
 }
@@ -49,12 +59,4 @@ async function remove(id) {
 		.del();
 
 	return parseInt(id, 10);
-}
-
-// Find seekerId by userId
-function findSeeker(id) {
-	return db('seekers')
-		.where({ userId: id })
-		.select('id')
-		.first();
 }

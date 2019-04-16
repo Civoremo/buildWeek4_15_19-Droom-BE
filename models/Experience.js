@@ -57,5 +57,6 @@ function findSeeker(id) {
 	return db('seekers')
 		.where({ userId: id })
 		.select('id')
-		.first();
+		.first()
+		.returning('id');
 }
