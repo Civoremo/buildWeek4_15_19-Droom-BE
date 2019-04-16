@@ -49,6 +49,16 @@ router.put('/:id', async (req, res) => {
 });
 
 // Delete skill
-router.put('/:id', async (req, res) => {});
+router.delete('/:id', async (req, res) => {
+	try {
+		const deletedSkill = await Skills.remove(req.params.id);
+		res.status(200).json(deletedSkill);
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while deleting that skill'
+		});
+	}
+});
 
 module.exports = router;
