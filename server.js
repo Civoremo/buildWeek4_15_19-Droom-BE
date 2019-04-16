@@ -20,7 +20,7 @@ middleware(server);
 
 // controllers
 server.use('/api/auth', authController);
-server.use('/api/seekerController', seekerController);
+server.use('/api/seekers', seekerController);
 server.use('/api/companies', comController);
 
 // error reporting middleware (Must be after all requests)
