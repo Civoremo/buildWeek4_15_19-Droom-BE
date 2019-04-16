@@ -31,4 +31,7 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
+// Update seeker profile
+router.put('/:id', async (req, res) => {});
+
 module.exports = router;
