@@ -3,7 +3,8 @@ const db = require('../database/dbConfig');
 module.exports = {
 	add,
 	find,
-	update
+	update,
+	remove
 };
 
 // Add education to seeker profile
@@ -41,6 +42,14 @@ async function update(id, education) {
 	return db('education')
 		.where({ id })
 		.first();
+}
+
+async function remove(id) {
+	await db('education')
+		.where({ id })
+		.del();
+
+	return id;
 }
 
 // Find seekerId by userId
