@@ -1,7 +1,8 @@
 const db = require('../database/dbConfig');
 
 module.exports = {
-	add
+	add,
+	find
 };
 
 // Add experience to seeker profile
@@ -20,6 +21,14 @@ async function add({ userId, seekerExperience }) {
 		.returning('id');
 
 	// return all experience related to seeker profile
+	return db('experience').where({ seekerId });
+}
+
+// Find all experience for seeker
+async function find(userId) {
+	let { id } = await findSeeker(userId);
+	seekerId = id;
+
 	return db('experience').where({ seekerId });
 }
 
