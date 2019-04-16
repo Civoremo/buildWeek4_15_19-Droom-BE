@@ -2,7 +2,6 @@ const router = require('express').Router();
 const Companies = require('../models/Companies.js');
 const Jobs = require('../models/Jobs.js');
 const Skills = require('../models/JobSkills');
-const authenticate = require('../middleware/authenticate');
 const {
 	companyValidation,
 	updateCompanyValidation
@@ -29,7 +28,7 @@ router.get('/:id', async (req, res) => {
 
 		const company = await Companies.findById(id);
 		const message = 'The company was retrieved successfully.';
-		res.status(200).json(message, company);
+		res.status(200).json({ message, company });
 	} catch (err) {
 		res.status(500).json({
 			message:

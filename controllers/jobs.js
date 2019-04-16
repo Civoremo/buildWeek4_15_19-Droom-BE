@@ -1,6 +1,10 @@
 const router = require('express').Router();
 const Companies = require('../models/Companies.js');
 const Jobs = require('../models/Jobs.js');
+const {
+	jobValidation,
+	updateCompanyValidation
+} = require('../middleware/validation');
 
 router.get('/', async (req, res) => {
 	try {
@@ -33,7 +37,7 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-router.post('/', async (req, res) => {
+router.post('/', jobValidation, async (req, res) => {
 	const { userId, job, jobSkills } = req.body;
 	//console.log(userId, job);
 	try {
