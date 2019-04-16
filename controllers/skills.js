@@ -31,7 +31,22 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update skill
-router.put('/:id', async (req, res) => {});
+router.put('/:id', async (req, res) => {
+	try {
+		const updatedSkills = await Skills.update(
+			req.params.id,
+			req.body
+		);
+		res.status(200).json(updatedSkills);
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while updating skill'
+		});
+
+		throw new Error(err);
+	}
+});
 
 // Delete skill
 router.put('/:id', async (req, res) => {});
