@@ -2,8 +2,8 @@ const db = require('../database/dbConfig');
 
 module.exports = {
 	add,
-	find
-	// update,
+	find,
+	update
 	// remove
 };
 
@@ -31,6 +31,16 @@ async function find(userId) {
 	seekerId = id;
 
 	return db('seeker_skills').where({ seekerId });
+}
+
+async function update(id, skill) {
+	await db('seeker_skills')
+		.where({ id })
+		.update(skill);
+
+	return db('seeker_skills')
+		.where({ id })
+		.first();
 }
 
 // Find seekerId by userId
