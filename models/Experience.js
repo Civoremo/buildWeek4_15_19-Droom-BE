@@ -3,7 +3,8 @@ const db = require('../database/dbConfig');
 module.exports = {
 	add,
 	find,
-	update
+	update,
+	remove
 };
 
 // Add experience to seeker profile
@@ -49,4 +50,12 @@ async function update(id, experience) {
 	return db('experience')
 		.where({ id })
 		.first();
+}
+
+async function remove(id) {
+	await db('experience')
+		.where({ id })
+		.del();
+
+	return parseInt(id, 10);
 }
