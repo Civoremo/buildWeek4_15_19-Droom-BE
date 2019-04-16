@@ -34,14 +34,6 @@ async function find(userId) {
 	return db('experience').where({ seekerId });
 }
 
-// Find seekerId by userId
-function findSeeker(id) {
-	return db('seekers')
-		.where({ userId: id })
-		.select('id')
-		.first();
-}
-
 async function update(id, experience) {
 	await db('experience')
 		.where({ id })
@@ -58,4 +50,12 @@ async function remove(id) {
 		.del();
 
 	return parseInt(id, 10);
+}
+
+// Find seekerId by userId
+function findSeeker(id) {
+	return db('seekers')
+		.where({ userId: id })
+		.select('id')
+		.first();
 }
