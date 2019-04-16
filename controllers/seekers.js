@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Seekers = require('../models/Seekers');
 
+// Create seeker profile
 router.post('/', async (req, res) => {
 	try {
 		const profile = await Seekers.add(req.body);
@@ -14,5 +15,8 @@ router.post('/', async (req, res) => {
 		throw new Error(err);
 	}
 });
+
+// Find seeker profile
+router.get('/', async (req, res) => {});
 
 module.exports = router;

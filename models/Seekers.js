@@ -3,6 +3,7 @@ const db = require('../database/dbConfig');
 module.exports = {
 	add
 };
+
 // Add job seeker profile
 async function add(profile) {
 	let { userId, seeker } = profile;
