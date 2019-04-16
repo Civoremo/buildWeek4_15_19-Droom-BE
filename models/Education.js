@@ -1,17 +1,13 @@
 const db = require('../database/dbConfig');
 
 module.exports = {
-	add
+	add,
+	find
 };
 
+// Add education to seeker profile
 async function add({ userId, seekerEducation }) {
-	// Find seeker profile based on user id
-	let { id } = await db('seekers')
-		.where({ userId })
-		.select('id')
-		.first();
-
-	// assign seeker id
+	let { id } = await findSeeker(userId);
 	seekerId = id;
 
 	// add seekerId prop to education object
@@ -26,4 +22,20 @@ async function add({ userId, seekerEducation }) {
 
 	// return all education related to seeker profile
 	return db('education').where({ seekerId });
+}
+
+// Find all education for seeker
+async function find(userId) {
+	let { id } = await findSeeker(userId);
+	seekerId = id;
+
+	return db('education').where({ seekerId });
+}
+
+// Find seekerId by userId
+function findSeeker(id) {
+	return db('seekers')
+		.where({ userId: id })
+		.select('id')
+		.first();
 }
