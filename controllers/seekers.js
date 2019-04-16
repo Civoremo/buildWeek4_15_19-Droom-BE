@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
 	} catch (err) {
 		res.status(500).json({
 			message:
-				'Sorry, but something went wrong while trying to create that profile'
+				'Sorry, but something went wrong while creating that profile'
 		});
 		console.log(err);
 		throw new Error(err);
@@ -17,6 +17,18 @@ router.post('/', async (req, res) => {
 });
 
 // Find seeker profile
-router.get('/:id', async (req, res) => {});
+router.get('/:id', async (req, res) => {
+	try {
+		const profile = await Seekers.findById(req.params.id);
+		res.status(200).json(profile);
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while fetching'
+		});
+
+		throw new Error(err);
+	}
+});
 
 module.exports = router;

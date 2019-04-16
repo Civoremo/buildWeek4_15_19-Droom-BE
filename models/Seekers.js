@@ -23,6 +23,7 @@ async function add(profile) {
 		.first();
 }
 
+// Find job seeker profile by id
 function findById(id) {
 	return db('seekers')
 		.where({ userId: id })
