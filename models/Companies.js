@@ -11,7 +11,9 @@ module.exports = {
 
 // Create a company
 async function add(company) {
-	const [id] = await db('companies').insert(company);
+	const [id] = await db('companies')
+		.insert(company)
+		.returning('id');
 	return findById(id);
 }
 
@@ -22,7 +24,7 @@ function find() {
 
 // Get companies by filter
 function findBy(filter) {
-	return db('companies').where({ filter });
+	return db('companies').where({ filter: filter });
 }
 
 // Get company by Id

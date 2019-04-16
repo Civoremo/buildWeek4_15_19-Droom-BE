@@ -11,7 +11,9 @@ module.exports = {
 
 // Create a job
 async function add(job) {
-	const [id] = await db('jobs').insert(job);
+	const [id] = await db('jobs')
+		.insert(job)
+		.returning('id');
 	return findById(id);
 }
 
