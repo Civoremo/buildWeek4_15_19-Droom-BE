@@ -9,6 +9,7 @@ const authController = require('./controllers/auth');
 const seekerController = require('./controllers/seekers');
 const educationController = require('./controllers/education');
 const experienceController = require('./controllers/experience');
+const skillsController = require('./controllers/skills');
 const comController = require('./controllers/companies');
 
 // initializations
@@ -25,6 +26,7 @@ server.use('/api/auth', authController);
 server.use('/api/seekers', seekerController);
 server.use('/api/education', educationController);
 server.use('/api/experience', experienceController);
+server.use('/api/skills', skillsController);
 server.use('/api/companies', comController);
 
 // error reporting middleware (Must be after all requests)
