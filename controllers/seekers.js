@@ -11,7 +11,6 @@ router.post('/', async (req, res) => {
 				'Sorry, but something went wrong while trying to create that profile'
 		});
 		console.log(err);
-
 		throw new Error(err);
 	}
 });

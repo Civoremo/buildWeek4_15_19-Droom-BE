@@ -3,35 +3,20 @@ const db = require('../database/dbConfig');
 module.exports = {
 	add
 };
-
+// Add job seeker profile
 async function add(profile) {
-	const { information, education, experience, skills } = profile;
-	const { userId, firstName, lastName, profilePicture } = information;
+	let { userId, seeker } = profile;
 
-	let seeker = {
+	let newSeeker = {
 		userId,
-		firstName,
-		lastName,
-		profilePicture,
-		...information.dob,
-		...information.location
+		...seeker
 	};
 
-	const [id] = await db('seekers').insert(seeker); // .returning('id');
+	await db('seekers')
+		.insert(newSeeker)
+		.returning('id');
 
-	const updatedEducation = education.map(edu => {
-		return { seekerId: id, ...edu };
-	});
-
-	const updatedExperience = experience.map(exp => {
-		return { seekerId: id, ...exp };
-	});
-
-	const updatedSkills = skills.map(skill => {
-		return { seekerId: id, seekerSkill: skill };
-	});
-
-	await db('education').insert(updatedEducation);
-	await db('experience').insert(updatedExperience);
-	await db('seeker_skills').insert(updatedSkills);
+	return db('seekers')
+		.where({ userId })
+		.first();
 }
