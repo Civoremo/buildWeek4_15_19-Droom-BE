@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
 			company.companyName
 		} has successfully been added.`;
 		res.status(201).json({ message, newCompany });
-	} catch (error) {
+	} catch (err) {
 		res.status(500).json({
 			message:
 				'Sorry, but something went wrong while adding the company.'
