@@ -50,4 +50,7 @@ router.put('/:id', async (req, res) => {
 	}
 });
 
+// Delete seeker profile
+router.delete('/:id', async (req, res) => {});
+
 module.exports = router;
