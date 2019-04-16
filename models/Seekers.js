@@ -41,3 +41,11 @@ async function update(id, profile) {
 		.where({ userId: id })
 		.first();
 }
+
+async function remove(id) {
+	await db('seekers')
+		.where({ userId: id })
+		.del();
+
+	return 'Successfully deleted';
+}
