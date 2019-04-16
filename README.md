@@ -11,6 +11,18 @@ Back-end build week project for droom
 - [Test User Accounts](#test-user-accounts)
 - [Summary Table of API Endpoints](#summary-table-of-api-endpoints)
 - [Auth Routes](#auth-routes)
+- [Company Routes](#company-routes)
+  - [Get Companies](##get-companies)
+  -  [Get Company](##get-company)
+  -  [Add Company](##add-company)
+  -  [Update Company](##update-company)
+  -  [Delete Company](##delete-company)
+- [Job Routes](#job-routes)
+  - [Get Jobs](##get-jobs)
+  -  [Get Job](##get-job)
+  -  [Add Job](##add-job)
+  -  [Update Job](##update-job)
+  -  [Delete Job](##delete-job)
 
 # SUMMARY TABLE OF API ENDPOINTS
 
@@ -158,6 +170,7 @@ _example:_
 ```
 # COMPANY ROUTES
 
+## **GET COMPANIES**
 ### **Get all companies**
 
 _Method Url:_ `/api/companies`
@@ -182,7 +195,7 @@ _HTTP method:_ **[GET]**
   "message": "The companies were found in the database.",
   "companies": [
     {
-    "information": {
+        "id": 1,
         "companyName": "",
         "companyPicture": "",
         "companyDescription": "",
@@ -190,9 +203,8 @@ _HTTP method:_ **[GET]**
             "country": "",
             "state": "",
             "city": "",
-            "zipcode": ""
-        },
-    "jobs": []
+            "zipcode": "",
+        "jobs": []
     }
   ]
 }
@@ -200,7 +212,7 @@ _HTTP method:_ **[GET]**
 
 #### 404 (Not Found)
 
-> If there are no companies in the database, the endpoint will return an HTTP response with a status code 404 and a body as below.
+> If there are no companies in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
 
 ```
 {
@@ -211,15 +223,16 @@ _HTTP method:_ **[GET]**
 
 #### 500 (Internal Server Error)
 
-> If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below.
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
 {
-    message: 'Sorry, but something went wrong while retrieving the companies.'
+    message: 'Sorry, but something went wrong while retrieving the jobs.'
 }
 ```
 
-### **Get all companies**
+## **GET COMPANY**
+### **Get a company by ID**
 
 _Method Url:_ `/api/companies/:id`
 
@@ -249,9 +262,8 @@ If a company with the specified ID in the URL parameters is found in the databas
 ```
 {
   "message": "The company was retrieved successfully.",
-  "company": [
-    {
-    "information": {
+  "company": {
+        "id": 1,
         "companyName": "",
         "companyPicture": "",
         "companyDescription": "",
@@ -259,17 +271,15 @@ If a company with the specified ID in the URL parameters is found in the databas
             "country": "",
             "state": "",
             "city": "",
-            "zipcode": ""
-        },
-    "jobs": []
+            "zipcode": "",
+        "jobs": []
     }
-  ]
 }
 ```
 
 #### 404 (Not Found)
 
-> If the requested company does not exist, the endpoint will return an HTTP response with a status code 404 and a body as below.
+> If the requested company does not exist, the endpoint will return an HTTP response with a status code `404` and a body as below.
 
 ```
 {
@@ -280,15 +290,15 @@ If a company with the specified ID in the URL parameters is found in the databas
 
 #### 500 (Internal Server Error)
 
-> If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below.
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
 {
     message: 'Sorry, but something went wrong while retrieving the company.'
 }
 ```
-
-### **Adds a Company**
+## **ADD COMPANY**
+### **Add a Company**
 
 _Method Url:_ `/api/companies`
 
@@ -337,7 +347,7 @@ _example:_
 
 ```
 {
-    "information": {
+    "company": {
         "companyName": "Apple",
         "companyPicture": "url",
         "companyDescription": "An About me for the company",
@@ -354,7 +364,7 @@ _example:_
 
 #### 400 (Bad Request)
 
-> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code 400 and a body as below.
+> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `400` and a body as below.
 
 ```
 {
@@ -364,7 +374,7 @@ _example:_
 
 #### 500 (Internal Server Error)
 
-> If there is a server or database error, the endpoint will return an HTTP response with a status code 500 and a body as below.
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
 {
@@ -373,7 +383,6 @@ _example:_
 ```
 
 ## **UPDATE COMPANY**
-
 ### **Update a Company by user ID**
 
 _Method Url:_ `/api/companies/:id`
@@ -412,7 +421,7 @@ _example:_
 ```
 {
   "userId": 1,
-  "companyName": "Apple",
+  "companyName": "Apple Inc",
   "companyPicture": "url string (exclude for MVP)",
   "companyDescription": "An About me for the company",
   "country": "United States of America",
@@ -426,12 +435,12 @@ _example:_
 
 ##### 200 (OK)
 
-> If a company with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+> If a company with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
 {
-    "information": {
-        "companyName": "Apple",
+    "company": {
+        "companyName": "Apple updated",
         "companyPicture": "url",
         "companyDescription": "An About me for the company",
         "location": {
@@ -465,3 +474,775 @@ _example:_
 }
 ```
 
+## DELETE COMPANY
+### **Update a Company by user ID**
+
+_Method Url:_ `/api/companies/:id`
+
+_HTTP method:_ **[DELETE]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Parameters
+
+| name   | type    | required | description              |
+| ------ | ------- | -------- | ------------------------ |
+| id | Integer | Yes      | ID of a specific company |
+
+#### Response
+
+##### 200 (OK)
+
+> If a company with the specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+```
+{
+  "message": "The journal was deleted from the database."
+}
+```
+
+#### 404 (Not Found)
+
+> 
+If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+```
+{
+  "message": 'The company could not be found.'
+}
+```
+
+#### 500 (Bad Request)
+
+> If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
+> 
+```
+{
+  "message": "Sorry, but something went wrong while deleting the company."
+}
+```
+# JOB ROUTES
+
+## **GET JOBS**
+### **Get all jobs**
+
+_Method Url:_ `/api/jobs`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name              | type   | required | description              |
+| ----------------- | ------ | -------- | ------------------------ |
+| `Content-Type`    | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token                               |
+
+#### Response
+
+##### 200 (OK)
+
+> If jobs are found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+```
+{
+  "message": "The jobs were found in the database.",
+  "jobs": [
+    {
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+    },
+    {
+        "id": 2,
+        "companyId": 1,
+        "jobName": "Front-end Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+    },
+    {
+        "id": 4,
+        "companyId": 1,
+        "jobName": "Back-end Engineer 4",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+    }
+  ]
+}
+```
+
+#### 404 (Not Found)
+
+> If there are no jobs in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+```
+{
+  "companies": [],
+  "message": "The jobs could not be found in the database."
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while retrieving the jobs.'
+}
+```
+
+## **GET JOB**
+### **Get a job by ID**
+
+_Method Url:_ `/api/jobs/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Parameters
+
+| name   | type    | required | description              |
+| ------ | ------- | -------- | ------------------------ |
+| id | Integer | Yes      | ID of a specific job |
+
+
+#### Response
+
+##### 200 (OK)
+
+> 
+If a job with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+```
+{
+  "message": "The job was retrieved successfully.",
+  "job": {
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy",
+        "jobSkills": []
+    }
+  }
+}
+```
+
+#### 404 (Not Found)
+
+> If the requested job does not exist, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+```
+{
+  "job": [],
+  "message": "The job could not be found in the database."
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while retrieving the job.'
+}
+```
+## **ADD JOB**
+### **Add a job**
+
+_Method Url:_ `/api/jobs`
+
+_HTTP method:_ **[POST]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Body
+
+| name                 | type    | required | description                            |
+| -------------------- | ------- | -------- | -------------------------------------- |
+| `companyId`             | Integer | Yes      | Must match a company's id in the database |
+| `jobName`        | String  | Yes      | Cannot be an empty field               |
+| `jobDescription` | String  | Yes      | Cannot be an empty field               |
+| `jobExperienceRequired`            | String  | Yes      | Cannot be an empty field               |
+| `jobExperiencePreferred`              | String  | Yes      | Cannot be an empty field               |
+| `jobApplyBy`               | String  | Yes      | Cannot be an empty field               |
+
+_example:_
+
+```
+{
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+}
+```
+
+#### Response
+
+##### 201 (Created)
+
+> If you successfully register a job the endpoint will return an HTTP response with a status code `201` and a body as below.
+
+```
+{
+    "job": {
+        "jobName": "Apple",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy",
+    },
+    "jobSkills": []
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `400` and a body as below.
+
+```
+{
+    message: 'Please submit a job with all of the required fields.'
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while adding the job.'
+}
+```
+
+## **UPDATE JOB**
+
+### **Update a Job by company ID**
+
+_Method Url:_ `/api/jobs/:id`
+
+_HTTP method:_ **[PUT]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Parameters
+
+| name   | type    | required | description              |
+| ------ | ------- | -------- | ------------------------ |
+| id | Integer | Yes      | ID of a specific job |
+
+
+#### Body
+
+| name                 | type    | required | description                            |
+| -------------------- | ------- | -------- | -------------------------------------- |
+| `companyId`             | Integer | Yes      | Must match a user's id in the database |
+| `jobName`        | String  | Yes      | Cannot be an empty field               |
+| `jobDescription` | String  | Yes      | Cannot be an empty field               |
+| `jobExperienceRequired`            | String  | Yes      | Cannot be an empty field               |
+| `jobExperiencePreferred`              | String  | Yes      | Cannot be an empty field               |
+| `jobApplyBy`               | String  | Yes      | Cannot be an empty field               |
+
+_example:_
+
+```
+{
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+}
+```
+
+#### Response
+
+##### 200 (OK)
+
+> If a job with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+```
+{
+    "job": {
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+    },
+    "jobSkills": []
+}
+```
+
+#### 406 (Not Acceptable)
+
+> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `406` and a body as below.
+
+```
+{
+    message: 'Please submit a job with all of the required fields.'
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while updating the job.'
+}
+```
+
+## DELETE JOB
+### **Delete a Job by company ID**
+
+_Method Url:_ `/api/jobs/:id`
+
+_HTTP method:_ **[DELETE]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Parameters
+
+| name   | type    | required | description              |
+| ------ | ------- | -------- | ------------------------ |
+| id | Integer | Yes      | ID of a specific company |
+
+#### Response
+
+##### 200 (OK)
+
+> If a job with the specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+```
+{
+  "message": "The job was deleted from the database."
+}
+```
+
+#### 404 (Not Found)
+
+> 
+If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+```
+{
+  "message": 'The job could not be found.'
+}
+```
+
+#### 500 (Bad Request)
+
+> If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
+> 
+```
+{
+  "message": "Sorry, but something went wrong while deleting the job."
+}
+```
+
+# JOB SKILLS ROUTES
+
+## **GET JOB SKILLS**
+### **Get all job skills**
+
+_Method Url:_ `/api/jobs`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name              | type   | required | description              |
+| ----------------- | ------ | -------- | ------------------------ |
+| `Content-Type`    | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token                               |
+
+#### Response
+
+##### 200 (OK)
+
+> If jobs are found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+```
+{
+  "message": "The jobs were found in the database.",
+  "jobs": [
+    {
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+    },
+    {
+        "id": 2,
+        "companyId": 1,
+        "jobName": "Front-end Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+    },
+    {
+        "id": 4,
+        "companyId": 1,
+        "jobName": "Back-end Engineer 4",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+    }
+  ]
+}
+```
+
+#### 404 (Not Found)
+
+> If there are no jobs in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+```
+{
+  "companies": [],
+  "message": "The jobs could not be found in the database."
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while retrieving the jobs.'
+}
+```
+
+## **GET JOB**
+### **Get a job by ID**
+
+_Method Url:_ `/api/jobs/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Parameters
+
+| name   | type    | required | description              |
+| ------ | ------- | -------- | ------------------------ |
+| id | Integer | Yes      | ID of a specific job |
+
+
+#### Response
+
+##### 200 (OK)
+
+> 
+If a job with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+```
+{
+  "message": "The job was retrieved successfully.",
+  "job": {
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy",
+        "jobSkills": []
+    }
+  }
+}
+```
+
+#### 404 (Not Found)
+
+> If the requested job does not exist, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+```
+{
+  "job": [],
+  "message": "The job could not be found in the database."
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while retrieving the job.'
+}
+```
+## **ADD JOB**
+### **Add a job**
+
+_Method Url:_ `/api/jobs`
+
+_HTTP method:_ **[POST]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Body
+
+| name                 | type    | required | description                            |
+| -------------------- | ------- | -------- | -------------------------------------- |
+| `companyId`             | Integer | Yes      | Must match a company's id in the database |
+| `jobName`        | String  | Yes      | Cannot be an empty field               |
+| `jobDescription` | String  | Yes      | Cannot be an empty field               |
+| `jobExperienceRequired`            | String  | Yes      | Cannot be an empty field               |
+| `jobExperiencePreferred`              | String  | Yes      | Cannot be an empty field               |
+| `jobApplyBy`               | String  | Yes      | Cannot be an empty field               |
+
+_example:_
+
+```
+{
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+}
+```
+
+#### Response
+
+##### 201 (Created)
+
+> If you successfully register a job the endpoint will return an HTTP response with a status code `201` and a body as below.
+
+```
+{
+    "job": {
+        "jobName": "Apple",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy",
+    },
+    "jobSkills": []
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `400` and a body as below.
+
+```
+{
+    message: 'Please submit a job with all of the required fields.'
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while adding the job.'
+}
+```
+
+## **UPDATE JOB**
+
+### **Update a Job by company ID**
+
+_Method Url:_ `/api/jobs/:id`
+
+_HTTP method:_ **[PUT]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Parameters
+
+| name   | type    | required | description              |
+| ------ | ------- | -------- | ------------------------ |
+| id | Integer | Yes      | ID of a specific job |
+
+
+#### Body
+
+| name                 | type    | required | description                            |
+| -------------------- | ------- | -------- | -------------------------------------- |
+| `companyId`             | Integer | Yes      | Must match a user's id in the database |
+| `jobName`        | String  | Yes      | Cannot be an empty field               |
+| `jobDescription` | String  | Yes      | Cannot be an empty field               |
+| `jobExperienceRequired`            | String  | Yes      | Cannot be an empty field               |
+| `jobExperiencePreferred`              | String  | Yes      | Cannot be an empty field               |
+| `jobApplyBy`               | String  | Yes      | Cannot be an empty field               |
+
+_example:_
+
+```
+{
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+}
+```
+
+#### Response
+
+##### 200 (OK)
+
+> If a job with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+```
+{
+    "job": {
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+    },
+    "jobSkills": []
+}
+```
+
+#### 406 (Not Acceptable)
+
+> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `406` and a body as below.
+
+```
+{
+    message: 'Please submit a job with all of the required fields.'
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    message: 'Sorry, but something went wrong while updating the job.'
+}
+```
+
+## DELETE JOB
+### **Delete a Job by company ID**
+
+_Method Url:_ `/api/jobs/:id`
+
+_HTTP method:_ **[DELETE]**
+
+#### Headers
+
+| name           | type   | required | description              |
+| -------------- | ------ | -------- | ------------------------ |
+| `Content-Type` | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token |
+
+#### Parameters
+
+| name   | type    | required | description              |
+| ------ | ------- | -------- | ------------------------ |
+| id | Integer | Yes      | ID of a specific company |
+
+#### Response
+
+##### 200 (OK)
+
+> If a job with the specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+```
+{
+  "message": "The job was deleted from the database."
+}
+```
+
+#### 404 (Not Found)
+
+> 
+If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+```
+{
+  "message": 'The job could not be found.'
+}
+```
+
+#### 500 (Bad Request)
+
+> If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
+> 
+```
+{
+  "message": "Sorry, but something went wrong while deleting the job."
+}
+```
