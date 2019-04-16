@@ -50,6 +50,18 @@ router.put('/:id', async (req, res) => {
 	}
 });
 
-router.delete('/:id', async (req, res) => {});
+router.delete('/:id', async (req, res) => {
+	try {
+		const deletedEducation = await Education.remove(req.params.id);
+		res.status(200).json(deletedEducation);
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while deleting education'
+		});
+
+		throw new Error(err);
+	}
+});
 
 module.exports = router;

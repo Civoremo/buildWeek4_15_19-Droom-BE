@@ -49,7 +49,7 @@ async function remove(id) {
 		.where({ id })
 		.del();
 
-	return id;
+	return parseInt(id, 10);
 }
 
 // Find seekerId by userId
