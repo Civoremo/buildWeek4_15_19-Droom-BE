@@ -25,18 +25,8 @@ router.get('/:id', async (req, res) => {
 		const { id } = req.params;
 
 		const company = await Companies.findById(id);
-		//console.log(company);
-		const jobs = await Jobs.findBy(company.id);
-		//console.log(jobs);
-		const mappedJobs = jobs.map(async job => {
-			const skills = await Skills.findBy(job.id);
-			const skilledJobs = { ...job, skills };
-			console.log(skilledJobs);
-			return skilledJobs;
-		});
-		//console.log(mappedJobs);
-		console.log({ ...company, jobs: mappedJobs });
-		res.status(200).json({ ...company, jobs: mappedJobs });
+		const message = 'The company was retrieved successfully.';
+		res.status(200).json(message, company);
 	} catch (err) {
 		res.status(500).json({
 			message:
