@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
 		console.log(err);
 		res.status(500).json({
 			message:
-				'Sorry, but something went wrong while trying to create that profile'
+				'Sorry, but something went wrong while trying to add education'
 		});
 
 		throw new Error(err);
