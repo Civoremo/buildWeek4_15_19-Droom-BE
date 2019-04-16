@@ -17,7 +17,19 @@ router.post('/', async (req, res) => {
 });
 
 // Get all seeker experiences
-router.get('/', async (req, res) => {});
+router.get('/:id', async (req, res) => {
+	try {
+		const experience = await Experience.find(req.params.id);
+		res.status(200).json(experience);
+	} catch (err) {
+		res.status(500).json({
+			message:
+				'Sorry, but something went wrong while trying to get experience'
+		});
+
+		throw new Error(err);
+	}
+});
 
 // Update individual experience
 router.put('/', async (req, res) => {});
