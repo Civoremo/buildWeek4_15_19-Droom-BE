@@ -8,6 +8,7 @@ const errorMiddleware = require('./middleware/errorReporting');
 const authController = require('./controllers/auth');
 const comController = require('./controllers/companies');
 const jobsController = require('./controllers/jobs');
+const jobSkillsController = require('./controllers/jobSKills');
 
 // initializations
 const server = express();
@@ -22,6 +23,7 @@ middleware(server);
 server.use('/api/auth', authController);
 server.use('/api/companies', comController);
 server.use('/api/jobs', jobsController);
+server.use('/api/job-skills', jobSkillsController);
 
 // error reporting middleware (Must be after all requests)
 errorMiddleware(server);
