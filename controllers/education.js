@@ -1,13 +1,12 @@
 const router = require('express').Router();
 const Education = require('../models/Education');
 
-// Create seeker education
+// Create job seeker education
 router.post('/', async (req, res) => {
 	try {
 		const education = await Education.add(req.body);
 		res.status(201).json(education);
 	} catch (err) {
-		console.log(err);
 		res.status(500).json({
 			message:
 				'Sorry, but something went wrong while trying to add education'
@@ -17,7 +16,7 @@ router.post('/', async (req, res) => {
 	}
 });
 
-// Get all job seeker education
+// Get job seeker education
 router.get('/:id', async (req, res) => {
 	try {
 		const education = await Education.find(req.params.id);
@@ -32,7 +31,7 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-// Update a single education object by id
+// Update a single education object by education id
 router.put('/:id', async (req, res) => {
 	try {
 		const updatedEducation = await Education.update(
@@ -50,6 +49,7 @@ router.put('/:id', async (req, res) => {
 	}
 });
 
+// Delete a single education object by education id
 router.delete('/:id', async (req, res) => {
 	try {
 		const deletedEducation = await Education.remove(req.params.id);
