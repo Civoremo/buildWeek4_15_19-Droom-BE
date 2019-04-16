@@ -3,7 +3,10 @@ const Companies = require('../models/Companies.js');
 const Jobs = require('../models/Jobs.js');
 const Skills = require('../models/JobSkills');
 const authenticate = require('../middleware/authenticate');
-const { companyValidation } = require('../middleware/validation');
+const {
+	companyValidation,
+	updateCompanyValidation
+} = require('../middleware/validation');
 
 router.get('/', async (req, res) => {
 	try {
@@ -37,11 +40,11 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-router.post('/', async (req, res) => {
-	const company = req.body;
+router.post('/', companyValidation, async (req, res) => {
+	const { userId, company } = req.body;
 
 	try {
-		const newCompany = await Companies.add(company);
+		const newCompany = await Companies.add(userId, company);
 		const message = `${
 			company.companyName
 		} has successfully been added.`;
@@ -61,7 +64,7 @@ router.delete('/:id', async (req, res) => {
 
 	try {
 		const count = await Companies.remove(id);
-		console.log(count);
+
 		if (count > 0) {
 			res.status(204).json({
 				message:
@@ -82,13 +85,13 @@ router.delete('/:id', async (req, res) => {
 	}
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', updateCompanyValidation, async (req, res) => {
 	try {
 		const { id } = req.params;
 		const updated = req.body;
 
 		const updatedCompany = await Companies.update(id, updated);
-		console.log(updatedCompany);
+
 		if (updatedCompany.id) {
 			res.status(200).json(updatedCompany);
 		} else {

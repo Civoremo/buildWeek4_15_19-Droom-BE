@@ -34,10 +34,10 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-	const { userId, job } = req.body;
+	const { userId, job, jobSkills } = req.body;
 	//console.log(userId, job);
 	try {
-		const newJob = await Jobs.add(userId, job);
+		const newJob = await Jobs.add(userId, job, jobSkills);
 
 		const message = `${job.jobName} has successfully been added.`;
 		res.status(201).json({ message, newJob });

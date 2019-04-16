@@ -10,7 +10,7 @@ module.exports = {
 };
 
 // Create a job
-async function add(userId, job) {
+async function add(userId, job, jobSkills) {
 	const company = await db('companies')
 		.where({ userId })
 		.select('id')
@@ -20,17 +20,26 @@ async function add(userId, job) {
 		companyId: company.id,
 		...job
 	};
-	console.log(newJob);
+	//console.log(newJob);
 	const [id] = await db('jobs')
 		.insert(newJob)
 		.returning('id');
 
-	console.log(id);
+	//console.log(id);
+	let newJobSkills = jobSkills.map(skill => {
+		//console.log({ jobId: id, skill });
+		return { jobId: id, jobSkill: skill };
+	});
 
-	return await db('jobs')
-		.where({ id })
-		.returning('id')
-		.first();
+	await db('jobs_skills').insert(newJobSkills);
+
+	const jobWithSkills = {
+		...newJob,
+		jobSkills
+	};
+
+	console.log(jobWithSkills);
+	return jobWithSkills;
 }
 
 // Get all jobs

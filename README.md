@@ -885,7 +885,6 @@ If no companies for the specified id can be found in the database, the endpoint 
   "message": "Sorry, but something went wrong while deleting the job."
 }
 ```
-
 # JOB SKILLS ROUTES
 
 ## **GET JOB SKILLS**

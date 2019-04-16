@@ -9,7 +9,7 @@ module.exports = {
 	remove
 };
 
-// Create a job
+// Create a job skill
 async function add(skill) {
 	const [id] = await db('jobs_skills')
 		.insert(skill)
@@ -17,24 +17,24 @@ async function add(skill) {
 	return findById(id);
 }
 
-// Get all jobs
+// Get all job skills
 function find() {
 	return db('jobs_skills');
 }
 
-// Get jobs by filter
+// Get job skills by filter
 function findBy(filter) {
 	return db('jobs_skills').where({ jobId: filter });
 }
 
-// Get job by Id
+// Get job skill by Id
 function findById(id) {
 	return db('jobs_skills')
 		.where({ id })
 		.first();
 }
 
-// Update a job
+// Update a job skill
 async function update(id, updated) {
 	await db('jobs_skills')
 		.where({ id })
@@ -43,7 +43,7 @@ async function update(id, updated) {
 	return findById(id);
 }
 
-// Delete a job
+// Delete a job skill
 function remove(id) {
 	return db('jobs_skills')
 		.where({ id })

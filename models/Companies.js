@@ -10,11 +10,15 @@ module.exports = {
 };
 
 // Create a company
-async function add(company) {
+async function add(userId, company) {
+	const newCompany = {
+		userId,
+		...company
+	};
 	const [id] = await db('companies')
-		.insert(company)
+		.insert(newCompany)
 		.returning('id');
-	console.log(id);
+
 	return findById(id);
 }
 
