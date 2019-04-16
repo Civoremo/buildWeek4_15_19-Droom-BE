@@ -1,7 +1,8 @@
 const db = require('../database/dbConfig');
 
 module.exports = {
-	add
+	add,
+	findById
 };
 
 // Add job seeker profile
@@ -19,5 +20,11 @@ async function add(profile) {
 
 	return db('seekers')
 		.where({ userId })
+		.first();
+}
+
+function findById(id) {
+	return db('seekers')
+		.where({ userId: id })
 		.first();
 }
