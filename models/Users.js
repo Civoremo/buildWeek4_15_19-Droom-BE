@@ -6,15 +6,16 @@ module.exports = {
 	findBy,
 	findById,
 	update,
-	remove,
-	getProfile
+	remove
 };
 
 // Create user
 async function add(user) {
-	return await db('users')
+	const [id] = await db('users')
 		.insert(user)
 		.returning('id');
+
+	return findById(id);
 }
 
 // Get all users
@@ -50,21 +51,3 @@ function remove(id) {
 		.del();
 }
 
-// Get User Profile
-function getProfile(id) {
-	const seeker = db('users')
-		.where({ id })
-		.first()
-		.join('seekers', 'users.id', '=', 'seekers.userId')
-		.select('seekers.id', 'name', 'occupation', 'experience');
-
-	const interests = db('interests').where({ userId: id });
-
-	const profile = {
-		profile: {
-			...seeker,
-			...interests
-		}
-	};
-	return profile;
-}

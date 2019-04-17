@@ -10,9 +10,36 @@ module.exports = {
 };
 
 // Create a job
-async function add(job) {
-	const [id] = await db('jobs').insert(job);
-	return findById(id);
+async function add(userId, job, jobSkills) {
+	const company = await db('companies')
+		.where({ userId })
+		.select('id')
+		.first();
+	console.log(company);
+	let newJob = {
+		companyId: company.id,
+		...job
+	};
+	//console.log(newJob);
+	const [id] = await db('jobs')
+		.insert(newJob)
+		.returning('id');
+
+	//console.log(id);
+	let newJobSkills = jobSkills.map(skill => {
+		//console.log({ jobId: id, skill });
+		return { jobId: id, jobSkill: skill };
+	});
+
+	await db('jobs_skills').insert(newJobSkills);
+
+	const jobWithSkills = {
+		...newJob,
+		jobSkills
+	};
+
+	console.log(jobWithSkills);
+	return jobWithSkills;
 }
 
 // Get all jobs
@@ -22,7 +49,7 @@ function find() {
 
 // Get jobs by filter
 function findBy(filter) {
-	return db('jobs').where({ filter });
+	return db('jobs').where({ companyId: filter });
 }
 
 // Get job by Id
