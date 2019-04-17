@@ -1,5 +1,5 @@
 module.exports = {
-	getValidation,
+	getCompanyValidation,
 	companyValidation,
 	updateCompanyValidation,
 	jobValidation,
