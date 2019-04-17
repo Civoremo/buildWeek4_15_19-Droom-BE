@@ -1,16 +1,74 @@
-# Droom BACK-END
+# **DROOM API**
 
 Back-end build week project for droom
 
-### Deployed Backend
+## Deployed Backend
 
 - https://droom-buildweek-4-15-19.herokuapp.com/
+
+## **Technologies**
+
+#### Production
+
+- [Express](https://www.npmjs.com/package/express): `Fast, unopinionated, minimalist web framework for Node.js`
+- [Body parser](https://www.npmjs.com/package/body-parser): `Parse incoming request bodies in a middleware before your handlers`
+- [Bcryptjs](https://www.npmjs.com/package/body-parser): `Allows you to store passwords securely in your database`
+- [Jsonwebtoken](https://www.npmjs.com/package/jsonwebtoken): `Generate and verify json web tokens to maintain a stateless api`
+- [Knex](https://www.npmjs.com/package/knex): `Knex.js is a "batteries included" SQL query builder for Postgres, MSSQL, MySQL, MariaDB, SQLite3, Oracle, and Amazon Redshift designed to be flexible, portable, and fun to use`
+- [Knex-cleaner](https://www.npmjs.com/package/knex-cleaner): `Helper library to clean a PostgreSQL, MySQL or SQLite3 database tables using Knex`
+- [Pg](https://www.npmjs.com/package/pg): `Non-blocking PostgreSQL client for Node.js.`
+- [Sqlite3](https://www.npmjs.com/package/sqlite3): `Asynchronous, non-blocking SQLite3 bindings for Node.js.`
+- [Sentry](https://www.npmjs.com/package/@sentry/node): `Open-source error tracking that helps developers monitor and fix crashes in real time. Iterate continuously. Boost workflow efficiency. Improve user experience.`
+- [Morgan](https://www.npmjs.com/package/morgan): `HTTP request logger middleware for Node.js`
+- [Cors](https://www.npmjs.com/package/cors): `CORS is a Node.js package for providing a Connect/Express middleware that can be used to enable CORS`
+- [Helmet](https://www.npmjs.com/package/helmet): `Helmet helps you secure your Express apps by setting various HTTP headers`
+- [Dotenv](https://www.npmjs.com/package/dotenv): `Dotenv is a zero-dependency module that loads environment variables from a .env file`
+
+#### Developer
+
+- [Nodemon](https://www.npmjs.com/package/nodemon): `nodemon is a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected`
+
+## Setup
+
+(# <--- signifies comment)
+
+In your terminal run:
+
+```
+# Install dependencies
+npm install
+
+# Starts express server using nodemon
+npm run server
+```
 
 ## Table of Contents
 
 - [Test User Accounts](#test-user-accounts)
 - [Summary Table of API Endpoints](#summary-table-of-api-endpoints)
 - [Auth Routes](#auth-routes)
+     - [Login User](#login)
+     - [Register User](#register)
+- [Seeker Routes](#seeker-routes)
+     - [Get Seeker](##get-seeker)
+     - [Add Seeker](##add-seeker)
+     - [Update Seeker](##update-seeker)
+     - [Delete Seeker](##delete-seeker)
+- [Education Routes](#education-routes)
+     - [Get Education](##get-education)
+     - [Add Education](##add-education)
+     - [Update Education](##update-education)
+     - [Delete Education](##delete-education)
+- [Experience Routes](#experience-routes)
+     - [Get Experience](##get-experience)
+     - [Add Experience](##add-experience)
+     - [Update Experience](##update-experience)
+     - [Delete Experience](##delete-experience)
+- [Skills Routes](#skills-routes)
+     - [Get Skills](##get-skills)
+     - [Add Skills](##add-skills)
+     - [Update Skills](##update-skills)
+     - [Delete Skills](##delete-skills)
 - [Company Routes](#company-routes)
      - [Get Companies](##get-companies)
      - [Get Company](##get-company)
@@ -28,8 +86,8 @@ Back-end build week project for droom
 
 | Table | Method | Endpoint           | Description                                                                                                                                                                                    |
 | ----- | ------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| auth  | POST   | /api/auth/register | Creates a new `user` profile using the information sent inside the `body` of the request and returns a message along with the new `user` and a JSON Web Token in the `body` of the response.   |
-| auth  | POST   | /api/auth/login    | Uses the credentials sent inside the `body` to authenticate the user. On successful login, returns a message with the `user` profile and a JSON Web Token token in the `body` of the response. |
+| users | POST   | /api/auth/register | Creates a new `user` profile using the information sent inside the `body` of the request and returns a message along with the new `user` and a JSON Web Token in the `body` of the response.   |
+| users | POST   | /api/auth/login    | Uses the credentials sent inside the `body` to authenticate the user. On successful login, returns a message with the `user` profile and a JSON Web Token token in the `body` of the response. |
 
 # AUTH ROUTES
 
@@ -69,6 +127,8 @@ _example:_
 
 > If you successfully register a user the endpoint will return an HTTP response with a status code `201` and a body as below.
 
+_example:_
+
 ```
 {
     "token": "eyJhbGciOiJIUzI1NiIsInR5cCI3IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xFXoX"
@@ -79,6 +139,8 @@ _example:_
 
 > If you are missing a email or password for registration, the endpoint will return an HTTP response with a status code `400` and a body as below.
 
+_example:_
+
 ```
 {
     "message": "Submit both an email and password when registering"
@@ -88,6 +150,8 @@ _example:_
 ##### 500 (Internal Server Error)
 
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
 
 ```
 {
@@ -133,6 +197,8 @@ _example:_
 
 > If you successfully login, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
+_example:_
+
 ```
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MDwiaWF0IjoxNTQ0MzM1NjUxLCJleHAuOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xGXnE",
@@ -142,6 +208,8 @@ _example:_
 ##### 400 (Bad Request)
 
 > If you are missing a email or password for login, the endpoint will return an HTTP response with a status code `400` and a body as below.
+
+_example:_
 
 ```
 {
@@ -153,6 +221,8 @@ _example:_
 
 > If you failt to login, the endpoint will return an HTTP response with a status code `401` which indicates the email and or password entered is not valid.
 
+_example:_
+
 ```
 {
   message: "Sorry, incorrect email or password"
@@ -162,6 +232,8 @@ _example:_
 ##### 500 (Bad Request)
 
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
 
 ```
 {
@@ -192,6 +264,8 @@ _HTTP method:_ **[GET]**
 
 > If the user profile is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
 
+_example:_
+
 ```
 {
     "id": 1,
@@ -213,6 +287,8 @@ _HTTP method:_ **[GET]**
 
 > If the provided `userId` doesn't have a profile, the endpoint will return an HTTP response with a status code `404` and a body as below.
 
+_example:_
+
 ```
 {
     "message": "Sorry, but that profile doesn't exist"
@@ -222,6 +298,8 @@ _HTTP method:_ **[GET]**
 #### 500 (Internal Server Error)
 
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
 
 ```
 {
@@ -286,6 +364,8 @@ _example:_
 
 > If you successfully create a seeker profile, the endpoint will return an HTTP response with a status code `201` and a body as below.
 
+_example:_
+
 ```
 {
     "id": 1,
@@ -307,6 +387,8 @@ _example:_
 
 > If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
 
+_example:_
+
 ```
 {
   "message": "Please provide a first name"
@@ -316,6 +398,8 @@ _example:_
 #### 500 (Internal Server Error)
 
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
 
 ```
 {
@@ -382,6 +466,8 @@ _example:_
 
 > If a seeker with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
+_example:_
+
 ```
 {
     "id": 1,
@@ -403,6 +489,8 @@ _example:_
 
 > If the seeker profile for the specified id can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
 
+_example:_
+
 ```
 {
   "message": "Sorry, but that profile doesn't exist"
@@ -412,6 +500,8 @@ _example:_
 #### 400 (Bad Request)
 
 > If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+_example:_
 
 ```
 {
@@ -423,13 +513,15 @@ _example:_
 
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
+_example:_
+
 ```
 {
     "message": "Sorry, but something went wrong while updating that profile"
 }
 ```
 
-## DELETE SEEKER
+## **DELETE SEEKER**
 
 ### **Delete a seeker by user id**
 
@@ -456,6 +548,8 @@ _HTTP method:_ **[DELETE]**
 
 > If a seeker with the specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
+_example:_
+
 ```
 {
   "message": "Profile successfully deleted"
@@ -465,6 +559,8 @@ _HTTP method:_ **[DELETE]**
 #### 404 (Not Found)
 
 > If the seeker profile for the specified id can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
 
 ```
 {
@@ -476,9 +572,366 @@ _HTTP method:_ **[DELETE]**
 
 > If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
+_example:_
+
 ```
 {
   "message": "Sorry, but something went wrong while deleting that profile"
+}
+```
+
+# EDUCATION ROUTES
+
+## **GET EDUCATION**
+
+### **Get education by user id**
+
+_Method Url:_ `/api/education/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Response
+
+##### 200 (OK)
+
+> If seeker education is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+_example:_
+
+```
+[
+    {
+        "id": 1,
+        "seekerId": 1,
+        "eduSchool": "San Francisco State University",
+        "eduCredential": "Bachelor of Science in Electrical Engineering",
+        "eduDescription": "Electrical Engineering is a profession that makes creative use of mathematics and science to solve practical problems in electricity, electronics and related areas. The goal of the Electrical Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+        "eduStart": "1-1-2014",
+        "eduEnd": "1-1-2018"
+    },
+    {
+        "id": 2,
+        "seekerId": 1,
+        "eduSchool": "San Francisco State University",
+        "eduCredential": "Bachelor of Science in Computer Engineering",
+        "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+        "eduStart": "1-1-2019",
+        "eduEnd": "1-1-2023"
+    }
+]
+```
+
+#### 404 (Not Found)
+
+> A `404` (Not Found) response has `two` possible outcomes one if the `user` profile doesn't have any education or if the provided `user` doesn't have a profile, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but that profile doesn't have any education"
+}
+```
+
+or
+
+```
+{
+    "message": "Sorry, but that user doesn't have a profile"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but something went wrong while trying to get education"
+}
+```
+
+## **ADD EDUCATION**
+
+### **Add education for a seeker profile by user id**
+
+_Method Url:_ `/api/education`
+
+_HTTP method:_ **[POST]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Body
+
+| name             | type    | required | description                            |
+| ---------------- | ------- | -------- | -------------------------------------- |
+| `userId`         | Integer | Yes      | Must match a user's id in the database |
+| `eduSchool`      | String  | Yes      | Cannot be an empty field               |
+| `eduCredential`  | String  | Yes      | Cannot be an empty field               |
+| `eduDescription` | String  | Yes      | Cannot be an empty field               |
+| `eduStart`       | String  | Yes      | Cannot be an empty field               |
+| `eduEnd`         | String  | Yes      | Cannot be an empty field               |
+
+_example:_
+
+```
+{
+  "userId": 1,
+    "seekerEducation": [
+      {
+          "eduSchool":"San Francisco State University",
+          "eduCredential": "Bachelor of Science in Computer Engineering",
+          "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+          "eduStart":"1-1-2019",
+          "eduEnd": "1-1-2023"
+      },
+      {
+          "eduSchool":"San Francisco State University",
+          "eduCredential": "Bachelor of Science in Electrical Engineering",
+          "eduDescription": "Electrical Engineering is a profession that makes creative use of mathematics and science to solve practical problems in electricity, electronics and related areas. The goal of the Electrical Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+          "eduStart":"1-1-2014",
+          "eduEnd": "1-1-2018"
+      }
+  ]
+}
+```
+
+#### Response
+
+##### 201 (Created)
+
+> If you successfully create seeker education, the endpoint will return an HTTP response with a status code `201` and a body as below.
+
+_example:_
+
+```
+[
+    {
+        "id": 1,
+        "seekerId": 1,
+        "eduSchool": "San Francisco State University",
+        "eduCredential": "Bachelor of Science in Computer Engineering",
+        "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+        "eduStart": "1-1-2019",
+        "eduEnd": "1-1-2023"
+    },
+    {
+        "id": 2,
+        "seekerId": 1,
+        "eduSchool": "San Francisco State University",
+        "eduCredential": "Bachelor of Science in Electrical Engineering",
+        "eduDescription": "Electrical Engineering is a profession that makes creative use of mathematics and science to solve practical problems in electricity, electronics and related areas. The goal of the Electrical Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+        "eduStart": "1-1-2014",
+        "eduEnd": "1-1-2018"
+    }
+]
+```
+
+#### 404 (Not Found)
+
+> If the seeker profile for the specified `userId` can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but that user doesn't have a profile"
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+_example:_
+
+```
+{
+  "message": "Please provide a school"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but something went wrong while trying to add education"
+}
+```
+
+## **UPDATE EDUCATION**
+
+### **Update individual education objects using education id**
+
+_Method Url:_ `/api/education/:id`
+
+_HTTP method:_ **[PUT]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description                       |
+| ---- | ------- | -------- | --------------------------------- |
+| id   | Integer | Yes      | ID of a specific education object |
+
+#### Body
+
+| name             | type   | required | description              |
+| ---------------- | ------ | -------- | ------------------------ |
+| `eduSchool`      | String | Yes      | Cannot be an empty field |
+| `eduCredential`  | String | Yes      | Cannot be an empty field |
+| `eduDescription` | String | Yes      | Cannot be an empty field |
+| `eduStart`       | String | Yes      | Cannot be an empty field |
+| `eduEnd`         | String | Yes      | Cannot be an empty field |
+
+_example:_
+
+```
+{
+    "eduSchool": "San Francisco State University Updated",
+    "eduCredential": "Bachelor of Science in Computer Engineering",
+    "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+    "eduStart": "1-1-2019",
+    "eduEnd": "1-1-2023"
+}
+```
+
+#### Response
+
+##### 200 (OK)
+
+> If the education object with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+_example:_
+
+```
+{
+  "id": 53,
+  "seekerId": 23,
+  "eduSchool": "San Francisco State Universit y",
+  "eduCredential": "Bachelor of Science in Computer Engineering",
+  "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+  "eduStart": "1-1-2019",
+  "eduEnd": "1-1-2023"
+}
+```
+
+#### 404 (Not Found)
+
+> If the education object for the specified id can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but that education doesn't exist"
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+_example:_
+
+```
+{
+   "message": "Please provide a school"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but something went wrong while updating education"
+}
+```
+
+## **DELETE EDUCATION**
+
+### **Delete education by education id**
+
+_Method Url:_ `/api/education/:id`
+
+_HTTP method:_ **[DELETE]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description            |
+| ---- | ------- | -------- | ---------------------- |
+| id   | Integer | Yes      | ID of education object |
+
+#### Response
+
+##### 200 (OK)
+
+> If the education object specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Education successfully deleted"
+}
+```
+
+#### 404 (Not Found)
+
+> If the education object specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but that education doesn't exist"
+}
+```
+
+#### 500 (Bad Request)
+
+> If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but something went wrong while deleting education"
 }
 ```
 
