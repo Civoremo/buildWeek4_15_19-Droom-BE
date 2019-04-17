@@ -1,5 +1,4 @@
 module.exports = {
-	getCompanyValidation,
 	companyValidation,
 	updateCompanyValidation,
 	jobValidation,
@@ -16,17 +15,6 @@ module.exports = {
 	skillsValidation,
 	updateSkillsValidation
 };
-
-function getCompanyValidation(req, res, next) {
-	if (!req.body.length) {
-		return res.status(404).json({
-			companies: [],
-			message:
-				'The companies could not be found in the database.'
-		});
-	}
-	next();
-}
 
 function companyValidation(req, res, next) {
 	const { userId, company } = req.body;

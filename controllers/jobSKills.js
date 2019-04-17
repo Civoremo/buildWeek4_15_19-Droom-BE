@@ -1,10 +1,20 @@
 const router = require('express').Router();
 const Skills = require('../models/JobSkills.js');
-
+const {
+	jobSkillsValidation,
+	updateJobSkillsValidation
+} = require('../middleware/validation');
 router.get('/', async (req, res) => {
 	try {
 		const skills = await Skills.find();
 		const message = 'The job skills were found in the database.';
+		if (!skills.length) {
+			res.status(404).json({
+				skills: [],
+				message:
+					'The jobs could not be found in the database.'
+			});
+		}
 		res.status(200).json({ message, skills });
 	} catch (err) {
 		res.status(500).json({
@@ -20,8 +30,15 @@ router.get('/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
 		const skills = await Skills.findById(id);
-
-		res.status(200).json(skills);
+		const message = 'The job skill was retrieved successfully.';
+		if (!skills.length) {
+			res.status(404).json({
+				skills: [],
+				message:
+					'The job skill could not be found in the database.'
+			});
+		}
+		res.status(200).json({ message, skills });
 	} catch (err) {
 		res.status(500).json({
 			message:
@@ -32,7 +49,7 @@ router.get('/:id', async (req, res) => {
 	}
 });
 
-router.post('/', async (req, res) => {
+router.post('/', jobSkillsValidation, async (req, res) => {
 	const skill = req.body;
 	console.log('skill', skill);
 	try {
@@ -41,8 +58,8 @@ router.post('/', async (req, res) => {
 		const message = `${
 			skill.jobSkill
 		} has successfully been added.`;
-		res.status(201).json({ message, newSkill });
-	} catch (error) {
+		res.status(201).json({ message, skills: newSkill });
+	} catch (err) {
 		res.status(500).json({
 			message:
 				'Sorry, but something went wrong while adding the job skill.'
@@ -78,13 +95,13 @@ router.delete('/:id', async (req, res) => {
 	}
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', updateJobSkillsValidation, async (req, res) => {
 	try {
 		const { id } = req.params;
 		const updated = req.body;
 
 		const updatedSkill = await Skills.update(id, updated);
-		console.log(updatedSkill);
+
 		if (updatedSkill.id) {
 			res.status(200).json(updatedSkill);
 		} else {
@@ -92,7 +109,7 @@ router.put('/:id', async (req, res) => {
 				message: 'The job skill could not be found.'
 			});
 		}
-	} catch (error) {
+	} catch (err) {
 		res.status(500).json({
 			message:
 				'Sorry, but something went wrong while updating the job skill.'

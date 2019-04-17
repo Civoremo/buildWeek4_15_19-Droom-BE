@@ -1975,7 +1975,7 @@ _example:_
 
 ## **DELETE COMPANY**
 
-### **Update a Company by user ID**
+### **Delete a Company by user ID**
 
 _Method Url:_ `/api/companies/:id`
 
@@ -2411,7 +2411,7 @@ _HTTP method:_ **[DELETE]**
 
 ### **Get all job skills**
 
-_Method Url:_ `/api/jobs`
+_Method Url:_ `/api/job-skills`
 
 _HTTP method:_ **[GET]**
 
@@ -2426,40 +2426,23 @@ _HTTP method:_ **[GET]**
 
 ##### 200 (OK)
 
-> If jobs are found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+> If jobs are found in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
 {
-  "message": "The jobs were found in the database.",
-  "jobs": [
-    {
-        "id": 1,
-        "companyId": 1,
-        "jobName": "Software Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
-    },
-    {
-        "id": 2,
-        "companyId": 1,
-        "jobName": "Front-end Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
-    },
-    {
-        "id": 4,
-        "companyId": 1,
-        "jobName": "Back-end Engineer 4",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
-    }
-  ]
+    "message": "The job skills were found in the database.",
+    "skills": [
+        {
+            "id": 1,
+            "jobId": 1,
+            "jobSkill": "Reactjs"
+        },
+        {
+            "id": 3,
+            "jobId": 1,
+            "jobSkill": "Expressjs"
+        }
+    ]
 }
 ```
 
@@ -2469,7 +2452,7 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-  "companies": [],
+  "skills": [],
   "message": "The jobs could not be found in the database."
 }
 ```
@@ -2488,7 +2471,7 @@ _HTTP method:_ **[GET]**
 
 ### **Get a job skill by ID**
 
-_Method Url:_ `/api/jobs/:id`
+_Method Url:_ `/api/job-skills/:id`
 
 _HTTP method:_ **[GET]**
 
@@ -2501,9 +2484,9 @@ _HTTP method:_ **[GET]**
 
 #### Parameters
 
-| name | type    | required | description          |
-| ---- | ------- | -------- | -------------------- |
-| id   | Integer | Yes      | ID of a specific job |
+| name | type    | required | description                |
+| ---- | ------- | -------- | -------------------------- |
+| id   | Integer | Yes      | ID of a specific job skill |
 
 #### Response
 
@@ -2513,18 +2496,12 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-  "message": "The job was retrieved successfully.",
-  "job": {
+    "message": "The job skill was retrieved successfully.",
+    "skills": {
         "id": 1,
-        "companyId": 1,
-        "jobName": "Software Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy",
-        "jobSkills": []
+        "jobId": 1,
+        "jobSkill": "Reactjs"
     }
-  }
 }
 ```
 
@@ -2534,8 +2511,8 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-  "job": [],
-  "message": "The job could not be found in the database."
+  "skills": [],
+  "message": "The job skill could not be found in the database."
 }
 ```
 
@@ -2545,7 +2522,7 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-    message: 'Sorry, but something went wrong while retrieving the job.'
+    message: 'Sorry, but something went wrong while retrieving the job skill.'
 }
 ```
 
@@ -2553,7 +2530,7 @@ _HTTP method:_ **[GET]**
 
 ### **Add a job skill**
 
-_Method Url:_ `/api/jobs`
+_Method Url:_ `/api/job-skills`
 
 _HTTP method:_ **[POST]**
 
@@ -2566,26 +2543,17 @@ _HTTP method:_ **[POST]**
 
 #### Body
 
-| name                     | type    | required | description                               |
-| ------------------------ | ------- | -------- | ----------------------------------------- |
-| `companyId`              | Integer | Yes      | Must match a company's id in the database |
-| `jobName`                | String  | Yes      | Cannot be an empty field                  |
-| `jobDescription`         | String  | Yes      | Cannot be an empty field                  |
-| `jobExperienceRequired`  | String  | Yes      | Cannot be an empty field                  |
-| `jobExperiencePreferred` | String  | Yes      | Cannot be an empty field                  |
-| `jobApplyBy`             | String  | Yes      | Cannot be an empty field                  |
+| name       | type             | required | description                               |
+| ---------- | ---------------- | -------- | ----------------------------------------- |
+| `jobId`    | Integer          | Yes      | Must match a company's id in the database |
+| `jobSkill` | Array of strings | Yes      | Cannot be an empty field                  |
 
 _example:_
 
 ```
 {
-        "id": 1,
-        "companyId": 1,
-        "jobName": "Software Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
+	"jobId": 1,
+	"jobSkill": ["Reactjs", "Expressjs"]
 }
 ```
 
@@ -2593,18 +2561,33 @@ _example:_
 
 ##### 201 (Created)
 
-> If you successfully register a job the endpoint will return an HTTP response with a status code `201` and a body as below.
+> If you successfully register a job the endpoint will return an HTTP response with a status code `201` and a body as below (returns all job skills fo r the jobId, not just the created jobs).
 
 ```
 {
-    "job": {
-        "jobName": "Apple",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy",
-    },
-    "jobSkills": []
+    "message": "Reactjs,Expressjs has successfully been added.",
+    "skills": [
+        {
+            "id": 1,
+            "jobId": 1,
+            "jobSkill": "Reactjs"
+        },
+        {
+            "id": 3,
+            "jobId": 1,
+            "jobSkill": "Expressjs updated"
+        },
+        {
+            "id": 16,
+            "jobId": 1,
+            "jobSkill": "Reactjs"
+        },
+        {
+            "id": 17,
+            "jobId": 1,
+            "jobSkill": "Expressjs"
+        }
+    ]
 }
 ```
 
@@ -2624,7 +2607,7 @@ _example:_
 
 ```
 {
-    message: 'Sorry, but something went wrong while adding the job.'
+    message: 'Sorry, but something went wrong while adding the job skill.'
 }
 ```
 
@@ -2632,7 +2615,7 @@ _example:_
 
 ### **Update a Job Skill by company ID**
 
-_Method Url:_ `/api/jobs/:id`
+_Method Url:_ `/api/job-skills/:id`
 
 _HTTP method:_ **[PUT]**
 
@@ -2645,16 +2628,16 @@ _HTTP method:_ **[PUT]**
 
 #### Parameters
 
-| name | type    | required | description          |
-| ---- | ------- | -------- | -------------------- |
-| id   | Integer | Yes      | ID of a specific job |
+| name | type    | required | description                |
+| ---- | ------- | -------- | -------------------------- |
+| id   | Integer | Yes      | ID of a specific job skill |
 
 #### Body
 
 | name                     | type    | required | description                            |
 | ------------------------ | ------- | -------- | -------------------------------------- |
-| `companyId`              | Integer | Yes      | Must match a user's id in the database |
-| `jobName`                | String  | Yes      | Cannot be an empty field               |
+| `jobId`                  | Integer | Yes      | Must match a user's id in the database |
+| `jobSkill`               | String  | Yes      | Cannot be an empty field               |
 | `jobDescription`         | String  | Yes      | Cannot be an empty field               |
 | `jobExperienceRequired`  | String  | Yes      | Cannot be an empty field               |
 | `jobExperiencePreferred` | String  | Yes      | Cannot be an empty field               |
@@ -2664,13 +2647,8 @@ _example:_
 
 ```
 {
-        "id": 1,
-        "companyId": 1,
-        "jobName": "Software Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
+  "jobId": 1,
+  "jobSkill": "This was updated 2"
 }
 ```
 
@@ -2682,16 +2660,9 @@ _example:_
 
 ```
 {
-    "job": {
-        "id": 1,
-        "companyId": 1,
-        "jobName": "Software Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
-    },
-    "jobSkills": []
+    "id": 1,
+    "jobId": 1,
+    "jobSkill": "This was updated 2"
 }
 ```
 
@@ -2719,7 +2690,7 @@ _example:_
 
 ### **Delete a Job Skill by company ID**
 
-_Method Url:_ `/api/jobs/:id`
+_Method Url:_ `/api/job-skills/:id`
 
 _HTTP method:_ **[DELETE]**
 
@@ -2732,9 +2703,9 @@ _HTTP method:_ **[DELETE]**
 
 #### Parameters
 
-| name | type    | required | description              |
-| ---- | ------- | -------- | ------------------------ |
-| id   | Integer | Yes      | ID of a specific company |
+| name | type    | required | description                |
+| ---- | ------- | -------- | -------------------------- |
+| id   | Integer | Yes      | ID of a specific job skill |
 
 #### Response
 
@@ -2744,7 +2715,7 @@ _HTTP method:_ **[DELETE]**
 
 ```
 {
-  "message": "The job was deleted from the database."
+  "message": "The job skill has been successfully deleted."
 }
 ```
 
@@ -2754,7 +2725,7 @@ _HTTP method:_ **[DELETE]**
 
 ```
 {
-  "message": 'The job could not be found.'
+  "message": 'The job skill could not be found.'
 }
 ```
 
@@ -2764,6 +2735,6 @@ _HTTP method:_ **[DELETE]**
 
 ```
 {
-  "message": "Sorry, but something went wrong while deleting the job."
+  "message": "Sorry, but something went wrong while deleting the job skill."
 }
 ```
