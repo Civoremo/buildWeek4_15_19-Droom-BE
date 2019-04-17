@@ -1829,7 +1829,7 @@ _example:_
 ```
 {
     "userId": 1,
-    "companies": {
+    "company": {
         "companyName": "Apple",
         "companyPicture": "",
         "companyDescription": "An About me for the company",
@@ -1849,7 +1849,7 @@ _example:_
 
 ```
 {
-    "companies": {
+    "company": {
         "companyName": "Apple",
         "companyPicture": "url",
         "companyDescription": "An About me for the company",
