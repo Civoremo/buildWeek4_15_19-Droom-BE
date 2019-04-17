@@ -1,7 +1,8 @@
 module.exports = {
 	companyValidation,
 	updateCompanyValidation,
-	jobValidation
+	jobValidation,
+	authValidation
 };
 
 function companyValidation(req, res, next) {
@@ -210,6 +211,19 @@ function updateCompanyValidation(req, res, next) {
 	if (!zipcode) {
 		return res.status(400).json({
 			message: 'Please provide a zip code for this company.'
+		});
+	}
+
+	next();
+}
+
+function authValidation(req, res, next) {
+	const { email, password } = req.body;
+
+	// body validation
+	if (!email || !password) {
+		return res.status(400).json({
+			message: 'Please make sure all fields are provided'
 		});
 	}
 
