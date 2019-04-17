@@ -39,12 +39,12 @@ router.get('/:id', async (req, res) => {
 });
 
 router.post('/', companyValidation, async (req, res) => {
-	const { userId, companies } = req.body;
+	const { userId, company } = req.body;
 
 	try {
-		const newCompany = await Companies.add(userId, companies);
+		const newCompany = await Companies.add(userId, company);
 		const message = `${
-			companies.companyName
+			company.companyName
 		} has successfully been added.`;
 
 		res.status(201).json({ message, companies: newCompany });

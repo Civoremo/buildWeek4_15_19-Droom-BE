@@ -17,7 +17,7 @@ module.exports = {
 };
 
 function companyValidation(req, res, next) {
-	const { userId, companies } = req.body;
+	const { userId, company } = req.body;
 
 	const {
 		companyName,
@@ -26,7 +26,7 @@ function companyValidation(req, res, next) {
 		state,
 		city,
 		zipcode
-	} = companies;
+	} = company;
 
 	if (!userId) {
 		return res.status(400).json({
