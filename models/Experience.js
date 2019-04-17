@@ -3,8 +3,10 @@ const db = require('../database/dbConfig');
 module.exports = {
 	add,
 	find,
+	findById,
 	update,
-	remove
+	remove,
+	findSeeker
 };
 
 // Add experience to seeker profile
@@ -13,8 +15,8 @@ async function add({ userId, seekerExperience }) {
 	seekerId = id;
 
 	// add seekerId prop to experience object
-	const updatedExperience = seekerExperience.map(edu => {
-		return { seekerId, ...edu };
+	const updatedExperience = seekerExperience.map(exp => {
+		return { seekerId, ...exp };
 	});
 
 	// add experience to db
@@ -32,6 +34,12 @@ async function find(userId) {
 	seekerId = id;
 
 	return db('experience').where({ seekerId });
+}
+
+function findById(id) {
+	return db('experience')
+		.where({ id })
+		.first();
 }
 
 async function update(id, experience) {
@@ -57,5 +65,6 @@ function findSeeker(id) {
 	return db('seekers')
 		.where({ userId: id })
 		.select('id')
-		.first();
+		.first()
+		.returning('id');
 }

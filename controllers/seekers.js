@@ -1,8 +1,13 @@
 const router = require('express').Router();
 const Seekers = require('../models/Seekers');
 
+const {
+	seekerValidation,
+	updateSeekerValidation
+} = require('../middleware/validation');
+
 // Create seeker profile
-router.post('/', async (req, res) => {
+router.post('/', seekerValidation, async (req, res) => {
 	try {
 		const profile = await Seekers.add(req.body);
 		res.status(201).json(profile);
@@ -20,11 +25,17 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
 	try {
 		const profile = await Seekers.findById(req.params.id);
+
+		if (!profile)
+			return res.status(404).json({
+				message: "Sorry, but that profile doesn't exist"
+			});
+
 		res.status(200).json(profile);
 	} catch (err) {
 		res.status(500).json({
 			message:
-				'Sorry, but something went wrong while fetching'
+				'Sorry, but something went wrong while getting that profile'
 		});
 
 		throw new Error(err);
@@ -32,8 +43,15 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update seeker profile
-router.put('/:id', async (req, res) => {
+router.put('/:id', updateSeekerValidation, async (req, res) => {
 	try {
+		const profile = await Seekers.findById(req.params.id);
+
+		if (!profile)
+			return res.status(404).json({
+				message: "Sorry, but that profile doesn't exist"
+			});
+
 		const updatedProfile = await Seekers.update(
 			req.params.id,
 			req.body
@@ -53,8 +71,17 @@ router.put('/:id', async (req, res) => {
 // Delete seeker profile
 router.delete('/:id', async (req, res) => {
 	try {
-		const deletedProfile = await Seekers.remove(req.params.id);
-		res.status(200).json(deletedProfile);
+		const profile = await Seekers.findById(req.params.id);
+
+		if (!profile)
+			return res.status(404).json({
+				message: "Sorry, but that profile doesn't exist"
+			});
+
+		await Seekers.remove(req.params.id);
+		res.status(200).json({
+			message: 'Profile successfully deleted'
+		});
 	} catch (err) {
 		res.status(500).json({
 			message:

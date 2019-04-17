@@ -10,15 +10,15 @@ exports.up = function(knex) {
 			.onDelete('CASCADE')
 			.onUpdate('CASCADE');
 
-		tbl.string('eduSchool').notNullable();
+		tbl.text('eduSchool').notNullable();
 
-		tbl.string('eduCredential').notNullable();
+		tbl.text('eduCredential').notNullable();
 
-		tbl.string('eduDescription').notNullable();
+		tbl.text('eduDescription').notNullable();
 
-		tbl.string('eduStart').notNullable();
+		tbl.string('eduStart', 128).notNullable();
 
-		tbl.string('eduEnd').notNullable();
+		tbl.string('eduEnd', 128).notNullable();
 	});
 };
 

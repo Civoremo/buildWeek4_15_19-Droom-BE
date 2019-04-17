@@ -3,14 +3,21 @@ const db = require('../database/dbConfig');
 module.exports = {
 	add,
 	find,
+	findById,
 	update,
-	remove
+	remove,
+	findSeeker
 };
 
 // Add education to seeker profile
 async function add({ userId, seekerEducation }) {
-	let { id } = await findSeeker(userId);
-	seekerId = id;
+	let id = db('seekers')
+		.where({ userId: userId })
+		.select('id')
+		.first()
+		.returning('id');
+
+	let seekerId = id;
 
 	// add seekerId prop to education object
 	const updatedEducation = seekerEducation.map(edu => {
@@ -18,9 +25,7 @@ async function add({ userId, seekerEducation }) {
 	});
 
 	// add education to db
-	await db('education')
-		.insert(updatedEducation)
-		.returning('id');
+	await db('education').insert(updatedEducation);
 
 	// return all education related to seeker profile
 	return db('education').where({ seekerId });
@@ -32,6 +37,12 @@ async function find(userId) {
 	seekerId = id;
 
 	return db('education').where({ seekerId });
+}
+
+async function findById(id) {
+	return db('education')
+		.where({ id })
+		.first();
 }
 
 async function update(id, education) {
@@ -57,5 +68,6 @@ function findSeeker(id) {
 	return db('seekers')
 		.where({ userId: id })
 		.select('id')
-		.first();
+		.first()
+		.returning('id');
 }

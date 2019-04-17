@@ -2,11 +2,20 @@ module.exports = {
 	companyValidation,
 	updateCompanyValidation,
 	jobValidation,
-	authValidation
+	authValidation,
+	seekerValidation,
+	updateSeekerValidation,
+	educationValidation,
+	updateEducationValidation,
+	experienceValidation,
+	updateExperienceValidation,
+	skillsValidation,
+	updateSkillsValidation
 };
 
 function companyValidation(req, res, next) {
 	const { userId, company } = req.body;
+
 	const {
 		companyName,
 		companyDescription,
@@ -15,6 +24,7 @@ function companyValidation(req, res, next) {
 		city,
 		zipcode
 	} = company;
+
 	if (!userId) {
 		return res.status(400).json({
 			message: 'Please provide a user id for this company.'
@@ -172,6 +182,7 @@ function updateCompanyValidation(req, res, next) {
 		city,
 		zipcode
 	} = req.body;
+
 	if (!userId) {
 		return res.status(400).json({
 			message: 'Please provide a user id for this company.'
@@ -226,6 +237,370 @@ function authValidation(req, res, next) {
 			message: 'Please make sure all fields are provided'
 		});
 	}
+
+	next();
+}
+
+function seekerValidation(req, res, next) {
+	const { userId, seeker } = req.body;
+
+	const {
+		firstName,
+		lastName,
+		month,
+		day,
+		year,
+		country,
+		state,
+		city,
+		zipcode
+	} = seeker;
+
+	if (!userId) {
+		return res.status(400).json({
+			message: 'Please provide a user id'
+		});
+	}
+
+	if (!firstName) {
+		return res.status(400).json({
+			message: 'Please provide a first name'
+		});
+	}
+
+	if (!lastName) {
+		return res.status(400).json({
+			message: 'Please provide a last name'
+		});
+	}
+
+	if (!month) {
+		return res.status(400).json({
+			message: 'Please provide a birth month'
+		});
+	}
+
+	if (!day) {
+		return res.status(400).json({
+			message: 'Please provide a birthday'
+		});
+	}
+
+	if (!year) {
+		return res.status(400).json({
+			message: 'Please provide a birth year'
+		});
+	}
+
+	if (!country) {
+		return res.status(400).json({
+			message: 'Please provide a country'
+		});
+	}
+
+	if (!state) {
+		return res.status(400).json({
+			message: 'Please provide a state'
+		});
+	}
+
+	if (!city) {
+		return res.status(400).json({
+			message: 'Please provide a city'
+		});
+	}
+
+	if (!zipcode) {
+		return res.status(400).json({
+			message: 'Please provide a zip code'
+		});
+	}
+
+	next();
+}
+
+function updateSeekerValidation(req, res, next) {
+	const {
+		firstName,
+		lastName,
+		month,
+		day,
+		year,
+		country,
+		state,
+		city,
+		zipcode
+	} = req.body;
+
+	if (!firstName) {
+		return res.status(400).json({
+			message: 'Please provide a first name'
+		});
+	}
+
+	if (!lastName) {
+		return res.status(400).json({
+			message: 'Please provide a last name'
+		});
+	}
+
+	if (!month) {
+		return res.status(400).json({
+			message: 'Please provide a birth month'
+		});
+	}
+
+	if (!day) {
+		return res.status(400).json({
+			message: 'Please provide a birthday'
+		});
+	}
+
+	if (!year) {
+		return res.status(400).json({
+			message: 'Please provide a birth year'
+		});
+	}
+
+	if (!country) {
+		return res.status(400).json({
+			message: 'Please provide a country'
+		});
+	}
+
+	if (!state) {
+		return res.status(400).json({
+			message: 'Please provide a state'
+		});
+	}
+
+	if (!city) {
+		return res.status(400).json({
+			message: 'Please provide a city'
+		});
+	}
+
+	if (!zipcode) {
+		return res.status(400).json({
+			message: 'Please provide a zip code'
+		});
+	}
+
+	next();
+}
+
+function educationValidation(req, res, next) {
+	const { userId, seekerEducation } = req.body;
+
+	seekerEducation.map(edu => {
+		const {
+			eduSchool,
+			eduCredential,
+			eduDescription,
+			eduStart,
+			eduEnd
+		} = edu;
+
+		if (!userId) {
+			return res.status(400).json({
+				message: 'Please provide a user id'
+			});
+		}
+
+		if (!eduSchool) {
+			return res.status(400).json({
+				message: 'Please provide a school'
+			});
+		}
+
+		if (!eduCredential) {
+			return res.status(400).json({
+				message: 'Please provide a credential'
+			});
+		}
+
+		if (!eduDescription) {
+			return res.status(400).json({
+				message: 'Please provide a description'
+			});
+		}
+
+		if (!eduStart) {
+			return res.status(400).json({
+				message: 'Please provide a start date'
+			});
+		}
+
+		if (!eduEnd) {
+			return res.status(400).json({
+				message: 'Please provide a end date'
+			});
+		}
+	});
+
+	next();
+}
+
+function updateEducationValidation(req, res, next) {
+	const {
+		eduSchool,
+		eduCredential,
+		eduDescription,
+		eduStart,
+		eduEnd
+	} = req.body;
+
+	if (!eduSchool) {
+		return res.status(400).json({
+			message: 'Please provide a school'
+		});
+	}
+
+	if (!eduCredential) {
+		return res.status(400).json({
+			message: 'Please provide a credential'
+		});
+	}
+
+	if (!eduDescription) {
+		return res.status(400).json({
+			message: 'Please provide a description'
+		});
+	}
+
+	if (!eduStart) {
+		return res.status(400).json({
+			message: 'Please provide a start date'
+		});
+	}
+
+	if (!eduEnd) {
+		return res.status(400).json({
+			message: 'Please provide a end date'
+		});
+	}
+
+	next();
+}
+
+function experienceValidation(req, res, next) {
+	const { userId, seekerExperience } = req.body;
+
+	seekerExperience.map(exp => {
+		const {
+			jobTitle,
+			jobCompany,
+			jobDescription,
+			jobStart,
+			jobEnd
+		} = exp;
+
+		if (!userId) {
+			return res.status(400).json({
+				message: 'Please provide a user id'
+			});
+		}
+
+		if (!jobTitle) {
+			return res.status(400).json({
+				message: 'Please provide a job title'
+			});
+		}
+
+		if (!jobCompany) {
+			return res.status(400).json({
+				message: 'Please provide a company'
+			});
+		}
+
+		if (!jobDescription) {
+			return res.status(400).json({
+				message: 'Please provide a job description'
+			});
+		}
+
+		if (!jobStart) {
+			return res.status(400).json({
+				message: 'Please provide a start date'
+			});
+		}
+
+		if (!jobEnd) {
+			return res.status(400).json({
+				message: 'Please provide a end date'
+			});
+		}
+	});
+
+	next();
+}
+
+function updateExperienceValidation(req, res, next) {
+	const {
+		jobTitle,
+		jobCompany,
+		jobDescription,
+		jobStart,
+		jobEnd
+	} = req.body;
+
+	if (!jobTitle) {
+		return res.status(400).json({
+			message: 'Please provide a job title'
+		});
+	}
+
+	if (!jobCompany) {
+		return res.status(400).json({
+			message: 'Please provide a company'
+		});
+	}
+
+	if (!jobDescription) {
+		return res.status(400).json({
+			message: 'Please provide a job description'
+		});
+	}
+
+	if (!jobStart) {
+		return res.status(400).json({
+			message: 'Please provide a start date'
+		});
+	}
+
+	if (!jobEnd) {
+		return res.status(400).json({
+			message: 'Please provide a end date'
+		});
+	}
+
+	next();
+}
+
+function skillsValidation(req, res, next) {
+	const { userId, seekerSkills } = req.body.skills;
+
+	if (!userId) {
+		return res.status(400).json({
+			message: 'Please provide a user id'
+		});
+	}
+
+	if (!seekerSkills.length)
+		return res.status(400).json({
+			message: 'Please provide some skills'
+		});
+
+	next();
+}
+
+function updateSkillsValidation(req, res, next) {
+	const { seekerSkill } = req.body;
+
+	if (!seekerSkill)
+		return res.status(400).json({
+			message: 'Please provide a skill'
+		});
 
 	next();
 }

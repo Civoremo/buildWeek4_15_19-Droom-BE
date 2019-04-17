@@ -1,9 +1,22 @@
 const router = require('express').Router();
 const Education = require('../models/Education');
 
+const {
+	educationValidation,
+	updateEducationValidation
+} = require('../middleware/validation');
+
 // Create job seeker education
-router.post('/', async (req, res) => {
+router.post('/', educationValidation, async (req, res) => {
 	try {
+		const profile = await Education.findSeeker(req.body.userId);
+
+		if (!profile)
+			return res.status(404).json({
+				message:
+					"Sorry, but that user doesn't have a profile"
+			});
+
 		const education = await Education.add(req.body);
 		res.status(201).json(education);
 	} catch (err) {
@@ -19,7 +32,21 @@ router.post('/', async (req, res) => {
 // Get job seeker education
 router.get('/:id', async (req, res) => {
 	try {
+		const profile = await Education.findSeeker(req.params.id);
+
+		if (!profile)
+			return res.status(404).json({
+				message:
+					"Sorry, but that user doesn't have a profile"
+			});
+
 		const education = await Education.find(req.params.id);
+		if (!education.length)
+			return res.status(404).json({
+				message:
+					"Sorry, but that profile doesn't have any education"
+			});
+
 		res.status(200).json(education);
 	} catch (err) {
 		res.status(500).json({
@@ -32,8 +59,16 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update a single education object by education id
-router.put('/:id', async (req, res) => {
+router.put('/:id', updateEducationValidation, async (req, res) => {
 	try {
+		const education = await Education.findById(req.params.id);
+
+		if (!education)
+			return res.status(404).json({
+				message:
+					"Sorry, but that education doesn't exist"
+			});
+
 		const updatedEducation = await Education.update(
 			req.params.id,
 			req.body
@@ -52,8 +87,18 @@ router.put('/:id', async (req, res) => {
 // Delete a single education object by education id
 router.delete('/:id', async (req, res) => {
 	try {
-		const deletedEducation = await Education.remove(req.params.id);
-		res.status(200).json(deletedEducation);
+		const education = await Education.findById(req.params.id);
+
+		if (!education)
+			return res.status(404).json({
+				message:
+					"Sorry, but that education doesn't exist"
+			});
+
+		await Education.remove(req.params.id);
+		res.status(200).json({
+			message: 'Education successfully deleted'
+		});
 	} catch (err) {
 		res.status(500).json({
 			message:
