@@ -3,43 +3,43 @@ const bcrypt = require('bcryptjs');
 exports.seed = function(knex, Promise) {
 	return knex('users').insert([
 		{
-			email: 'microsoft@gmail.com',
+			email: 'microsoft@microsoft.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
-			email: 'apple@gmail.com',
+			email: 'apple@apple.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
-			email: 'github@gmail.com',
+			email: 'github@github.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
-			email: 'nexient@gmail.com',
+			email: 'nexient@nexient.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
-			email: 'netflix@gmail.com',
+			email: 'netflix@netflix.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
-			email: 'twitter@gmail.com',
+			email: 'twitter@twitter.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
-			email: 'spotify@gmail.com',
+			email: 'spotify@spotify.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
-			email: 'facebook@gmail.com',
+			email: 'facebook@facebook.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
-			email: 'reddit@gmail.com',
+			email: 'reddit@reddit.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
-			email: 'google@gmail.com',
+			email: 'google@google.com',
 			password: bcrypt.hashSync('password', 10)
 		},
 		{
