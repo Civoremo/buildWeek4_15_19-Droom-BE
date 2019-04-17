@@ -13,6 +13,7 @@ const skillsController = require('./controllers/skills');
 const comController = require('./controllers/companies');
 const jobsController = require('./controllers/jobs');
 const jobSkillsController = require('./controllers/jobSKills');
+const matchesController = require('./controllers/matches');
 
 // initializations
 const server = express();
@@ -32,6 +33,7 @@ server.use('/api/skills', skillsController);
 server.use('/api/companies', comController);
 server.use('/api/jobs', jobsController);
 server.use('/api/job-skills', jobSkillsController);
+server.use('/api/matches', matchesController);
 
 // error reporting middleware (Must be after all requests)
 errorMiddleware(server);
