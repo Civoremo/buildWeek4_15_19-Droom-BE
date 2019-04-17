@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Companies = require('../models/Companies.js');
 const Jobs = require('../models/Jobs.js');
 const Skills = require('../models/JobSkills');
+
 const {
 	companyValidation,
 	updateCompanyValidation
@@ -47,6 +48,7 @@ router.post('/', companyValidation, async (req, res) => {
 		const message = `${
 			company.companyName
 		} has successfully been added.`;
+
 		res.status(201).json({ message, newCompany });
 	} catch (err) {
 		res.status(500).json({

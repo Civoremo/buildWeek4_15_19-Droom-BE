@@ -1,9 +1,22 @@
 const router = require('express').Router();
 const Experience = require('../models/Experience');
 
+const {
+	experienceValidation,
+	updateExperienceValidation
+} = require('../middleware/validation');
+
 // Add seeker experience
-router.post('/', async (req, res) => {
+router.post('/', experienceValidation, async (req, res) => {
 	try {
+		const profile = await Experience.findSeeker(req.body.userId);
+
+		if (!profile)
+			return res.status(404).json({
+				message:
+					"Sorry, but that user doesn't have a profile"
+			});
+
 		const experience = await Experience.add(req.body);
 		res.status(201).json(experience);
 	} catch (err) {
@@ -19,7 +32,22 @@ router.post('/', async (req, res) => {
 // Get all seeker experiences
 router.get('/:id', async (req, res) => {
 	try {
+		const profile = await Experience.findSeeker(req.params.id);
+
+		if (!profile)
+			return res.status(404).json({
+				message:
+					"Sorry, but that user doesn't have a profile"
+			});
+
 		const experience = await Experience.find(req.params.id);
+
+		if (!experience.length)
+			return res.status(404).json({
+				message:
+					"Sorry, but that profile doesn't have any experience"
+			});
+
 		res.status(200).json(experience);
 	} catch (err) {
 		res.status(500).json({
@@ -32,8 +60,16 @@ router.get('/:id', async (req, res) => {
 });
 
 // Update individual experience
-router.put('/:id', async (req, res) => {
+router.put('/:id', updateExperienceValidation, async (req, res) => {
 	try {
+		const experience = await Experience.findById(req.params.id);
+
+		if (!experience)
+			return res.status(404).json({
+				message:
+					"Sorry, but that experience doesn't exist"
+			});
+
 		const updatedExperience = await Experience.update(
 			req.params.id,
 			req.body
@@ -52,10 +88,18 @@ router.put('/:id', async (req, res) => {
 // Delete individual experience
 router.delete('/:id', async (req, res) => {
 	try {
-		const deletedExperience = await Experience.remove(
-			req.params.id
-		);
-		res.status(200).json(deletedExperience);
+		const experience = await Experience.findById(req.params.id);
+
+		if (!experience)
+			return res.status(404).json({
+				message:
+					"Sorry, but that experience doesn't exist"
+			});
+
+		await Experience.remove(req.params.id);
+		res.status(200).json({
+			message: 'Experience successfully deleted'
+		});
 	} catch (err) {
 		res.status(500).json({
 			message:
