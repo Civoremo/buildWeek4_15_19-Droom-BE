@@ -15,5 +15,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-	return knex.schema.dropTable('jobs_skills');
+	return knex.schema.dropTableIfExists('jobs_skills');
 };

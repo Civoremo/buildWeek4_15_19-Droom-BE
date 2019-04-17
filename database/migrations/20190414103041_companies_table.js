@@ -27,5 +27,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-	return knex.schema.dropTable('companies');
+	return knex.schema.dropTableIfExists('companies');
 };
