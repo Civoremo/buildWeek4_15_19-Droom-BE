@@ -3,8 +3,10 @@ const db = require('../database/dbConfig');
 module.exports = {
 	add,
 	find,
+	findById,
 	update,
-	remove
+	remove,
+	findSeeker
 };
 
 async function add({ userId, seekerSkills }) {
@@ -43,6 +45,12 @@ async function find(userId) {
 	return db('seeker_skills').where({ seekerId });
 }
 
+function findById(id) {
+	return db('seeker_skills')
+		.where({ id })
+		.first();
+}
+
 async function update(id, skill) {
 	await db('seeker_skills')
 		.where({ id })
@@ -59,4 +67,13 @@ async function remove(id) {
 		.del();
 
 	return parseInt(id, 10);
+}
+
+// Find seekerId by userId
+function findSeeker(id) {
+	return db('seekers')
+		.where({ userId: id })
+		.select('id')
+		.first()
+		.returning('id');
 }
