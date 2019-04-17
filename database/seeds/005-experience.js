@@ -1,5 +1,5 @@
 exports.seed = function(knex, Promise) {
-	return knex('education').insert([
+	return knex('experience').insert([
 		{
 			seekerId: 1,
 			jobTitle: 'Junior Software Engineer',
