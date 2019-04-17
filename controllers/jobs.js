@@ -2,15 +2,16 @@ const router = require('express').Router();
 const Companies = require('../models/Companies.js');
 const Jobs = require('../models/Jobs.js');
 const {
+	getValidation,
 	jobValidation,
-	updateCompanyValidation
+	updateJobValidation
 } = require('../middleware/validation');
 
 router.get('/', async (req, res) => {
 	try {
 		const jobs = await Jobs.find();
-		//const jobs = await Jobs.findBy(companyId);
-		res.status(200).json(jobs);
+		const message = 'The jobs were found in the database.';
+		res.status(200).json({ message, jobs });
 	} catch (err) {
 		res.status(500).json({
 			message:
@@ -25,8 +26,16 @@ router.get('/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
 		const jobs = await Jobs.findById(id);
-		//const jobs = await Jobs.findBy(companyId);
-		res.status(200).json(jobs);
+		const message = 'The job was retrieved successfully.';
+		if (!jobs.length) {
+			res.status(404).json({
+				jobs: [],
+				message:
+					'The job could not be found in the database.'
+			});
+		} else {
+			res.status(200).json({ message, jobs });
+		}
 	} catch (err) {
 		res.status(500).json({
 			message:
@@ -39,12 +48,12 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', jobValidation, async (req, res) => {
 	const { userId, job, jobSkills } = req.body;
-	//console.log(userId, job);
+
 	try {
 		const newJob = await Jobs.add(userId, job, jobSkills);
 
 		const message = `${job.jobName} has successfully been added.`;
-		res.status(201).json({ message, newJob });
+		res.status(201).json({ message, jobs: newJob });
 	} catch (error) {
 		res.status(500).json({
 			err,
@@ -61,11 +70,11 @@ router.delete('/:id', async (req, res) => {
 
 	try {
 		const count = await Jobs.remove(id);
-		console.log(count);
+
 		if (count > 0) {
 			res.status(204).json({
 				message:
-					'The job has been successfully deleted.'
+					'The job was deleted from the database.'
 			});
 		} else {
 			res.status(404).json({
@@ -88,12 +97,13 @@ router.put('/:id', async (req, res) => {
 		const updated = req.body;
 
 		const updatedJob = await Jobs.update(id, updated);
-		console.log(updatedJob);
+		const message = 'The job was updated successfully';
 		if (updatedJob.id) {
-			res.status(200).json(updatedJob);
+			res.status(200).json({ message, jobs: updatedJob });
 		} else {
-			res.status(200).json({
-				message: 'Job could not be found.'
+			res.status(404).json({
+				message:
+					'The job could not be found in the database.'
 			});
 		}
 	} catch (error) {

@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const Companies = require('../models/Companies.js');
 const Skills = require('../models/JobSkills.js');
 
 router.get('/', async (req, res) => {
 	try {
 		const skills = await Skills.find();
-		res.status(200).json(skills);
+		const message = 'The job skills were found in the database.';
+		res.status(200).json({ message, skills });
 	} catch (err) {
 		res.status(500).json({
 			message:

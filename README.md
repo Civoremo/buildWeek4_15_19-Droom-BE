@@ -86,6 +86,12 @@ npm run server
      - [Add Job](##add-job)
      - [Update Job](##update-job)
      - [Delete Job](##delete-job)
+ - [Job Skills Routes](#job-skills-routes)
+     - [Get Job Skills](##get-job-skills)
+     - [Get Job Skill](##get-job-skill)
+     - [Add Job Skill](##add-job-skill)
+     - [Update Job Skill](##update-job-skill)
+     - [Delete Job Skill](##update-job-skill)
 
 # **SUMMARY TABLE OF API ENDPOINTS**
 
@@ -1639,7 +1645,7 @@ _HTTP method:_ **[GET]**
 
 ##### 200 (OK)
 
-> If companies are found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+> If companies are found in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
 {
@@ -1647,15 +1653,25 @@ _HTTP method:_ **[GET]**
   "companies": [
     {
         "id": 1,
-        "companyName": "",
+        "userId": 1,
+        "companyName": "Apple",
         "companyPicture": "",
-        "companyDescription": "",
-        "location": {
-            "country": "",
-            "state": "",
-            "city": "",
-            "zipcode": "",
-        "jobs": []
+        "companyDescription": "An About me for the company",
+        "country": "South Korea",
+        "state": "NA",
+        "city": "Seoul",
+        "zipcode": 4000
+    },
+    {
+        "id": 2,
+        "userId": 2,
+        "companyName": "Apple 2",
+        "companyPicture": "",
+        "companyDescription": "An About me for the company",
+        "country": "South Korea",
+        "state": "NA",
+        "city": "Seoul",
+        "zipcode": 4000
     }
   ]
 }
@@ -1678,7 +1694,7 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-    message: 'Sorry, but something went wrong while retrieving the jobs.'
+    message: 'Sorry, but something went wrong while retrieving the list of companies'
 }
 ```
 
@@ -1707,22 +1723,54 @@ _HTTP method:_ **[GET]**
 
 ##### 200 (OK)
 
-> If a company with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+> If a company with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
 {
-  "message": "The company was retrieved successfully.",
-  "company": {
+    "message": "The company was retrieved successfully.",
+    "company": {
         "id": 1,
-        "companyName": "",
+        "userId": 1,
+        "companyName": "Apple 2",
         "companyPicture": "",
-        "companyDescription": "",
-        "location": {
-            "country": "",
-            "state": "",
-            "city": "",
-            "zipcode": "",
-        "jobs": []
+        "companyDescription": "An About me for the company",
+        "country": "South Korea",
+        "state": "NA",
+        "city": "Seoul",
+        "zipcode": 4000,
+        "jobs": [
+            {
+                "id": 1,
+                "companyId": 1,
+                "jobName": "Software Engineer",
+                "jobDescription": "An About me for the job",
+                "jobExperienceRequired": "jobExperienceRequired",
+                "jobExperiencePreferred": "jobExperiencePreferred",
+                "jobApplyBy": "jobApplyBy",
+                "jobSkills": [
+                    {
+                        "id": 1,
+                        "jobId": 1,
+                        "jobSkill": "Reactjs"
+                    },
+                    {
+                        "id": 3,
+                        "jobId": 1,
+                        "jobSkill": "Expressjs updated"
+                    }
+                ]
+            },
+            {
+                "id": 2,
+                "companyId": 1,
+                "jobName": "Front-end Engineer",
+                "jobDescription": "An About me for the job",
+                "jobExperienceRequired": "jobExperienceRequired",
+                "jobExperiencePreferred": "jobExperiencePreferred",
+                "jobApplyBy": "jobApplyBy",
+                "jobSkills": []
+            }
+        ]
     }
 }
 ```
@@ -1733,7 +1781,7 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-  "company": [],
+  "companies": [],
   "message": "The company could not be found in the database."
 }
 ```
@@ -1780,9 +1828,9 @@ _example:_
 
 ```
 {
-  "userId": 1,
-    "company": {
-        "companyName": "Apple 2",
+    "userId": 1,
+    "companies": {
+        "companyName": "Apple",
         "companyPicture": "",
         "companyDescription": "An About me for the company",
         "country": "United States of America",
@@ -1801,7 +1849,7 @@ _example:_
 
 ```
 {
-    "company": {
+    "companies": {
         "companyName": "Apple",
         "companyPicture": "url",
         "companyDescription": "An About me for the company",
@@ -1876,7 +1924,7 @@ _example:_
 {
   "userId": 1,
   "companyName": "Apple Inc",
-  "companyPicture": "url string (exclude for MVP)",
+  "companyPicture": "url string",
   "companyDescription": "An About me for the company",
   "country": "United States of America",
   "state": "California",
@@ -1893,24 +1941,21 @@ _example:_
 
 ```
 {
-    "company": {
-        "companyName": "Apple updated",
-        "companyPicture": "url",
-        "companyDescription": "An About me for the company",
-        "location": {
-            "country": "United States of America",
-            "state": "California",
-            "city": "Cupertino",
-            "zipcode": "40000"
-        }
-    },
-    "jobs": []
+    "id": 1,
+    "userId": 1,
+    "companyName": "Apple Inc",
+    "companyPicture": "",
+    "companyDescription": "An About me for the company",
+    "country": "South Korea",
+    "state": "NA",
+    "city": "Seoul",
+    "zipcode": 4000
 }
 ```
 
 #### 406 (Not Acceptable)
 
-> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `406` and a body as below.
+> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `400` and a body as below.
 
 ```
 {
@@ -1928,7 +1973,7 @@ _example:_
 }
 ```
 
-## DELETE COMPANY
+## **DELETE COMPANY**
 
 ### **Update a Company by user ID**
 
@@ -1957,7 +2002,7 @@ _HTTP method:_ **[DELETE]**
 
 ```
 {
-  "message": "The journal was deleted from the database."
+  "message": "The company has been successfully deleted."
 }
 ```
 
@@ -2002,7 +2047,7 @@ _HTTP method:_ **[GET]**
 
 ##### 200 (OK)
 
-> If jobs are found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+> If jobs are found in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
 {
@@ -2110,7 +2155,7 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-  "job": [],
+  "jobs": [],
   "message": "The job could not be found in the database."
 }
 ```
@@ -2155,13 +2200,15 @@ _example:_
 
 ```
 {
-        "id": 1,
-        "companyId": 1,
-        "jobName": "Software Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
+	"userId": 1,
+	"job": {
+		"jobName": "Back-end Engineer 11",
+		"jobDescription": "An About me for the job",
+		"jobExperienceRequired": "jobExperienceRequired",
+		"jobExperiencePreferred": "jobExperiencePreferred",
+		"jobApplyBy": "jobApplyBy"
+	},
+	"jobSkills": ["Skill4", "Skill5"]
 }
 ```
 
@@ -2173,14 +2220,19 @@ _example:_
 
 ```
 {
-    "job": {
-        "jobName": "Apple",
+    "message": "Back-end Engineer 11 has successfully been added.",
+    "newJob": {
+        "companyId": 10,
+        "jobName": "Back-end Engineer 11",
         "jobDescription": "An About me for the job",
         "jobExperienceRequired": "jobExperienceRequired",
         "jobExperiencePreferred": "jobExperiencePreferred",
         "jobApplyBy": "jobApplyBy",
-    },
-    "jobSkills": []
+        "jobSkills": [
+            "Skill4",
+            "Skill5"
+        ]
+    }
 }
 ```
 
@@ -2240,13 +2292,12 @@ _example:_
 
 ```
 {
-        "id": 1,
-        "companyId": 1,
-        "jobName": "Software Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
+  "companyId": 1,
+  "jobName": "Back-end Engineer updated",
+  "jobDescription": "An About me for the job",
+  "jobExperienceRequired": "jobExperienceRequired",
+  "jobExperiencePreferred": "jobExperiencePreferred",
+  "jobApplyBy": "jobApplyBy"
 }
 ```
 
@@ -2258,26 +2309,36 @@ _example:_
 
 ```
 {
-    "job": {
-        "id": 1,
+    "message": "The job was updated successfully",
+    "jobs": {
+        "id": 2,
         "companyId": 1,
-        "jobName": "Software Engineer",
+        "jobName": "Back-end Engineer updated",
         "jobDescription": "An About me for the job",
         "jobExperienceRequired": "jobExperienceRequired",
         "jobExperiencePreferred": "jobExperiencePreferred",
         "jobApplyBy": "jobApplyBy"
-    },
-    "jobSkills": []
+    }
 }
 ```
 
 #### 406 (Not Acceptable)
 
-> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `406` and a body as below.
+> If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `400` and a body as below.
 
 ```
 {
     message: 'Please submit a job with all of the required fields.'
+}
+```
+
+#### 404 (Not Found)
+
+> If the requested job does not exist, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+```
+{
+  "message": "The job could not be found in the database."
 }
 ```
 
@@ -2291,7 +2352,7 @@ _example:_
 }
 ```
 
-## DELETE JOB
+## **DELETE JOB**
 
 ### **Delete a Job by company ID**
 
@@ -2308,9 +2369,9 @@ _HTTP method:_ **[DELETE]**
 
 #### Parameters
 
-| name | type    | required | description              |
-| ---- | ------- | -------- | ------------------------ |
-| id   | Integer | Yes      | ID of a specific company |
+| name | type    | required | description          |
+| ---- | ------- | -------- | -------------------- |
+| id   | Integer | Yes      | ID of a specific job |
 
 #### Response
 
@@ -2423,9 +2484,9 @@ _HTTP method:_ **[GET]**
 }
 ```
 
-## **GET JOB**
+## **GET JOB SKILL**
 
-### **Get a job by ID**
+### **Get a job skill by ID**
 
 _Method Url:_ `/api/jobs/:id`
 
@@ -2488,9 +2549,9 @@ _HTTP method:_ **[GET]**
 }
 ```
 
-## **ADD JOB**
+## **ADD JOB SKILL**
 
-### **Add a job**
+### **Add a job skill**
 
 _Method Url:_ `/api/jobs`
 
@@ -2567,9 +2628,9 @@ _example:_
 }
 ```
 
-## **UPDATE JOB**
+## **UPDATE JOB SKILL**
 
-### **Update a Job by company ID**
+### **Update a Job Skill by company ID**
 
 _Method Url:_ `/api/jobs/:id`
 
@@ -2654,9 +2715,9 @@ _example:_
 }
 ```
 
-## DELETE JOB
+## **DELETE JOB SKILL**
 
-### **Delete a Job by company ID**
+### **Delete a Job Skill by company ID**
 
 _Method Url:_ `/api/jobs/:id`
 
