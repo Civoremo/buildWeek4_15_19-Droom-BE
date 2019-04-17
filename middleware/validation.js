@@ -7,7 +7,8 @@ module.exports = {
 	updateSeekerValidation,
 	educationValidation,
 	updateEducationValidation,
-	experienceValidation
+	experienceValidation,
+	updateExperienceValidation
 };
 
 function companyValidation(req, res, next) {
@@ -532,7 +533,7 @@ function experienceValidation(req, res, next) {
 	next();
 }
 
-function updateEducationValidation(req, res, next) {
+function updateExperienceValidation(req, res, next) {
 	const {
 		jobTitle,
 		jobCompany,
