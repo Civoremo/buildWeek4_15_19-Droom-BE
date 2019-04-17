@@ -63,7 +63,7 @@ npm run server
      - [Get Education](#get-education)
      - [Add Education](#add-education)
      - [Update Education](#update-education)
-     - [Delete Education](##delete-education)
+     - [Delete Education](#delete-education)
 - [Experience Routes](#experience-routes)
      - [Get Experience](#get-experience)
      - [Add Experience](#add-experience)
