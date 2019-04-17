@@ -5,6 +5,7 @@ module.exports = {
 	authValidation,
 	seekerValidation,
 	updateSeekerValidation,
+
 	educationValidation,
 	updateEducationValidation
 };
