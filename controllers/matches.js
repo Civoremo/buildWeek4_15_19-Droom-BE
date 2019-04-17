@@ -3,7 +3,8 @@ const Matches = require('../models/Matches');
 
 router.get('/:id', async (req, res) => {
 	try {
-		const matches = Matches.get(req.params.id);
+		const matches = await Matches.get(req.params.id);
+		console.log(matches);
 		res.status(200).json(matches);
 	} catch (err) {
 		res.status(500).json({
