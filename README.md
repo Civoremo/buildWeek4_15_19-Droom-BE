@@ -71,7 +71,7 @@ _example:_
 
 ```
 {
-    token: "eyJhbGciOiJIUzI1NiIsInR5cCI3IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xFXoX"
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI3IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xFXoX"
 }
 ```
 
@@ -81,7 +81,7 @@ _example:_
 
 ```
 {
-    message: 'Submit both an email and password when registering.'
+    "message": "Submit both an email and password when registering"
 }
 ```
 
@@ -91,7 +91,7 @@ _example:_
 
 ```
 {
-  "message": 'Sorry, but something went wrong while registering'
+  "message": "Sorry, but something went wrong while registering"
 }
 ```
 
@@ -145,7 +145,7 @@ _example:_
 
 ```
 {
-    message: 'Submit both an email and password when registering.'
+    "message": "Submit both an email and password when registering"
 }
 ```
 
@@ -155,7 +155,7 @@ _example:_
 
 ```
 {
-  message: 'Sorry, incorrect email or password'
+  message: "Sorry, incorrect email or password"
 }
 ```
 
@@ -165,7 +165,320 @@ _example:_
 
 ```
 {
-  "message": 'Sorry, but something went wrong while logging in'
+  "message": "Sorry, but something went wrong while logging in"
+}
+```
+
+# SEEKER ROUTES
+
+## **GET SEEKER**
+
+### **Get seeker profile by user id**
+
+_Method Url:_ `/api/seekers/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Response
+
+##### 200 (OK)
+
+> If the user profile is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+```
+{
+    "id": 1,
+    "userId": 1,
+    "firstName": "John",
+    "lastName": "Dough",
+    "profilePicture": "",
+    "month": 2,
+    "day": 4,
+    "year": 1994,
+    "country": "US",
+    "state": "California",
+    "city": "San Francisco",
+    "zipcode": 93552
+}
+```
+
+#### 404 (Not Found)
+
+> If the provided `userId` doesn't have a profile, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+```
+{
+    "message": "Sorry, but that profile doesn't exist"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    "message": "Sorry, but something went wrong while getting that profile"
+}
+```
+
+## **ADD SEEKER**
+
+### **Add a seeker**
+
+_Method Url:_ `/api/seekers`
+
+_HTTP method:_ **[POST]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Body
+
+| name             | type    | required | description                            |
+| ---------------- | ------- | -------- | -------------------------------------- |
+| `userId`         | Integer | Yes      | Must match a user's id in the database |
+| `firstName`      | String  | Yes      | Cannot be an empty field               |
+| `lastName`       | String  | Yes      | Cannot be an empty field               |
+| `profilePicture` | String  | No       | Can be an empty field                  |
+| `month`          | Integer | Yes      | Cannot be an empty field               |
+| `day`            | Integer | Yes      | Cannot be an empty field               |
+| `year`           | Integer | Yes      | Cannot be an empty field               |
+| `country`        | String  | Yes      | Cannot be an empty field               |
+| `state`          | String  | Yes      | Cannot be an empty field               |
+| `city`           | String  | Yes      | Cannot be an empty field               |
+| `zipcode`        | Integer | Yes      | Cannot be an empty field               |
+
+_example:_
+
+```
+{
+  "userId": 1,
+  "seeker": {
+    "firstName": "John",
+    "lastName": "Dough",
+    "profilePicture": "",
+    "month":2,
+    "day":4,
+    "year": 1994,
+    "country": "US",
+    "state": "California",
+    "city": "San Francisco",
+    "zipcode": 93552
+  }
+}
+```
+
+#### Response
+
+##### 201 (Created)
+
+> If you successfully create a seeker profile, the endpoint will return an HTTP response with a status code `201` and a body as below.
+
+```
+{
+    "id": 1,
+    "userId": 6,
+    "firstName": "John",
+    "lastName": "Dough",
+    "profilePicture": "",
+    "month": 2,
+    "day": 4,
+    "year": 1994,
+    "country": "US",
+    "state": "California",
+    "city": "San Francisco",
+    "zipcode": 93552
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+```
+{
+  "message": "Please provide a first name"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    "message": "Sorry, but something went wrong while creating that profile"
+}
+```
+
+## **UPDATE SEEKER**
+
+### **Update a seeker by user id**
+
+_Method Url:_ `/api/seekers/:id`
+
+_HTTP method:_ **[PUT]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description             |
+| ---- | ------- | -------- | ----------------------- |
+| id   | Integer | Yes      | ID of a specific seeker |
+
+#### Body
+
+| name             | type    | required | description              |
+| ---------------- | ------- | -------- | ------------------------ |
+| `firstName`      | String  | Yes      | Cannot be an empty field |
+| `lastName`       | String  | Yes      | Cannot be an empty field |
+| `profilePicture` | String  | No       | Can be an empty field    |
+| `month`          | Integer | Yes      | Cannot be an empty field |
+| `day`            | Integer | Yes      | Cannot be an empty field |
+| `year`           | Integer | Yes      | Cannot be an empty field |
+| `country`        | String  | Yes      | Cannot be an empty field |
+| `state`          | String  | Yes      | Cannot be an empty field |
+| `city`           | String  | Yes      | Cannot be an empty field |
+| `zipcode`        | Integer | Yes      | Cannot be an empty field |
+
+_example:_
+
+```
+{
+    "firstName": "John Updated",
+    "lastName": "Dough",
+    "profilePicture": "",
+    "month":2,
+    "day":4,
+    "year": 1994,
+    "country": "US",
+    "state": "California",
+    "city": "San Francisco",
+    "zipcode": 93552
+}
+```
+
+#### Response
+
+##### 200 (OK)
+
+> If a seeker with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+```
+{
+    "id": 1,
+    "userId": 1,
+    "firstName": "John Updated",
+    "lastName": "Dough",
+    "profilePicture": "",
+    "month": 2,
+    "day": 4,
+    "year": 1994,
+    "country": "US",
+    "state": "California",
+    "city": "San Francisco",
+    "zipcode": 93552
+}
+```
+
+#### 404 (Not Found)
+
+> If the seeker profile for the specified id can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+```
+{
+  "message": "Sorry, but that profile doesn't exist"
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+```
+{
+   "message": "Please provide a first name"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+    "message": "Sorry, but something went wrong while updating that profile"
+}
+```
+
+## DELETE SEEKER
+
+### **Delete a seeker by user id**
+
+_Method Url:_ `/api/seekers/:id`
+
+_HTTP method:_ **[DELETE]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description             |
+| ---- | ------- | -------- | ----------------------- |
+| id   | Integer | Yes      | ID of a specific seeker |
+
+#### Response
+
+##### 200 (OK)
+
+> If a seeker with the specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+```
+{
+  "message": "Profile successfully deleted"
+}
+```
+
+#### 404 (Not Found)
+
+> If the seeker profile for the specified id can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+```
+{
+  "message": "Sorry, but that profile doesn't exist"
+}
+```
+
+#### 500 (Bad Request)
+
+> If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+```
+{
+  "message": "Sorry, but something went wrong while deleting that profile"
 }
 ```
 
