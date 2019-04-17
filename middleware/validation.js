@@ -231,6 +231,12 @@ function jobSkillsValidation(req, res, next) {
 		});
 	}
 
+	if (!jobSkill) {
+		return res.status(400).json({
+			message: 'Please provide a job skill field.'
+		});
+	}
+
 	if (!jobSkill.length)
 		return res.status(400).json({
 			message: 'Please provide some job skills'

@@ -2634,20 +2634,14 @@ _HTTP method:_ **[PUT]**
 
 #### Body
 
-| name                     | type    | required | description                            |
-| ------------------------ | ------- | -------- | -------------------------------------- |
-| `jobId`                  | Integer | Yes      | Must match a user's id in the database |
-| `jobSkill`               | String  | Yes      | Cannot be an empty field               |
-| `jobDescription`         | String  | Yes      | Cannot be an empty field               |
-| `jobExperienceRequired`  | String  | Yes      | Cannot be an empty field               |
-| `jobExperiencePreferred` | String  | Yes      | Cannot be an empty field               |
-| `jobApplyBy`             | String  | Yes      | Cannot be an empty field               |
+| name       | type   | required | description              |
+| ---------- | ------ | -------- | ------------------------ |
+| `jobSkill` | String | Yes      | Cannot be an empty field |
 
 _example:_
 
 ```
 {
-  "jobId": 1,
   "jobSkill": "This was updated 2"
 }
 ```
