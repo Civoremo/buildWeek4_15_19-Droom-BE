@@ -23,9 +23,7 @@ async function add({ userId, seekerEducation }) {
 	});
 
 	// add education to db
-	await db('education')
-		.insert(updatedEducation)
-		.returning('id');
+	await db('education').insert(updatedEducation);
 
 	// return all education related to seeker profile
 	return db('education').where({ seekerId });
