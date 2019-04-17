@@ -43,8 +43,18 @@ async function add(userId, job, jobSkills) {
 }
 
 // Get all jobs
-function find() {
-	return db('jobs');
+async function find() {
+	const jobs = await db('jobs');
+
+	const updatedJobs = await Promise.all(
+		jobs.map(async job => {
+			const skills = await db('jobs_skills').where({
+				jobId: job.id
+			});
+			return { ...job, jobSkills: skills };
+		})
+	);
+	return updatedJobs;
 }
 
 // Get jobs by filter
