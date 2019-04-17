@@ -10,11 +10,17 @@ module.exports = {
 };
 
 // Create a job skill
-async function add(skill) {
-	const [id] = await db('jobs_skills')
-		.insert(skill)
+async function add({ jobId, jobSkill }) {
+	//console.log(jobId, jobSkill);
+	const updatedSkills = jobSkill.map(skill => {
+		return { jobId, jobSkill: skill };
+	});
+	console.log(updatedSkills);
+
+	await db('jobs_skills')
+		.insert(updatedSkills)
 		.returning('id');
-	return findById(id);
+	return findBy(jobId);
 }
 
 // Get all job skills

@@ -2,6 +2,9 @@ module.exports = {
 	companyValidation,
 	updateCompanyValidation,
 	jobValidation,
+	updateJobValidation,
+	jobSkillsValidation,
+	updateJobSkillsValidation,
 	authValidation,
 	seekerValidation,
 	updateSeekerValidation,
@@ -172,58 +175,83 @@ function jobValidation(req, res, next) {
 	next();
 }
 
-function updateCompanyValidation(req, res, next) {
+function updateJobValidation(req, res, next) {
+	const { jobId, job } = req.body;
 	const {
-		userId,
-		companyName,
-		companyDescription,
-		country,
-		state,
-		city,
-		zipcode
-	} = req.body;
-
-	if (!userId) {
+		jobName,
+		jobDescription,
+		jobExperienceRequired,
+		jobExperiencePreferred,
+		jobApplyBy
+	} = job;
+	if (!jobId) {
 		return res.status(400).json({
-			message: 'Please provide a user id for this company.'
+			message: 'Please provide a user id for this job.'
 		});
 	}
-	if (!companyName) {
+	if (!jobName) {
 		return res.status(400).json({
-			message: 'Please provide a name for this company.'
+			message: 'Please provide a name for this job.'
 		});
 	}
 
-	if (!companyDescription) {
+	if (!jobDescription) {
 		return res.status(400).json({
-			message:
-				'Please provide a description for this company.'
+			message: 'Please provide a description for this job.'
 		});
 	}
 
-	if (!country) {
+	if (!jobExperienceRequired) {
 		return res.status(400).json({
-			message: 'Please provide a country for this company.'
+			message: 'Please provide a country for this job.'
 		});
 	}
 
-	if (!state) {
+	if (!jobExperiencePreferred) {
 		return res.status(400).json({
-			message: 'Please provide a state for this company.'
+			message: 'Please provide a state for this job.'
 		});
 	}
 
-	if (!city) {
+	if (!jobApplyBy) {
 		return res.status(400).json({
-			message: 'Please provide a city for this company.'
+			message: 'Please provide a city for this job.'
 		});
 	}
 
-	if (!zipcode) {
+	next();
+}
+
+function jobSkillsValidation(req, res, next) {
+	const { jobId, jobSkill } = req.body;
+
+	if (!jobId) {
 		return res.status(400).json({
-			message: 'Please provide a zip code for this company.'
+			message: 'Please provide a job id'
 		});
 	}
+
+	if (!jobSkill) {
+		return res.status(400).json({
+			message: 'Please provide a job skill field.'
+		});
+	}
+
+	if (!jobSkill.length)
+		return res.status(400).json({
+			message: 'Please provide some job skills'
+		});
+
+	next();
+}
+
+function updateJobSkillsValidation(req, res, next) {
+	const { jobSkill } = req.body;
+
+	if (!jobSkill)
+		return res.status(400).json({
+			message: 'Please provide a job skill'
+		});
 
 	next();
 }
@@ -597,10 +625,11 @@ function skillsValidation(req, res, next) {
 function updateSkillsValidation(req, res, next) {
 	const { seekerSkill } = req.body;
 
-	if (!seekerSkill)
+	if (!seekerSkill) {
 		return res.status(400).json({
 			message: 'Please provide a skill'
 		});
 
-	next();
+		next();
+	}
 }

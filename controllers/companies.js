@@ -1,7 +1,5 @@
 const router = require('express').Router();
 const Companies = require('../models/Companies.js');
-const Jobs = require('../models/Jobs.js');
-const Skills = require('../models/JobSkills');
 
 const {
 	companyValidation,
@@ -11,8 +9,8 @@ const {
 router.get('/', async (req, res) => {
 	try {
 		const companies = await Companies.find();
-		//const jobs = await Jobs.findBy(companyId);
-		res.status(200).json(companies);
+		const message = 'The companies were found in the database.';
+		res.status(200).json({ message, companies });
 	} catch (err) {
 		res.status(500).json({
 			message:
@@ -27,13 +25,13 @@ router.get('/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
 
-		const company = await Companies.findById(id);
+		const companies = await Companies.findById(id);
 		const message = 'The company was retrieved successfully.';
-		res.status(200).json({ message, company });
+		res.status(200).json({ message, companies });
 	} catch (err) {
 		res.status(500).json({
 			message:
-				'Sorry, but something went wrong while retrieving the list of companies'
+				'Sorry, but something went wrong while retrieving the company'
 		});
 
 		throw new Error(err);
@@ -49,7 +47,7 @@ router.post('/', companyValidation, async (req, res) => {
 			company.companyName
 		} has successfully been added.`;
 
-		res.status(201).json({ message, newCompany });
+		res.status(201).json({ message, companies: newCompany });
 	} catch (err) {
 		res.status(500).json({
 			message:
@@ -96,7 +94,7 @@ router.put('/:id', updateCompanyValidation, async (req, res) => {
 		if (updatedCompany.id) {
 			res.status(200).json(updatedCompany);
 		} else {
-			res.status(200).json({
+			res.status(404).json({
 				message: 'Company could not be found.'
 			});
 		}
