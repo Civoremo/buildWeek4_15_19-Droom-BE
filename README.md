@@ -86,12 +86,113 @@ npm run server
      - [Add Job](#add-job)
      - [Update Job](#update-job)
      - [Delete Job](#delete-job)
- - [Job Skills Routes](#job-skills-routes)
+- [Job Skills Routes](#job-skills-routes)
      - [Get Job Skills](#get-job-skills)
      - [Get Job Skill](#get-job-skill)
      - [Add Job Skill](#add-job-skill)
      - [Update Job Skill](#update-job-skill)
      - [Delete Job Skill](#update-job-skill)
+- [Match Routes](#match-routes)
+     - [Get Matches](#get-matches)
+     - [Get Matched](#get-matched)
+     - [Add Match](#add-match)
+
+# **Test User Accounts**
+
+## Job Seeker Accounts
+
+#### Github
+
+```
+email: sam@gmail.com
+password: password
+```
+
+#### John Dough
+
+```
+email: john@gmail.com
+password: password
+```
+
+#### Sally Jones
+
+```
+  email: sally@gmail.com
+  password: password
+```
+
+## Company Accounts
+
+#### Microsoft
+
+```
+  email: microsoft@microsoft.com
+  password: password
+```
+
+#### Apple
+
+```
+email: apple@apple.com
+password: password
+```
+
+#### Github
+
+```
+email: github@github.com
+password: password
+```
+
+#### Nexient
+
+```
+email: nexient@nexient.com
+password: password
+```
+
+#### Netflix
+
+```
+email: netflix@netflix.com
+password: password
+```
+
+#### Twitter
+
+```
+email: twitter@twitter.com
+password: password
+```
+
+#### Spotify
+
+```
+email: spotify@spotify.com
+password: password
+```
+
+#### Facebook
+
+```
+email: facebook@facebook.com
+password: password
+```
+
+#### Reddit
+
+```
+email: reddit@reddit.com
+password: password
+```
+
+#### Google
+
+```
+email: google@gmail.com
+password: password
+```
 
 # **SUMMARY TABLE OF API ENDPOINTS**
 
@@ -126,10 +227,12 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
+
 {
   "email": "email@gmail.com"
   "password": "password123",
 }
+
 ```
 
 #### Response
@@ -141,9 +244,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI3IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xFXoX"
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI3IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNTQ0MzM1NjUxLCJleHAiOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xFXoX"
 }
+
 ```
 
 ##### 400 (Bad Request)
@@ -153,9 +258,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Submit both an email and password when registering"
+  "message": "Submit both an email and password when registering"
 }
+
 ```
 
 ##### 500 (Internal Server Error)
@@ -165,9 +272,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but something went wrong while registering"
 }
+
 ```
 
 ---
@@ -196,10 +305,12 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
+
 {
-    "email": "email@gmail.com"
-    "password": "password123",
+  "email": "email@gmail.com"
+  "password": "password123",
 }
+
 ```
 
 #### Response
@@ -211,9 +322,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MDwiaWF0IjoxNTQ0MzM1NjUxLCJleHAuOjE1NzU4OTMyNTF9.uqd2OHBYkGQpwjLTPPiPWYkYOKlG7whQDFkk46xGXnE",
 }
+
 ```
 
 ##### 400 (Bad Request)
@@ -223,9 +336,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Submit both an email and password when registering"
+  "message": "Submit both an email and password when registering"
 }
+
 ```
 
 ##### 401 (Unauthorized)
@@ -235,9 +350,11 @@ _example:_
 _example:_
 
 ```
+
 {
   message: "Sorry, incorrect email or password"
 }
+
 ```
 
 ##### 500 (Bad Request)
@@ -247,9 +364,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but something went wrong while logging in"
 }
+
 ```
 
 # SEEKER ROUTES
@@ -278,20 +397,22 @@ _HTTP method:_ **[GET]**
 _example:_
 
 ```
+
 {
-    "id": 1,
-    "userId": 1,
-    "firstName": "John",
-    "lastName": "Dough",
-    "profilePicture": "",
-    "month": 2,
-    "day": 4,
-    "year": 1994,
-    "country": "US",
-    "state": "California",
-    "city": "San Francisco",
-    "zipcode": 93552
+  "id": 1,
+  "userId": 1,
+  "firstName": "John",
+  "lastName": "Dough",
+  "profilePicture": "",
+  "month": 2,
+  "day": 4,
+  "year": 1994,
+  "country": "US",
+  "state": "California",
+  "city": "San Francisco",
+  "zipcode": 93552
 }
+
 ```
 
 #### 404 (Not Found)
@@ -301,9 +422,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but that profile doesn't exist"
+  "message": "Sorry, but that profile doesn't exist"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -313,9 +436,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while getting that profile"
+  "message": "Sorry, but something went wrong while getting that profile"
 }
+
 ```
 
 ## **ADD SEEKER**
@@ -352,6 +477,7 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
+
 {
   "userId": 1,
   "seeker": {
@@ -367,6 +493,7 @@ _example:_
     "zipcode": 93552
   }
 }
+
 ```
 
 #### Response
@@ -378,20 +505,22 @@ _example:_
 _example:_
 
 ```
+
 {
-    "id": 1,
-    "userId": 6,
-    "firstName": "John",
-    "lastName": "Dough",
-    "profilePicture": "",
-    "month": 2,
-    "day": 4,
-    "year": 1994,
-    "country": "US",
-    "state": "California",
-    "city": "San Francisco",
-    "zipcode": 93552
+  "id": 1,
+  "userId": 6,
+  "firstName": "John",
+  "lastName": "Dough",
+  "profilePicture": "",
+  "month": 2,
+  "day": 4,
+  "year": 1994,
+  "country": "US",
+  "state": "California",
+  "city": "San Francisco",
+  "zipcode": 93552
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -401,9 +530,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Please provide a first name"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -413,9 +544,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while creating that profile"
+  "message": "Sorry, but something went wrong while creating that profile"
 }
+
 ```
 
 ## **UPDATE SEEKER**
@@ -457,18 +590,20 @@ _HTTP method:_ **[PUT]**
 _example:_
 
 ```
+
 {
-    "firstName": "John Updated",
-    "lastName": "Dough",
-    "profilePicture": "",
-    "month":2,
-    "day":4,
-    "year": 1994,
-    "country": "US",
-    "state": "California",
-    "city": "San Francisco",
-    "zipcode": 93552
+  "firstName": "John Updated",
+  "lastName": "Dough",
+  "profilePicture": "",
+  "month":2,
+  "day":4,
+  "year": 1994,
+  "country": "US",
+  "state": "California",
+  "city": "San Francisco",
+  "zipcode": 93552
 }
+
 ```
 
 #### Response
@@ -480,20 +615,22 @@ _example:_
 _example:_
 
 ```
+
 {
-    "id": 1,
-    "userId": 1,
-    "firstName": "John Updated",
-    "lastName": "Dough",
-    "profilePicture": "",
-    "month": 2,
-    "day": 4,
-    "year": 1994,
-    "country": "US",
-    "state": "California",
-    "city": "San Francisco",
-    "zipcode": 93552
+  "id": 1,
+  "userId": 1,
+  "firstName": "John Updated",
+  "lastName": "Dough",
+  "profilePicture": "",
+  "month": 2,
+  "day": 4,
+  "year": 1994,
+  "country": "US",
+  "state": "California",
+  "city": "San Francisco",
+  "zipcode": 93552
 }
+
 ```
 
 #### 404 (Not Found)
@@ -503,9 +640,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that profile doesn't exist"
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -515,9 +654,11 @@ _example:_
 _example:_
 
 ```
+
 {
-   "message": "Please provide a first name"
+  "message": "Please provide a first name"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -527,9 +668,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while updating that profile"
+  "message": "Sorry, but something went wrong while updating that profile"
 }
+
 ```
 
 ## **DELETE SEEKER**
@@ -562,9 +705,11 @@ _HTTP method:_ **[DELETE]**
 _example:_
 
 ```
+
 {
   "message": "Profile successfully deleted"
 }
+
 ```
 
 #### 404 (Not Found)
@@ -574,9 +719,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that profile doesn't exist"
 }
+
 ```
 
 #### 500 (Bad Request)
@@ -586,9 +733,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but something went wrong while deleting that profile"
 }
+
 ```
 
 # EDUCATION ROUTES
@@ -617,26 +766,28 @@ _HTTP method:_ **[GET]**
 _example:_
 
 ```
+
 [
-    {
-        "id": 1,
-        "seekerId": 1,
-        "eduSchool": "San Francisco State University",
-        "eduCredential": "Bachelor of Science in Electrical Engineering",
-        "eduDescription": "Electrical Engineering is a profession that makes creative use of mathematics and science to solve practical problems in electricity, electronics and related areas. The goal of the Electrical Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
-        "eduStart": "1-1-2014",
-        "eduEnd": "1-1-2018"
-    },
-    {
-        "id": 2,
-        "seekerId": 1,
-        "eduSchool": "San Francisco State University",
-        "eduCredential": "Bachelor of Science in Computer Engineering",
-        "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
-        "eduStart": "1-1-2019",
-        "eduEnd": "1-1-2023"
-    }
+  {
+    "id": 1,
+    "seekerId": 1,
+    "eduSchool": "San Francisco State University",
+    "eduCredential": "Bachelor of Science in Electrical Engineering",
+    "eduDescription": "Electrical Engineering is a profession that makes creative use of mathematics and science to solve practical problems in electricity, electronics and related areas. The goal of the Electrical Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+    "eduStart": "1-1-2014",
+    "eduEnd": "1-1-2018"
+  },
+  {
+    "id": 2,
+    "seekerId": 1,
+    "eduSchool": "San Francisco State University",
+    "eduCredential": "Bachelor of Science in Computer Engineering",
+    "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+    "eduStart": "1-1-2019",
+    "eduEnd": "1-1-2023"
+  }
 ]
+
 ```
 
 #### 404 (Not Found)
@@ -646,17 +797,21 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but that profile doesn't have any education"
+  "message": "Sorry, but that profile doesn't have any education"
 }
+
 ```
 
 or
 
 ```
+
 {
-    "message": "Sorry, but that user doesn't have a profile"
+  "message": "Sorry, but that user doesn't have a profile"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -666,9 +821,11 @@ or
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while trying to get education"
+  "message": "Sorry, but something went wrong while trying to get education"
 }
+
 ```
 
 ## **ADD EDUCATION**
@@ -700,25 +857,27 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
+
 {
   "userId": 1,
-    "seekerEducation": [
-      {
-          "eduSchool":"San Francisco State University",
-          "eduCredential": "Bachelor of Science in Computer Engineering",
-          "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
-          "eduStart":"1-1-2019",
-          "eduEnd": "1-1-2023"
-      },
-      {
-          "eduSchool":"San Francisco State University",
-          "eduCredential": "Bachelor of Science in Electrical Engineering",
-          "eduDescription": "Electrical Engineering is a profession that makes creative use of mathematics and science to solve practical problems in electricity, electronics and related areas. The goal of the Electrical Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
-          "eduStart":"1-1-2014",
-          "eduEnd": "1-1-2018"
-      }
+  "seekerEducation": [
+    {
+      "eduSchool":"San Francisco State University",
+      "eduCredential": "Bachelor of Science in Computer Engineering",
+      "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+      "eduStart":"1-1-2019",
+      "eduEnd": "1-1-2023"
+    },
+    {
+      "eduSchool":"San Francisco State University",
+      "eduCredential": "Bachelor of Science in Electrical Engineering",
+      "eduDescription": "Electrical Engineering is a profession that makes creative use of mathematics and science to solve practical problems in electricity, electronics and related areas. The goal of the Electrical Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+      "eduStart":"1-1-2014",
+      "eduEnd": "1-1-2018"
+    }
   ]
 }
+
 ```
 
 #### Response
@@ -730,26 +889,28 @@ _example:_
 _example:_
 
 ```
+
 [
-    {
-        "id": 1,
-        "seekerId": 1,
-        "eduSchool": "San Francisco State University",
-        "eduCredential": "Bachelor of Science in Computer Engineering",
-        "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
-        "eduStart": "1-1-2019",
-        "eduEnd": "1-1-2023"
-    },
-    {
-        "id": 2,
-        "seekerId": 1,
-        "eduSchool": "San Francisco State University",
-        "eduCredential": "Bachelor of Science in Electrical Engineering",
-        "eduDescription": "Electrical Engineering is a profession that makes creative use of mathematics and science to solve practical problems in electricity, electronics and related areas. The goal of the Electrical Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
-        "eduStart": "1-1-2014",
-        "eduEnd": "1-1-2018"
-    }
+  {
+    "id": 1,
+    "seekerId": 1,
+    "eduSchool": "San Francisco State University",
+    "eduCredential": "Bachelor of Science in Computer Engineering",
+    "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+    "eduStart": "1-1-2019",
+    "eduEnd": "1-1-2023"
+  },
+  {
+    "id": 2,
+    "seekerId": 1,
+    "eduSchool": "San Francisco State University",
+    "eduCredential": "Bachelor of Science in Electrical Engineering",
+    "eduDescription": "Electrical Engineering is a profession that makes creative use of mathematics and science to solve practical problems in electricity, electronics and related areas. The goal of the Electrical Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+    "eduStart": "1-1-2014",
+    "eduEnd": "1-1-2018"
+  }
 ]
+
 ```
 
 #### 404 (Not Found)
@@ -759,9 +920,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that user doesn't have a profile"
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -771,9 +934,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Please provide a school"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -783,9 +948,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while trying to add education"
+  "message": "Sorry, but something went wrong while trying to add education"
 }
+
 ```
 
 ## **UPDATE EDUCATION**
@@ -822,13 +989,15 @@ _HTTP method:_ **[PUT]**
 _example:_
 
 ```
+
 {
-    "eduSchool": "San Francisco State University Updated",
-    "eduCredential": "Bachelor of Science in Computer Engineering",
-    "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
-    "eduStart": "1-1-2019",
-    "eduEnd": "1-1-2023"
+  "eduSchool": "San Francisco State University Updated",
+  "eduCredential": "Bachelor of Science in Computer Engineering",
+  "eduDescription": "Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.",
+  "eduStart": "1-1-2019",
+  "eduEnd": "1-1-2023"
 }
+
 ```
 
 #### Response
@@ -840,6 +1009,7 @@ _example:_
 _example:_
 
 ```
+
 {
   "id": 53,
   "seekerId": 23,
@@ -849,6 +1019,7 @@ _example:_
   "eduStart": "1-1-2019",
   "eduEnd": "1-1-2023"
 }
+
 ```
 
 #### 404 (Not Found)
@@ -858,9 +1029,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that education doesn't exist"
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -870,9 +1043,11 @@ _example:_
 _example:_
 
 ```
+
 {
-   "message": "Please provide a school"
+  "message": "Please provide a school"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -882,9 +1057,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while updating education"
+  "message": "Sorry, but something went wrong while updating education"
 }
+
 ```
 
 ## **DELETE EDUCATION**
@@ -917,9 +1094,11 @@ _HTTP method:_ **[DELETE]**
 _example:_
 
 ```
+
 {
   "message": "Education successfully deleted"
 }
+
 ```
 
 #### 404 (Not Found)
@@ -929,9 +1108,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that education doesn't exist"
 }
+
 ```
 
 #### 500 (Bad Request)
@@ -941,9 +1122,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but something went wrong while deleting education"
 }
+
 ```
 
 # EXPERIENCE ROUTES
@@ -972,26 +1155,28 @@ _HTTP method:_ **[GET]**
 _example:_
 
 ```
+
 [
-    {
-        "id": 1,
-        "seekerId": 1,
-        "jobTitle": "Front-end Developer",
-        "jobCompany": "Facebook",
-        "jobDescription": "Built out facebook market place with react",
-        "jobStart": "1-25-2018",
-        "jobEnd": "9-2-2019"
-    },
-    {
-        "id": 2,
-        "seekerId": 1,
-        "jobTitle": "Back-end Developer",
-        "jobCompany": "Nexient",
-        "jobDescription": "Created apis and servers with golang",
-        "jobStart": "10-31-2019",
-        "jobEnd": "6-31-2020"
-    }
+  {
+    "id": 1,
+    "seekerId": 1,
+    "jobTitle": "Front-end Developer",
+    "jobCompany": "Facebook",
+    "jobDescription": "Built out facebook market place with react",
+    "jobStart": "1-25-2018",
+    "jobEnd": "9-2-2019"
+  },
+  {
+    "id": 2,
+    "seekerId": 1,
+    "jobTitle": "Back-end Developer",
+    "jobCompany": "Nexient",
+    "jobDescription": "Created apis and servers with golang",
+    "jobStart": "10-31-2019",
+    "jobEnd": "6-31-2020"
+  }
 ]
+
 ```
 
 #### 404 (Not Found)
@@ -1001,17 +1186,21 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but that profile doesn't have any experience"
+  "message": "Sorry, but that profile doesn't have any experience"
 }
+
 ```
 
 or
 
 ```
+
 {
-    "message": "Sorry, but that user doesn't have a profile"
+  "message": "Sorry, but that user doesn't have a profile"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1021,9 +1210,11 @@ or
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while trying to get experience"
+  "message": "Sorry, but something went wrong while trying to get experience"
 }
+
 ```
 
 ## **ADD EXPERIENCE**
@@ -1055,25 +1246,27 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
+
 {
   "userId":1,
   "seekerExperience": [
     {
-        "jobTitle":"Back-end Developer",
-        "jobCompany": "Nexient",
-        "jobDescription": "Created apis and servers with golang",
-        "jobStart": "10-31-2019",
-        "jobEnd": "6-31-2020"
+      "jobTitle":"Back-end Developer",
+      "jobCompany": "Nexient",
+      "jobDescription": "Created apis and servers with golang",
+      "jobStart": "10-31-2019",
+      "jobEnd": "6-31-2020"
     },
     {
-        "jobTitle":"Front-end Developer",
-        "jobCompany": "Facebook",
-        "jobDescription": "Built out facebook market place with react",
-        "jobStart": "1-25-2018",
-        "jobEnd": "9-2-2019"
+      "jobTitle":"Front-end Developer",
+      "jobCompany": "Facebook",
+      "jobDescription": "Built out facebook market place with react",
+      "jobStart": "1-25-2018",
+      "jobEnd": "9-2-2019"
     }
   ]
 }
+
 ```
 
 #### Response
@@ -1085,26 +1278,28 @@ _example:_
 _example:_
 
 ```
+
 [
-    {
-        "id": 1,
-        "seekerId": 1,
-        "jobTitle": "Back-end Developer",
-        "jobCompany": "Nexient",
-        "jobDescription": "Created apis and servers with golang",
-        "jobStart": "10-31-2019",
-        "jobEnd": "6-31-2020"
-    },
-    {
-        "id": 2,
-        "seekerId": 1,
-        "jobTitle": "Front-end Developer",
-        "jobCompany": "Facebook",
-        "jobDescription": "Built out facebook market place with react",
-        "jobStart": "1-25-2018",
-        "jobEnd": "9-2-2019"
-    }
+  {
+    "id": 1,
+    "seekerId": 1,
+    "jobTitle": "Back-end Developer",
+    "jobCompany": "Nexient",
+    "jobDescription": "Created apis and servers with golang",
+    "jobStart": "10-31-2019",
+    "jobEnd": "6-31-2020"
+  },
+  {
+    "id": 2,
+    "seekerId": 1,
+    "jobTitle": "Front-end Developer",
+    "jobCompany": "Facebook",
+    "jobDescription": "Built out facebook market place with react",
+    "jobStart": "1-25-2018",
+    "jobEnd": "9-2-2019"
+  }
 ]
+
 ```
 
 #### 404 (Not Found)
@@ -1114,9 +1309,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that user doesn't have a profile"
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -1126,9 +1323,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Please provide a job title"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1138,9 +1337,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while updating experience"
+  "message": "Sorry, but something went wrong while updating experience"
 }
+
 ```
 
 ## **UPDATE EXPERIENCE**
@@ -1177,12 +1378,13 @@ _HTTP method:_ **[PUT]**
 _example:_
 
 ```
+
 {
-	"jobTitle":"Front-end Developer Updated",
-	"jobCompany": "Facebook",
-	"jobDescription": "Built out facebook market place with react",
-	"jobStart": "1-25-2018",
-	"jobEnd": "9-2-2019"
+  "jobTitle":"Front-end Developer Updated",
+  "jobCompany": "Facebook",
+  "jobDescription": "Built out facebook market place with react",
+  "jobStart": "1-25-2018",
+  "jobEnd": "9-2-2019"
 }
 
 ```
@@ -1196,15 +1398,17 @@ _example:_
 _example:_
 
 ```
+
 {
-    "id": 21,
-    "seekerId": 23,
-    "jobTitle": "Front-end Developer Updated",
-    "jobCompany": "Facebook",
-    "jobDescription": "Built out facebook market place with react",
-    "jobStart": "1-25-2018",
-    "jobEnd": "9-2-2019"
+  "id": 21,
+  "seekerId": 23,
+  "jobTitle": "Front-end Developer Updated",
+  "jobCompany": "Facebook",
+  "jobDescription": "Built out facebook market place with react",
+  "jobStart": "1-25-2018",
+  "jobEnd": "9-2-2019"
 }
+
 ```
 
 #### 404 (Not Found)
@@ -1214,9 +1418,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that experience doesn't exist"
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -1226,9 +1432,11 @@ _example:_
 _example:_
 
 ```
+
 {
-   "message": "Please provide a job title"
+  "message": "Please provide a job title"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1238,9 +1446,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while updating experience"
+  "message": "Sorry, but something went wrong while updating experience"
 }
+
 ```
 
 ## **DELETE EXPERIENCE**
@@ -1273,9 +1483,11 @@ _HTTP method:_ **[DELETE]**
 _example:_
 
 ```
+
 {
   "message": "Education successfully deleted"
 }
+
 ```
 
 #### 404 (Not Found)
@@ -1285,9 +1497,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that experience doesn't exist"
 }
+
 ```
 
 #### 500 (Bad Request)
@@ -1297,9 +1511,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but something went wrong while deleting experience"
 }
+
 ```
 
 # SKILLS ROUTES
@@ -1328,23 +1544,25 @@ _HTTP method:_ **[GET]**
 _example:_
 
 ```
+
 [
-    {
-        "id": 1,
-        "seekerId": 1,
-        "seekerSkill": "Express"
-    },
-    {
-        "id": 2,
-        "seekerId": 1,
-        "seekerSkill": "Node"
-    },
-    {
-        "id": 3,
-        "seekerId": 1,
-        "seekerSkill": "React"
-    }
+  {
+    "id": 1,
+    "seekerId": 1,
+    "seekerSkill": "Express"
+  },
+  {
+    "id": 2,
+    "seekerId": 1,
+    "seekerSkill": "Node"
+  },
+  {
+    "id": 3,
+    "seekerId": 1,
+    "seekerSkill": "React"
+  }
 ]
+
 ```
 
 #### 404 (Not Found)
@@ -1354,17 +1572,21 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but that profile doesn't have any skills"
+  "message": "Sorry, but that profile doesn't have any skills"
 }
+
 ```
 
 or
 
 ```
+
 {
-    "message": "Sorry, but that user doesn't have a profile"
+  "message": "Sorry, but that user doesn't have a profile"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1374,9 +1596,11 @@ or
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while trying to get skills"
+  "message": "Sorry, but something went wrong while trying to get skills"
 }
+
 ```
 
 ## **ADD SKILLS**
@@ -1405,12 +1629,14 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
+
 {
-	"skills": {
-	  "userId": 2,
-	  "seekerSkills": ["Express", "Node", "React"]
-	}
+  "skills": {
+    "userId": 2,
+    "seekerSkills": ["Express", "Node", "React"]
+  }
 }
+
 ```
 
 #### Response
@@ -1422,23 +1648,25 @@ _example:_
 _example:_
 
 ```
+
 [
-    {
-        "id": 1,
-        "seekerId": 1,
-        "seekerSkill": "Express"
-    },
-    {
-        "id": 2,
-        "seekerId": 1,
-        "seekerSkill": "Node"
-    },
-    {
-        "id": 3,
-        "seekerId": 1,
-        "seekerSkill": "React"
-    }
+  {
+    "id": 1,
+    "seekerId": 1,
+    "seekerSkill": "Express"
+  },
+  {
+    "id": 2,
+    "seekerId": 1,
+    "seekerSkill": "Node"
+  },
+  {
+    "id": 3,
+    "seekerId": 1,
+    "seekerSkill": "React"
+  }
 ]
+
 ```
 
 #### 404 (Not Found)
@@ -1448,9 +1676,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that user doesn't have a profile"
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -1460,9 +1690,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Please provide some skills"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1472,9 +1704,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while trying to get skills"
+  "message": "Sorry, but something went wrong while trying to get skills"
 }
+
 ```
 
 ## **UPDATE SKILL**
@@ -1507,8 +1741,9 @@ _HTTP method:_ **[PUT]**
 _example:_
 
 ```
+
 {
-	"seekerSkill": "Python"
+  "seekerSkill": "Python"
 }
 
 ```
@@ -1522,11 +1757,13 @@ _example:_
 _example:_
 
 ```
+
 {
-    "id": 1,
-    "seekerId": 1,
-    "seekerSkill": "Python"
+  "id": 1,
+  "seekerId": 1,
+  "seekerSkill": "Python"
 }
+
 ```
 
 #### 404 (Not Found)
@@ -1536,9 +1773,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that skill doesn't exist"
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -1548,9 +1787,11 @@ _example:_
 _example:_
 
 ```
+
 {
-   "message": "Please provide a skill"
+  "message": "Please provide a skill"
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1560,9 +1801,11 @@ _example:_
 _example:_
 
 ```
+
 {
-    "message": "Sorry, but something went wrong while updating skill"
+  "message": "Sorry, but something went wrong while updating skill"
 }
+
 ```
 
 ## **DELETE SKILL**
@@ -1595,9 +1838,11 @@ _HTTP method:_ **[DELETE]**
 _example:_
 
 ```
+
 {
   "message": "Skill successfully deleted"
 }
+
 ```
 
 #### 404 (Not Found)
@@ -1607,9 +1852,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but that skill doesn't exist"
 }
+
 ```
 
 #### 500 (Bad Request)
@@ -1619,9 +1866,11 @@ _example:_
 _example:_
 
 ```
+
 {
   "message": "Sorry, but something went wrong while deleting that skill"
 }
+
 ```
 
 # COMPANY ROUTES
@@ -1648,33 +1897,35 @@ _HTTP method:_ **[GET]**
 > If companies are found in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
+
 {
   "message": "The companies were found in the database.",
   "companies": [
     {
-        "id": 1,
-        "userId": 1,
-        "companyName": "Apple",
-        "companyPicture": "",
-        "companyDescription": "An About me for the company",
-        "country": "South Korea",
-        "state": "NA",
-        "city": "Seoul",
-        "zipcode": 4000
+      "id": 1,
+      "userId": 1,
+      "companyName": "Apple",
+      "companyPicture": "",
+      "companyDescription": "An About me for the company",
+      "country": "South Korea",
+      "state": "NA",
+      "city": "Seoul",
+      "zipcode": 4000
     },
     {
-        "id": 2,
-        "userId": 2,
-        "companyName": "Apple 2",
-        "companyPicture": "",
-        "companyDescription": "An About me for the company",
-        "country": "South Korea",
-        "state": "NA",
-        "city": "Seoul",
-        "zipcode": 4000
+      "id": 2,
+      "userId": 2,
+      "companyName": "Apple 2",
+      "companyPicture": "",
+      "companyDescription": "An About me for the company",
+      "country": "South Korea",
+      "state": "NA",
+      "city": "Seoul",
+      "zipcode": 4000
     }
   ]
 }
+
 ```
 
 #### 404 (Not Found)
@@ -1682,10 +1933,12 @@ _HTTP method:_ **[GET]**
 > If there are no companies in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
 
 ```
+
 {
   "companies": [],
   "message": "The companies could not be found in the database."
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1693,9 +1946,11 @@ _HTTP method:_ **[GET]**
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
+
 {
-    message: 'Sorry, but something went wrong while retrieving the list of companies'
+  message: 'Sorry, but something went wrong while retrieving the list of companies'
 }
+
 ```
 
 ## **GET COMPANY**
@@ -1726,53 +1981,55 @@ _HTTP method:_ **[GET]**
 > If a company with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
+
 {
-    "message": "The company was retrieved successfully.",
-    "company": {
+  "message": "The company was retrieved successfully.",
+  "company": {
+    "id": 1,
+    "userId": 1,
+    "companyName": "Apple 2",
+    "companyPicture": "",
+    "companyDescription": "An About me for the company",
+    "country": "South Korea",
+    "state": "NA",
+    "city": "Seoul",
+    "zipcode": 4000,
+    "jobs": [
+      {
         "id": 1,
-        "userId": 1,
-        "companyName": "Apple 2",
-        "companyPicture": "",
-        "companyDescription": "An About me for the company",
-        "country": "South Korea",
-        "state": "NA",
-        "city": "Seoul",
-        "zipcode": 4000,
-        "jobs": [
+        "companyId": 1,
+        "jobName": "Software Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy",
+        "jobSkills": [
             {
-                "id": 1,
-                "companyId": 1,
-                "jobName": "Software Engineer",
-                "jobDescription": "An About me for the job",
-                "jobExperienceRequired": "jobExperienceRequired",
-                "jobExperiencePreferred": "jobExperiencePreferred",
-                "jobApplyBy": "jobApplyBy",
-                "jobSkills": [
-                    {
-                        "id": 1,
-                        "jobId": 1,
-                        "jobSkill": "Reactjs"
-                    },
-                    {
-                        "id": 3,
-                        "jobId": 1,
-                        "jobSkill": "Expressjs updated"
-                    }
-                ]
+              "id": 1,
+              "jobId": 1,
+              "jobSkill": "Reactjs"
             },
             {
-                "id": 2,
-                "companyId": 1,
-                "jobName": "Front-end Engineer",
-                "jobDescription": "An About me for the job",
-                "jobExperienceRequired": "jobExperienceRequired",
-                "jobExperiencePreferred": "jobExperiencePreferred",
-                "jobApplyBy": "jobApplyBy",
-                "jobSkills": []
+              "id": 3,
+              "jobId": 1,
+              "jobSkill": "Expressjs updated"
             }
-        ]
-    }
+          ]
+        },
+        {
+        "id": 2,
+        "companyId": 1,
+        "jobName": "Front-end Engineer",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy",
+        "jobSkills": []
+      }
+    ]
+  }
 }
+
 ```
 
 #### 404 (Not Found)
@@ -1780,10 +2037,12 @@ _HTTP method:_ **[GET]**
 > If the requested company does not exist, the endpoint will return an HTTP response with a status code `404` and a body as below.
 
 ```
+
 {
   "companies": [],
   "message": "The company could not be found in the database."
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1791,9 +2050,11 @@ _HTTP method:_ **[GET]**
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
+
 {
-    message: 'Sorry, but something went wrong while retrieving the company.'
+  message: 'Sorry, but something went wrong while retrieving the company.'
 }
+
 ```
 
 ## **ADD COMPANY**
@@ -1827,18 +2088,20 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
+
 {
-    "userId": 1,
-    "company": {
-        "companyName": "Apple",
-        "companyPicture": "",
-        "companyDescription": "An About me for the company",
-        "country": "United States of America",
-        "state": "California",
-        "city": "Cupertino",
-        "zipcode": 4000
-    }
+  "userId": 1,
+  "companies": {
+    "companyName": "Apple",
+    "companyPicture": "",
+    "companyDescription": "An About me for the company",
+    "country": "United States of America",
+    "state": "California",
+    "city": "Cupertino",
+    "zipcode": 4000
+  }
 }
+
 ```
 
 #### Response
@@ -1848,7 +2111,22 @@ _example:_
 > If you successfully register a user the endpoint will return an HTTP response with a status code `201` and a body as below.
 
 ```
+
 {
+<<<<<<< HEAD
+  "companies": {
+  "companyName": "Apple",
+  "companyPicture": "url",
+  "companyDescription": "An About me for the company",
+  "location": {
+  "country": "United States of America",
+  "state": "California",
+  "city": "Cupertino",
+  "zipcode": "40000"
+  }
+  },
+  "jobs": []
+=======
     "company": {
         "companyName": "Apple",
         "companyPicture": "url",
@@ -1861,7 +2139,9 @@ _example:_
         }
     },
     "jobs": []
+>>>>>>> 7dc999704f5dfdda4a029ad7730c9c4d4ba70245
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -1869,9 +2149,11 @@ _example:_
 > If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `400` and a body as below.
 
 ```
+
 {
-    message: 'Please submit a company with all of the required fields.'
+  message: 'Please submit a company with all of the required fields.'
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1879,9 +2161,11 @@ _example:_
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
+
 {
-    message: 'Sorry, but something went wrong while adding the company.'
+  message: 'Sorry, but something went wrong while adding the company.'
 }
+
 ```
 
 ## **UPDATE COMPANY**
@@ -1921,6 +2205,7 @@ _HTTP method:_ **[PUT]**
 _example:_
 
 ```
+
 {
   "userId": 1,
   "companyName": "Apple Inc",
@@ -1931,6 +2216,7 @@ _example:_
   "city": "Cupertino",
   "zipcode": "40000",
 }
+
 ```
 
 #### Response
@@ -1940,17 +2226,19 @@ _example:_
 > If a company with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
+
 {
-    "id": 1,
-    "userId": 1,
-    "companyName": "Apple Inc",
-    "companyPicture": "",
-    "companyDescription": "An About me for the company",
-    "country": "South Korea",
-    "state": "NA",
-    "city": "Seoul",
-    "zipcode": 4000
+  "id": 1,
+  "userId": 1,
+  "companyName": "Apple Inc",
+  "companyPicture": "",
+  "companyDescription": "An About me for the company",
+  "country": "South Korea",
+  "state": "NA",
+  "city": "Seoul",
+  "zipcode": 4000
 }
+
 ```
 
 #### 406 (Not Acceptable)
@@ -1958,9 +2246,11 @@ _example:_
 > If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `400` and a body as below.
 
 ```
+
 {
-    message: 'Please submit a company with all of the required fields.'
+  message: 'Please submit a company with all of the required fields.'
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -1968,9 +2258,11 @@ _example:_
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
+
 {
-    message: 'Sorry, but something went wrong while updating the company.'
+  message: 'Sorry, but something went wrong while updating the company.'
 }
+
 ```
 
 ## **DELETE COMPANY**
@@ -2001,9 +2293,11 @@ _HTTP method:_ **[DELETE]**
 > If a company with the specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
+
 {
   "message": "The company has been successfully deleted."
 }
+
 ```
 
 #### 404 (Not Found)
@@ -2011,9 +2305,11 @@ _HTTP method:_ **[DELETE]**
 > If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
 
 ```
+
 {
   "message": 'The company could not be found.'
 }
+
 ```
 
 #### 500 (Bad Request)
@@ -2021,9 +2317,11 @@ _HTTP method:_ **[DELETE]**
 > If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
+
 {
   "message": "Sorry, but something went wrong while deleting the company."
 }
+
 ```
 
 # JOB ROUTES
@@ -2054,31 +2352,31 @@ _HTTP method:_ **[GET]**
   "message": "The jobs were found in the database.",
   "jobs": [
     {
-        "id": 1,
-        "companyId": 1,
-        "jobName": "Software Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
+      "id": 1,
+      "companyId": 1,
+      "jobName": "Software Engineer",
+      "jobDescription": "An About me for the job",
+      "jobExperienceRequired": "jobExperienceRequired",
+      "jobExperiencePreferred": "jobExperiencePreferred",
+      "jobApplyBy": "jobApplyBy"
     },
     {
-        "id": 2,
-        "companyId": 1,
-        "jobName": "Front-end Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
+      "id": 2,
+      "companyId": 1,
+      "jobName": "Front-end Engineer",
+      "jobDescription": "An About me for the job",
+      "jobExperienceRequired": "jobExperienceRequired",
+      "jobExperiencePreferred": "jobExperiencePreferred",
+      "jobApplyBy": "jobApplyBy"
     },
     {
-        "id": 4,
-        "companyId": 1,
-        "jobName": "Back-end Engineer 4",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
+      "id": 4,
+      "companyId": 1,
+      "jobName": "Back-end Engineer 4",
+      "jobDescription": "An About me for the job",
+      "jobExperienceRequired": "jobExperienceRequired",
+      "jobExperiencePreferred": "jobExperiencePreferred",
+      "jobApplyBy": "jobApplyBy"
     }
   ]
 }
@@ -2089,10 +2387,12 @@ _HTTP method:_ **[GET]**
 > If there are no jobs in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
 
 ```
+
 {
   "companies": [],
   "message": "The jobs could not be found in the database."
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -2100,9 +2400,11 @@ _HTTP method:_ **[GET]**
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
+
 {
-    message: 'Sorry, but something went wrong while retrieving the jobs.'
+  message: 'Sorry, but something went wrong while retrieving the jobs.'
 }
+
 ```
 
 ## **GET JOB**
@@ -2136,14 +2438,14 @@ _HTTP method:_ **[GET]**
 {
   "message": "The job was retrieved successfully.",
   "job": {
-        "id": 1,
-        "companyId": 1,
-        "jobName": "Software Engineer",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy",
-        "jobSkills": []
+      "id": 1,
+      "companyId": 1,
+      "jobName": "Software Engineer",
+      "jobDescription": "An About me for the job",
+      "jobExperienceRequired": "jobExperienceRequired",
+      "jobExperiencePreferred": "jobExperiencePreferred",
+      "jobApplyBy": "jobApplyBy",
+      "jobSkills": []
     }
   }
 }
@@ -2166,7 +2468,7 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-    message: 'Sorry, but something went wrong while retrieving the job.'
+  message: 'Sorry, but something went wrong while retrieving the job.'
 }
 ```
 
@@ -2199,17 +2501,19 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
+
 {
-	"userId": 1,
-	"job": {
-		"jobName": "Back-end Engineer 11",
-		"jobDescription": "An About me for the job",
-		"jobExperienceRequired": "jobExperienceRequired",
-		"jobExperiencePreferred": "jobExperiencePreferred",
-		"jobApplyBy": "jobApplyBy"
-	},
-	"jobSkills": ["Skill4", "Skill5"]
+"userId": 1,
+"job": {
+  "jobName": "Back-end Engineer 11",
+  "jobDescription": "An About me for the job",
+  "jobExperienceRequired": "jobExperienceRequired",
+  "jobExperiencePreferred": "jobExperiencePreferred",
+  "jobApplyBy": "jobApplyBy"
+},
+"jobSkills": ["Skill4", "Skill5"]
 }
+
 ```
 
 #### Response
@@ -2219,21 +2523,23 @@ _example:_
 > If you successfully register a job the endpoint will return an HTTP response with a status code `201` and a body as below.
 
 ```
+
 {
-    "message": "Back-end Engineer 11 has successfully been added.",
-    "newJob": {
-        "companyId": 10,
-        "jobName": "Back-end Engineer 11",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy",
-        "jobSkills": [
-            "Skill4",
-            "Skill5"
-        ]
-    }
+  "message": "Back-end Engineer 11 has successfully been added.",
+  "newJob": {
+    "companyId": 10,
+    "jobName": "Back-end Engineer 11",
+    "jobDescription": "An About me for the job",
+    "jobExperienceRequired": "jobExperienceRequired",
+    "jobExperiencePreferred": "jobExperiencePreferred",
+    "jobApplyBy": "jobApplyBy",
+    "jobSkills": [
+      "Skill4",
+      "Skill5"
+    ]
+  }
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -2241,9 +2547,11 @@ _example:_
 > If you are missing any of the required fields, the endpoint will return an HTTP response with a status code `400` and a body as below.
 
 ```
+
 {
-    message: 'Please submit a job with all of the required fields.'
+  message: 'Please submit a job with all of the required fields.'
 }
+
 ```
 
 #### 500 (Internal Server Error)
@@ -2251,9 +2559,11 @@ _example:_
 > If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
 
 ```
+
 {
-    message: 'Sorry, but something went wrong while adding the job.'
+  message: 'Sorry, but something went wrong while adding the job.'
 }
+
 ```
 
 ## **UPDATE JOB**
@@ -2309,17 +2619,17 @@ _example:_
 
 ```
 {
-    "message": "The job was updated successfully",
-    "jobs": {
-        "id": 2,
-        "companyId": 1,
-        "jobName": "Back-end Engineer updated",
-        "jobDescription": "An About me for the job",
-        "jobExperienceRequired": "jobExperienceRequired",
-        "jobExperiencePreferred": "jobExperiencePreferred",
-        "jobApplyBy": "jobApplyBy"
-    }
+  "message": "The job was updated successfully",
+  "jobs": {
+  "id": 2,
+  "companyId": 1,
+  "jobName": "Back-end Engineer updated",
+  "jobDescription": "An About me for the job",
+  "jobExperienceRequired": "jobExperienceRequired",
+  "jobExperiencePreferred": "jobExperiencePreferred",
+  "jobApplyBy": "jobApplyBy"
 }
+
 ```
 
 #### 406 (Not Acceptable)
@@ -2328,7 +2638,7 @@ _example:_
 
 ```
 {
-    message: 'Please submit a job with all of the required fields.'
+  message: 'Please submit a job with all of the required fields.'
 }
 ```
 
@@ -2348,7 +2658,7 @@ _example:_
 
 ```
 {
-    message: 'Sorry, but something went wrong while updating the job.'
+  message: 'Sorry, but something went wrong while updating the job.'
 }
 ```
 
@@ -2380,6 +2690,7 @@ _HTTP method:_ **[DELETE]**
 > If a job with the specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 ```
+
 {
   "message": "The job was deleted from the database."
 }
@@ -2430,19 +2741,19 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-    "message": "The job skills were found in the database.",
-    "skills": [
-        {
-            "id": 1,
-            "jobId": 1,
-            "jobSkill": "Reactjs"
-        },
-        {
-            "id": 3,
-            "jobId": 1,
-            "jobSkill": "Expressjs"
-        }
-    ]
+  "message": "The job skills were found in the database.",
+  "skills": [
+    {
+      "id": 1,
+      "jobId": 1,
+      "jobSkill": "Reactjs"
+    },
+    {
+      "id": 3,
+      "jobId": 1,
+      "jobSkill": "Expressjs"
+    }
+  ]
 }
 ```
 
@@ -2463,7 +2774,7 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-    message: 'Sorry, but something went wrong while retrieving the jobs.'
+  message: 'Sorry, but something went wrong while retrieving the jobs.'
 }
 ```
 
@@ -2496,12 +2807,12 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-    "message": "The job skill was retrieved successfully.",
-    "skills": {
-        "id": 1,
-        "jobId": 1,
-        "jobSkill": "Reactjs"
-    }
+  "message": "The job skill was retrieved successfully.",
+  "skills": {
+    "id": 1,
+    "jobId": 1,
+    "jobSkill": "Reactjs"
+  }
 }
 ```
 
@@ -2522,7 +2833,7 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-    message: 'Sorry, but something went wrong while retrieving the job skill.'
+  message: 'Sorry, but something went wrong while retrieving the job skill.'
 }
 ```
 
@@ -2552,8 +2863,8 @@ _example:_
 
 ```
 {
-	"jobId": 1,
-	"jobSkill": ["Reactjs", "Expressjs"]
+  "jobId": 1,
+  "jobSkill": ["Reactjs", "Expressjs"]
 }
 ```
 
@@ -2565,30 +2876,31 @@ _example:_
 
 ```
 {
-    "message": "Reactjs,Expressjs has successfully been added.",
-    "skills": [
-        {
-            "id": 1,
-            "jobId": 1,
-            "jobSkill": "Reactjs"
-        },
-        {
-            "id": 3,
-            "jobId": 1,
-            "jobSkill": "Expressjs updated"
-        },
-        {
-            "id": 16,
-            "jobId": 1,
-            "jobSkill": "Reactjs"
-        },
-        {
-            "id": 17,
-            "jobId": 1,
-            "jobSkill": "Expressjs"
-        }
-    ]
+  "message": "Reactjs,Expressjs has successfully been added.",
+  "skills": [
+    {
+      "id": 1,
+      "jobId": 1,
+      "jobSkill": "Reactjs"
+    },
+    {
+      "id": 3,
+      "jobId": 1,
+      "jobSkill": "Expressjs updated"
+    },
+    {
+      "id": 16,
+      "jobId": 1,
+      "jobSkill": "Reactjs"
+    },
+    {
+      "id": 17,
+      "jobId": 1,
+      "jobSkill": "Expressjs"
+    }
+  ]
 }
+
 ```
 
 #### 400 (Bad Request)
@@ -2597,7 +2909,7 @@ _example:_
 
 ```
 {
-    message: 'Please submit a job with all of the required fields.'
+  message: 'Please submit a job with all of the required fields.'
 }
 ```
 
@@ -2607,7 +2919,7 @@ _example:_
 
 ```
 {
-    message: 'Sorry, but something went wrong while adding the job skill.'
+  message: 'Sorry, but something went wrong while adding the job skill.'
 }
 ```
 
@@ -2654,9 +2966,9 @@ _example:_
 
 ```
 {
-    "id": 1,
-    "jobId": 1,
-    "jobSkill": "This was updated 2"
+  "id": 1,
+  "jobId": 1,
+  "jobSkill": "This was updated 2"
 }
 ```
 
@@ -2666,7 +2978,7 @@ _example:_
 
 ```
 {
-    message: 'Please submit a job with all of the required fields.'
+  message: 'Please submit a job with all of the required fields.'
 }
 ```
 
@@ -2676,7 +2988,7 @@ _example:_
 
 ```
 {
-    message: 'Sorry, but something went wrong while updating the job.'
+  message: 'Sorry, but something went wrong while updating the job.'
 }
 ```
 
@@ -2731,4 +3043,297 @@ _HTTP method:_ **[DELETE]**
 {
   "message": "Sorry, but something went wrong while deleting the job skill."
 }
+
+```
+
+# MATCH ROUTES
+
+## **GET MATCHES**
+
+### **Get matches for seeker**
+
+_Method Url:_ `/api/matches/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description |
+| ---- | ------- | -------- | ----------- |
+| id   | Integer | Yes      | user id     |
+
+#### Response
+
+##### 200 (OK)
+
+> If there are recommended matches, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+_example:_
+
+```
+[
+    {
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Frontend Software Engineer",
+        "jobDescription": "Are you excited by the prospect of creating simple, intuitive experiences that delight users? Do you like building services that will be used by hundreds of millions of users across the world? Microsoft Developer Center Norway is growing, and we’re looking for developers with a strong passion for building delightful and smart experiences that will be used on a global scale. Come join our team!",
+        "jobExperienceRequired": "<ul><li>Masters or Bachelor’s degree or equivalent in computer science or related technical disciplines.</li><li>Experience with software engineering best practices (code quality, repo hygiene, code reviews, unit testing, design documentation, continuous integration, deployment).</li><li>Experience in the JavaScript ecosystem and related technologies such as React, React Native, TypeScript, Redux, HTML5, CSS.</li></ul>",
+        "jobExperiencePreferred": "<ul><li>Experience in building performant experiences using technologies such as webpack and npm to optimize bundles and package dependencies.</li><li>Experience in experimentation framework and understanding how to measure end user success.</li><li>Thrives in dynamic, fast-paced environments where passion for customer engagement and great experience are at the forefront of all design & development.</li></ul>",
+        "jobApplyBy": "30 May 2019",
+        "jobSkills": [
+            {
+                "id": 1,
+                "jobId": 1,
+                "jobSkill": "React"
+            },
+            {
+                "id": 2,
+                "jobId": 1,
+                "jobSkill": "HTML"
+            },
+            {
+                "id": 3,
+                "jobId": 1,
+                "jobSkill": "CSS"
+            },
+            {
+                "id": 4,
+                "jobId": 1,
+                "jobSkill": "Bootstrap"
+            },
+            {
+                "id": 5,
+                "jobId": 1,
+                "jobSkill": "Git"
+            }
+        ],
+        "count": 4
+    },
+    {
+        "id": 2,
+        "companyId": 2,
+        "jobName": "Frontend Software Engineer",
+        "jobDescription": "As a Front End Engineer you will be responsible for building the next generation of client side user experiences for our industry leading Music Subscription service. We are a team that conceptualizes, iterates, and executes new features on an ongoing basis, which contributes to an overall dynamic and creative atmosphere.We need a highly motivated and skillful engineer with JavaScript programming proficiency, plus a solid grasp of the performance and compatibility issues that arise when delivering a comprehensive web solution. Attention to detail and a dedication to deliver a high-quality, stable delivery is essential. To be successful you are self-motivated; driven to achieve and exceed commitments. You also need to exude strong collaboration skills, including the ability to mentor and be mentored. Possess a strong passion to work in a growing, energizing environment of innovation. If you want to be part of this amazing team, this position is for you.",
+        "jobExperienceRequired": "<ul><li>Proficient JavaScript programmer</li><li>Experience with JS frameworks is highly desirable: React, Angular, etc.</li><li>Experience with CSS3 and Less/Sass in large scale applications</li></ul>",
+        "jobExperiencePreferred": "<ul><li>Knowledge of media streaming, HTML5 MSE/EME, encryption standards a plus</li><li>Strong problem solving and critical thinking skills</li><li>Passion for quality and close attention to details</li></ul>",
+        "jobApplyBy": "30 May 2019",
+        "jobSkills": [
+            {
+                "id": 6,
+                "jobId": 2,
+                "jobSkill": "React"
+            },
+            {
+                "id": 7,
+                "jobId": 2,
+                "jobSkill": "jQuery"
+            },
+            {
+                "id": 8,
+                "jobId": 2,
+                "jobSkill": "HTML"
+            },
+            {
+                "id": 9,
+                "jobId": 2,
+                "jobSkill": "CSS"
+            },
+            {
+                "id": 10,
+                "jobId": 2,
+                "jobSkill": "Git"
+            }
+        ],
+        "count": 4
+    }
+]
+
+```
+
+#### 404 (Not Found)
+
+> If the provided `userId` doesn't have a profile, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+
+{
+   "message": "Sorry, but that user doesn't have a profile"
+}
+
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+
+{
+  "message": "Sorry, but something went wrong while getting matches"
+}
+
+```
+
+## **GET MATCHED**
+
+### **Get seeker profile by user id**
+
+_Method Url:_ `/api/matched/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description |
+| ---- | ------- | -------- | ----------- |
+| id   | Integer | Yes      | user id     |
+
+#### Response
+
+##### 200 (OK)
+
+> If the user has matched with any jobs, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+_example:_
+
+```
+[{}]
+```
+
+#### 404 (Not Found)
+
+> If the provided `userId` doesn't have a profile, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+
+{
+  "message": "Sorry, but that profile doesn't exist"
+}
+
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+
+{
+  "message": "Sorry, but something went wrong while getting that profile"
+}
+
+```
+
+## **ADD MATCH**
+
+### **Add a seeker**
+
+_Method Url:_ `/api/matched:id`
+
+_HTTP method:_ **[POST]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description |
+| ---- | ------- | -------- | ----------- |
+| id   | Integer | Yes      | user id     |
+
+#### Body
+
+| name    | type    | required | description                  |
+| ------- | ------- | -------- | ---------------------------- |
+| `jobId` | Integer | Yes      | Job id user being matched to |
+
+|
+
+_example:_
+
+```
+{
+    "jobId": 4
+}
+```
+
+#### Response
+
+##### 201 (Created)
+
+> If you successfully create a seeker profile, the endpoint will return an HTTP response with a status code `201` and a body as below.
+
+_example:_
+
+```
+
+{
+  "id": 1,
+  "userId": 6,
+  "firstName": "John",
+  "lastName": "Dough",
+  "profilePicture": "",
+  "month": 2,
+  "day": 4,
+  "year": 1994,
+  "country": "US",
+  "state": "California",
+  "city": "San Francisco",
+  "zipcode": 93552
+}
+
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+_example:_
+
+```
+
+{
+  "message": "Please provide a first name"
+}
+
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+
+{
+  "message": "Sorry, but something went wrong while creating that profile"
+}
+
 ```

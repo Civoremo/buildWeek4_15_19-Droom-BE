@@ -10,10 +10,10 @@ exports.up = function(knex) {
 			.onDelete('CASCADE')
 			.onUpdate('CASCADE');
 
-		tbl.string('jobSkill').notNullable();
+		tbl.string('jobSkill', 128).notNullable();
 	});
 };
 
 exports.down = function(knex) {
-	return knex.schema.dropTable('jobs_skills');
+	return knex.schema.dropTableIfExists('jobs_skills');
 };

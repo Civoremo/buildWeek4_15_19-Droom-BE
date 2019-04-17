@@ -10,28 +10,28 @@ exports.up = function(knex) {
 			.onDelete('CASCADE')
 			.onUpdate('CASCADE');
 
-		tbl.string('firstName', 255).notNullable();
+		tbl.string('firstName', 128).notNullable();
 
-		tbl.string('lastName').notNullable();
+		tbl.string('lastName', 128).notNullable();
 
-		tbl.string('profilePicture').notNullable();
+		tbl.string('profilePicture', 255).notNullable();
 
-		tbl.integer('month').notNullable();
+		tbl.integer('month', 128).notNullable();
 
-		tbl.integer('day').notNullable();
+		tbl.integer('day', 128).notNullable();
 
-		tbl.integer('year').notNullable();
+		tbl.integer('year', 128).notNullable();
 
-		tbl.string('country').notNullable();
+		tbl.string('country', 128).notNullable();
 
-		tbl.string('state').notNullable();
+		tbl.string('state', 128).notNullable();
 
-		tbl.string('city').notNullable();
+		tbl.string('city', 128).notNullable();
 
-		tbl.integer('zipcode').notNullable();
+		tbl.integer('zipcode', 128).notNullable();
 	});
 };
 
 exports.down = function(knex) {
-	return knex.schema.dropTable('seekers');
+	return knex.schema.dropTableIfExists('seekers');
 };

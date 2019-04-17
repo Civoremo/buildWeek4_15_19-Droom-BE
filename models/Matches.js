@@ -6,63 +6,41 @@ module.exports = {
 };
 
 async function get(id) {
+	// Find seeker based on userId
 	let seeker = await db('seekers')
-		.where({ id })
+		.where({ userId: id })
 		.first();
 
+	// Get all seeker skills
 	let seekerSkills = await db('seeker_skills').where({
 		seekerId: seeker.id
 	});
 
+	// Map through seeker skills and push them to arraySkills
 	let arraySkills = [];
 	await seekerSkills.map(skill => {
 		return arraySkills.push(skill.seekerSkill);
 	});
 
+	// Find all jobs
 	let jobs = await Jobs.find();
-	console.log(jobs);
-	let updatedJobs = await Promise.all(
-		jobs.map(async job => {
-			let count = 0;
-			await job.jobSkills.map(skill => {
-				if (seeker.skill.includes(skill.jobSkill)) {
-					count++;
-				}
-			});
-			return { ...updatedJobs, count };
-		})
-	);
+
+	// Return recommended jobs based off count
+	let updatedJobs = jobs.map(job => {
+		let count = 0;
+
+		// Compare job skill with skills,
+		// if skill matches add 1 to count
+		job.jobSkills.forEach(skill => {
+			if (arraySkills.includes(skill.jobSkill)) {
+				count++;
+			}
+		});
+
+		// stitch together job properties with count
+		return { ...job, count };
+	});
+
+	// sort updated jobs based on count
+	return updatedJobs.sort((a, b) => b.count - a.count);
 }
-
-/*
-
-QUERYING:
-    Get a seekers profile skills (query)
-    Get an array of all job(s) and compare the skills between seeker and job
-
-SORTING PART:
-    add count property to job based on matched skills
-    jobSkill === seekerSkill add 1 to count
-    [jobs]
-    sort job skill count limit 100 potential jobs
-
-POTENTIAL OUTCOME TO SORT:
-
-    const jobs = [
-        {
-            "job": "Mobile Engineer",
-            "count": 1
-        },
-        {
-            "job": "Software Engineer",
-            "count": 45645363456435
-        },  {
-            "job": "Full-Stack Software Engineer",
-            "count": 4545
-        }
-    ]
-
-const sortedJobs = jobs.sort((a,b) => b.count - a.count)
-
-console.log(sortedJobs)
-*/
