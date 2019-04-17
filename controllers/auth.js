@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
-
+const db = require('../database/dbConfig');
 const Users = require('../models/Users');
 const { generateToken } = require('../helpers/generateToken');
 
@@ -20,7 +20,7 @@ router.post('/register', authValidation, async (req, res) => {
 		let newUser = await Users.add(user);
 		token = await generateToken(newUser);
 
-		res.status(201).json({ token: token });
+		res.status(201).json({ newUser, token });
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({

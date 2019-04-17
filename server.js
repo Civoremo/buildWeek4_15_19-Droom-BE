@@ -11,6 +11,8 @@ const educationController = require('./controllers/education');
 const experienceController = require('./controllers/experience');
 const skillsController = require('./controllers/skills');
 const comController = require('./controllers/companies');
+const jobsController = require('./controllers/jobs');
+const jobSkillsController = require('./controllers/jobSKills');
 
 // initializations
 const server = express();
@@ -28,6 +30,8 @@ server.use('/api/education', educationController);
 server.use('/api/experience', experienceController);
 server.use('/api/skills', skillsController);
 server.use('/api/companies', comController);
+server.use('/api/jobs', jobsController);
+server.use('/api/job-skills', jobSkillsController);
 
 // error reporting middleware (Must be after all requests)
 errorMiddleware(server);

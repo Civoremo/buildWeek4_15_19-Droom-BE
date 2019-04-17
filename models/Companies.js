@@ -10,8 +10,15 @@ module.exports = {
 };
 
 // Create a company
-async function add(company) {
-	const [id] = await db('companies').insert(company);
+async function add(userId, company) {
+	const newCompany = {
+		userId,
+		...company
+	};
+	const [id] = await db('companies')
+		.insert(newCompany)
+		.returning('id');
+
 	return findById(id);
 }
 
@@ -22,14 +29,33 @@ function find() {
 
 // Get companies by filter
 function findBy(filter) {
-	return db('companies').where({ filter });
+	return db('companies').where({ filter: filter });
 }
 
 // Get company by Id
-function findById(id) {
-	return db('companies')
+async function findById(id) {
+	const company = await db('companies')
 		.where({ id })
 		.first();
+
+	const companyJobs = await db('jobs').where({ companyId: id });
+	//console.log(companyJobs);
+	const mappedJobs = await Promise.all(
+		companyJobs.map(async job => {
+			const jobSkills = await db('jobs_skills').where({
+				jobId: job.id
+			});
+			console.log(jobSkills);
+			return { ...job, jobSkills };
+		})
+	);
+
+	const stitchedCompany = {
+		...company,
+		jobs: mappedJobs
+	};
+	console.log(stitchedCompany);
+	return stitchedCompany;
 }
 
 // Update a company
