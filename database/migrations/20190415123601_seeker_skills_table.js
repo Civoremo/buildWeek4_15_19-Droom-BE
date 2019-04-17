@@ -10,7 +10,7 @@ exports.up = function(knex) {
 			.onDelete('CASCADE')
 			.onUpdate('CASCADE');
 
-		tbl.string('seekerSkill').notNullable();
+		tbl.string('seekerSkill', 128).notNullable();
 	});
 };
 

@@ -10,15 +10,15 @@ exports.up = function(knex) {
 			.onDelete('CASCADE')
 			.onUpdate('CASCADE');
 
-		tbl.string('jobName', 255).notNullable();
+		tbl.string('jobName', 128).notNullable();
 
-		tbl.string('jobDescription').notNullable();
+		tbl.text('jobDescription').notNullable();
 
-		tbl.string('jobExperienceRequired').notNullable();
+		tbl.text('jobExperienceRequired').notNullable();
 
-		tbl.string('jobExperiencePreferred').notNullable();
+		tbl.text('jobExperiencePreferred').notNullable();
 
-		tbl.string('jobApplyBy').notNullable();
+		tbl.string('jobApplyBy', 128).notNullable();
 	});
 };
 
