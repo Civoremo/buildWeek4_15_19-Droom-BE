@@ -176,7 +176,7 @@ function jobValidation(req, res, next) {
 }
 
 function updateJobValidation(req, res, next) {
-	const { userId, job } = req.body;
+	const { jobId, job } = req.body;
 	const {
 		jobName,
 		jobDescription,
@@ -184,7 +184,7 @@ function updateJobValidation(req, res, next) {
 		jobExperiencePreferred,
 		jobApplyBy
 	} = job;
-	if (!userId) {
+	if (!jobId) {
 		return res.status(400).json({
 			message: 'Please provide a user id for this job.'
 		});
@@ -223,11 +223,11 @@ function updateJobValidation(req, res, next) {
 }
 
 function jobSkillsValidation(req, res, next) {
-	const { userId, jobSkill } = req.body;
+	const { jobId, jobSkill } = req.body;
 
-	if (!userId) {
+	if (!jobId) {
 		return res.status(400).json({
-			message: 'Please provide a user id'
+			message: 'Please provide a job id'
 		});
 	}
 

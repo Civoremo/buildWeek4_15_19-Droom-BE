@@ -1,8 +1,6 @@
 const router = require('express').Router();
-const Companies = require('../models/Companies.js');
 const Jobs = require('../models/Jobs.js');
 const {
-	getValidation,
 	jobValidation,
 	updateJobValidation
 } = require('../middleware/validation');
@@ -91,7 +89,7 @@ router.delete('/:id', async (req, res) => {
 	}
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', updateJobValidation, async (req, res) => {
 	try {
 		const { id } = req.params;
 		const updated = req.body;
