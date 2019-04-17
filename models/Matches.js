@@ -15,13 +15,12 @@ async function get(id) {
 	});
 
 	let arraySkills = [];
-
 	await seekerSkills.map(skill => {
 		return arraySkills.push(skill.seekerSkill);
 	});
 
 	let jobs = await Jobs.find();
-	//console.log(jobs);
+	console.log(jobs);
 	let updatedJobs = await Promise.all(
 		jobs.map(async job => {
 			let count = 0;

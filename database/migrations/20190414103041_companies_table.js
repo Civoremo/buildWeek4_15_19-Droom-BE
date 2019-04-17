@@ -10,22 +10,22 @@ exports.up = function(knex) {
 			.onDelete('CASCADE')
 			.onUpdate('CASCADE');
 
-		tbl.string('companyName', 255).notNullable();
+		tbl.string('companyName', 128).notNullable();
 
-		tbl.string('companyPicture');
+		tbl.string('companyPicture', 255);
 
-		tbl.string('companyDescription').notNullable();
+		tbl.text('companyDescription', 255).notNullable();
 
-		tbl.string('country').notNullable();
+		tbl.string('country', 128).notNullable();
 
-		tbl.string('state').notNullable();
+		tbl.string('state', 128).notNullable();
 
-		tbl.string('city').notNullable();
+		tbl.string('city', 128).notNullable();
 
-		tbl.integer('zipcode').notNullable();
+		tbl.integer('zipcode', 128).notNullable();
 	});
 };
 
 exports.down = function(knex) {
-	return knex.schema.dropTable('companies');
+	return knex.schema.dropTableIfExists('companies');
 };
