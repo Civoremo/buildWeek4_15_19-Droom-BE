@@ -9,7 +9,12 @@ module.exports = {
 
 // Add education to seeker profile
 async function add({ userId, seekerEducation }) {
-	let { id } = await findSeeker(userId);
+	let id = db('seekers')
+		.where({ userId: userId })
+		.select('id')
+		.first()
+		.returning('id');
+
 	let seekerId = id;
 
 	// add seekerId prop to education object
