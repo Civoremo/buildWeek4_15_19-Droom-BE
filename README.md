@@ -72,8 +72,8 @@ npm run server
 - [Skills Routes](#skills-routes)
      - [Get Skills](##get-skills)
      - [Add Skills](##add-skills)
-     - [Update Skills](##update-skills)
-     - [Delete Skills](##delete-skills)
+     - [Update Skills](##update-skill)
+     - [Delete Skills](##delete-skill)
 - [Company Routes](#company-routes)
      - [Get Companies](##get-companies)
      - [Get Company](##get-company)
@@ -1293,6 +1293,328 @@ _example:_
 ```
 {
   "message": "Sorry, but something went wrong while deleting experience"
+}
+```
+
+# SKILLS ROUTES
+
+## **GET SKILLS**
+
+### **Get skills by user id**
+
+_Method Url:_ `/api/skills/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Response
+
+##### 200 (OK)
+
+> If seeker skills are found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+_example:_
+
+```
+[
+    {
+        "id": 1,
+        "seekerId": 1,
+        "seekerSkill": "Express"
+    },
+    {
+        "id": 2,
+        "seekerId": 1,
+        "seekerSkill": "Node"
+    },
+    {
+        "id": 3,
+        "seekerId": 1,
+        "seekerSkill": "React"
+    }
+]
+```
+
+#### 404 (Not Found)
+
+> A `404` (Not Found) response has `two` possible outcomes one if the `user` profile doesn't have any education or if the provided `user` doesn't have a profile, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but that profile doesn't have any skills"
+}
+```
+
+or
+
+```
+{
+    "message": "Sorry, but that user doesn't have a profile"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but something went wrong while trying to get skills"
+}
+```
+
+## **ADD SKILLS**
+
+### **Add skills by user id**
+
+_Method Url:_ `/api/skills`
+
+_HTTP method:_ **[POST]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Body
+
+| name           | type    | required | description                                 |
+| -------------- | ------- | -------- | ------------------------------------------- |
+| `userId`       | Integer | Yes      | Must match a user's id in the database      |
+| `jobTitle`     | String  | Yes      | Cannot be an empty field                    |
+| `seekerSkills` | String  | Yes      | (Array of strings) Cannot be an empty field |
+
+_example:_
+
+```
+{
+	"skills": {
+	  "userId": 2,
+	  "seekerSkills": ["Express", "Node", "React"]
+	}
+}
+```
+
+#### Response
+
+##### 201 (Created)
+
+> If you successfully create seeker skills, the endpoint will return an HTTP response with a status code `201` and a body as below.
+
+_example:_
+
+```
+[
+    {
+        "id": 1,
+        "seekerId": 1,
+        "seekerSkill": "Express"
+    },
+    {
+        "id": 2,
+        "seekerId": 1,
+        "seekerSkill": "Node"
+    },
+    {
+        "id": 3,
+        "seekerId": 1,
+        "seekerSkill": "React"
+    }
+]
+```
+
+#### 404 (Not Found)
+
+> If the seeker profile for the specified `userId` can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but that user doesn't have a profile"
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+_example:_
+
+```
+{
+  "message": "Please provide some skills"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but something went wrong while trying to get skills"
+}
+```
+
+## **UPDATE SKILL**
+
+### **Update skill by skill id**
+
+_Method Url:_ `/api/skills/:id`
+
+_HTTP method:_ **[PUT]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description                   |
+| ---- | ------- | -------- | ----------------------------- |
+| id   | Integer | Yes      | ID of a specific skill object |
+
+#### Body
+
+| name          | type   | required | description              |
+| ------------- | ------ | -------- | ------------------------ |
+| `seekerSkill` | String | Yes      | Cannot be an empty field |
+
+_example:_
+
+```
+{
+	"seekerSkill": "Python"
+}
+
+```
+
+#### Response
+
+##### 200 (OK)
+
+> If the skill object with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+_example:_
+
+```
+{
+    "id": 1,
+    "seekerId": 1,
+    "seekerSkill": "Python"
+}
+```
+
+#### 404 (Not Found)
+
+> If the education object for the specified id can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but that skill doesn't exist"
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+_example:_
+
+```
+{
+   "message": "Please provide a skill"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but something went wrong while updating skill"
+}
+```
+
+## **DELETE SKILL**
+
+### **Delete skill by skill id**
+
+_Method Url:_ `/api/skill/:id`
+
+_HTTP method:_ **[DELETE]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description        |
+| ---- | ------- | -------- | ------------------ |
+| id   | Integer | Yes      | ID of skill object |
+
+#### Response
+
+##### 200 (OK)
+
+> If the skill object specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Skill successfully deleted"
+}
+```
+
+#### 404 (Not Found)
+
+> If the skill object specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but that skill doesn't exist"
+}
+```
+
+#### 500 (Bad Request)
+
+> If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but something went wrong while deleting that skill"
 }
 ```
 
