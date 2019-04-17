@@ -12,17 +12,17 @@ Back-end build week project for droom
 - [Summary Table of API Endpoints](#summary-table-of-api-endpoints)
 - [Auth Routes](#auth-routes)
 - [Company Routes](#company-routes)
-  - [Get Companies](##get-companies)
-  -  [Get Company](##get-company)
-  -  [Add Company](##add-company)
-  -  [Update Company](##update-company)
-  -  [Delete Company](##delete-company)
+     - [Get Companies](##get-companies)
+     - [Get Company](##get-company)
+     - [Add Company](##add-company)
+     - [Update Company](##update-company)
+     - [Delete Company](##delete-company)
 - [Job Routes](#job-routes)
-  - [Get Jobs](##get-jobs)
-  -  [Get Job](##get-job)
-  -  [Add Job](##add-job)
-  -  [Update Job](##update-job)
-  -  [Delete Job](##delete-job)
+     - [Get Jobs](##get-jobs)
+     - [Get Job](##get-job)
+     - [Add Job](##add-job)
+     - [Update Job](##update-job)
+     - [Delete Job](##delete-job)
 
 # SUMMARY TABLE OF API ENDPOINTS
 
@@ -168,9 +168,11 @@ _example:_
   "message": 'Sorry, but something went wrong while logging in'
 }
 ```
+
 # COMPANY ROUTES
 
 ## **GET COMPANIES**
+
 ### **Get all companies**
 
 _Method Url:_ `/api/companies`
@@ -179,10 +181,10 @@ _HTTP method:_ **[GET]**
 
 #### Headers
 
-| name              | type   | required | description              |
-| ----------------- | ------ | -------- | ------------------------ |
-| `Content-Type`    | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token                               |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Response
 
@@ -232,6 +234,7 @@ _HTTP method:_ **[GET]**
 ```
 
 ## **GET COMPANY**
+
 ### **Get a company by ID**
 
 _Method Url:_ `/api/companies/:id`
@@ -240,24 +243,22 @@ _HTTP method:_ **[GET]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Parameters
 
-| name   | type    | required | description              |
-| ------ | ------- | -------- | ------------------------ |
-| id | Integer | Yes      | ID of a specific company |
-
+| name | type    | required | description              |
+| ---- | ------- | -------- | ------------------------ |
+| id   | Integer | Yes      | ID of a specific company |
 
 #### Response
 
 ##### 200 (OK)
 
-> 
-If a company with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+> If a company with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
 
 ```
 {
@@ -297,7 +298,9 @@ If a company with the specified ID in the URL parameters is found in the databas
     message: 'Sorry, but something went wrong while retrieving the company.'
 }
 ```
+
 ## **ADD COMPANY**
+
 ### **Add a Company**
 
 _Method Url:_ `/api/companies`
@@ -306,10 +309,10 @@ _HTTP method:_ **[POST]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Body
 
@@ -329,13 +332,15 @@ _example:_
 ```
 {
   "userId": 1,
-  "companyName": "Apple",
-  "companyPicture": "url string (exclude for MVP)",
-  "companyDescription": "An About me for the company",
-  "country": "United States of America",
-  "state": "California",
-  "city": "Cupertino",
-  "zipcode": "40000",
+    "company": {
+        "companyName": "Apple 2",
+        "companyPicture": "",
+        "companyDescription": "An About me for the company",
+        "country": "United States of America",
+        "state": "California",
+        "city": "Cupertino",
+        "zipcode": 4000
+    }
 }
 ```
 
@@ -383,6 +388,7 @@ _example:_
 ```
 
 ## **UPDATE COMPANY**
+
 ### **Update a Company by user ID**
 
 _Method Url:_ `/api/companies/:id`
@@ -391,17 +397,16 @@ _HTTP method:_ **[PUT]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Parameters
 
-| name   | type    | required | description              |
-| ------ | ------- | -------- | ------------------------ |
-| id | Integer | Yes      | ID of a specific company |
-
+| name | type    | required | description              |
+| ---- | ------- | -------- | ------------------------ |
+| id   | Integer | Yes      | ID of a specific company |
 
 #### Body
 
@@ -409,7 +414,7 @@ _HTTP method:_ **[PUT]**
 | -------------------- | ------- | -------- | -------------------------------------- |
 | `userId`             | Integer | Yes      | Must match a user's id in the database |
 | `companyName`        | String  | Yes      | Cannot be an empty field               |
-| `companyPicture`     | String  | No      | Can be an empty field                  |
+| `companyPicture`     | String  | No       | Can be an empty field                  |
 | `companyDescription` | String  | Yes      | Cannot be an empty field               |
 | `country`            | String  | Yes      | Cannot be an empty field               |
 | `state`              | String  | Yes      | Cannot be an empty field               |
@@ -475,6 +480,7 @@ _example:_
 ```
 
 ## DELETE COMPANY
+
 ### **Update a Company by user ID**
 
 _Method Url:_ `/api/companies/:id`
@@ -483,16 +489,16 @@ _HTTP method:_ **[DELETE]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Parameters
 
-| name   | type    | required | description              |
-| ------ | ------- | -------- | ------------------------ |
-| id | Integer | Yes      | ID of a specific company |
+| name | type    | required | description              |
+| ---- | ------- | -------- | ------------------------ |
+| id   | Integer | Yes      | ID of a specific company |
 
 #### Response
 
@@ -508,8 +514,8 @@ _HTTP method:_ **[DELETE]**
 
 #### 404 (Not Found)
 
-> 
-If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+> If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
 ```
 {
   "message": 'The company could not be found.'
@@ -519,15 +525,17 @@ If no companies for the specified id can be found in the database, the endpoint 
 #### 500 (Bad Request)
 
 > If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
-> 
+
 ```
 {
   "message": "Sorry, but something went wrong while deleting the company."
 }
 ```
+
 # JOB ROUTES
 
 ## **GET JOBS**
+
 ### **Get all jobs**
 
 _Method Url:_ `/api/jobs`
@@ -536,10 +544,10 @@ _HTTP method:_ **[GET]**
 
 #### Headers
 
-| name              | type   | required | description              |
-| ----------------- | ------ | -------- | ------------------------ |
-| `Content-Type`    | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token                               |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Response
 
@@ -604,6 +612,7 @@ _HTTP method:_ **[GET]**
 ```
 
 ## **GET JOB**
+
 ### **Get a job by ID**
 
 _Method Url:_ `/api/jobs/:id`
@@ -612,24 +621,22 @@ _HTTP method:_ **[GET]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Parameters
 
-| name   | type    | required | description              |
-| ------ | ------- | -------- | ------------------------ |
-| id | Integer | Yes      | ID of a specific job |
-
+| name | type    | required | description          |
+| ---- | ------- | -------- | -------------------- |
+| id   | Integer | Yes      | ID of a specific job |
 
 #### Response
 
 ##### 200 (OK)
 
-> 
-If a job with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+> If a job with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
 
 ```
 {
@@ -668,7 +675,9 @@ If a job with the specified ID in the URL parameters is found in the database, t
     message: 'Sorry, but something went wrong while retrieving the job.'
 }
 ```
+
 ## **ADD JOB**
+
 ### **Add a job**
 
 _Method Url:_ `/api/jobs`
@@ -677,21 +686,21 @@ _HTTP method:_ **[POST]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Body
 
-| name                 | type    | required | description                            |
-| -------------------- | ------- | -------- | -------------------------------------- |
-| `companyId`             | Integer | Yes      | Must match a company's id in the database |
-| `jobName`        | String  | Yes      | Cannot be an empty field               |
-| `jobDescription` | String  | Yes      | Cannot be an empty field               |
-| `jobExperienceRequired`            | String  | Yes      | Cannot be an empty field               |
-| `jobExperiencePreferred`              | String  | Yes      | Cannot be an empty field               |
-| `jobApplyBy`               | String  | Yes      | Cannot be an empty field               |
+| name                     | type    | required | description                               |
+| ------------------------ | ------- | -------- | ----------------------------------------- |
+| `companyId`              | Integer | Yes      | Must match a company's id in the database |
+| `jobName`                | String  | Yes      | Cannot be an empty field                  |
+| `jobDescription`         | String  | Yes      | Cannot be an empty field                  |
+| `jobExperienceRequired`  | String  | Yes      | Cannot be an empty field                  |
+| `jobExperiencePreferred` | String  | Yes      | Cannot be an empty field                  |
+| `jobApplyBy`             | String  | Yes      | Cannot be an empty field                  |
 
 _example:_
 
@@ -756,28 +765,27 @@ _HTTP method:_ **[PUT]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Parameters
 
-| name   | type    | required | description              |
-| ------ | ------- | -------- | ------------------------ |
-| id | Integer | Yes      | ID of a specific job |
-
+| name | type    | required | description          |
+| ---- | ------- | -------- | -------------------- |
+| id   | Integer | Yes      | ID of a specific job |
 
 #### Body
 
-| name                 | type    | required | description                            |
-| -------------------- | ------- | -------- | -------------------------------------- |
-| `companyId`             | Integer | Yes      | Must match a user's id in the database |
-| `jobName`        | String  | Yes      | Cannot be an empty field               |
-| `jobDescription` | String  | Yes      | Cannot be an empty field               |
-| `jobExperienceRequired`            | String  | Yes      | Cannot be an empty field               |
-| `jobExperiencePreferred`              | String  | Yes      | Cannot be an empty field               |
-| `jobApplyBy`               | String  | Yes      | Cannot be an empty field               |
+| name                     | type    | required | description                            |
+| ------------------------ | ------- | -------- | -------------------------------------- |
+| `companyId`              | Integer | Yes      | Must match a user's id in the database |
+| `jobName`                | String  | Yes      | Cannot be an empty field               |
+| `jobDescription`         | String  | Yes      | Cannot be an empty field               |
+| `jobExperienceRequired`  | String  | Yes      | Cannot be an empty field               |
+| `jobExperiencePreferred` | String  | Yes      | Cannot be an empty field               |
+| `jobApplyBy`             | String  | Yes      | Cannot be an empty field               |
 
 _example:_
 
@@ -835,6 +843,7 @@ _example:_
 ```
 
 ## DELETE JOB
+
 ### **Delete a Job by company ID**
 
 _Method Url:_ `/api/jobs/:id`
@@ -843,16 +852,16 @@ _HTTP method:_ **[DELETE]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Parameters
 
-| name   | type    | required | description              |
-| ------ | ------- | -------- | ------------------------ |
-| id | Integer | Yes      | ID of a specific company |
+| name | type    | required | description              |
+| ---- | ------- | -------- | ------------------------ |
+| id   | Integer | Yes      | ID of a specific company |
 
 #### Response
 
@@ -868,8 +877,8 @@ _HTTP method:_ **[DELETE]**
 
 #### 404 (Not Found)
 
-> 
-If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+> If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
 ```
 {
   "message": 'The job could not be found.'
@@ -879,15 +888,17 @@ If no companies for the specified id can be found in the database, the endpoint 
 #### 500 (Bad Request)
 
 > If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
-> 
+
 ```
 {
   "message": "Sorry, but something went wrong while deleting the job."
 }
 ```
+
 # JOB SKILLS ROUTES
 
 ## **GET JOB SKILLS**
+
 ### **Get all job skills**
 
 _Method Url:_ `/api/jobs`
@@ -896,10 +907,10 @@ _HTTP method:_ **[GET]**
 
 #### Headers
 
-| name              | type   | required | description              |
-| ----------------- | ------ | -------- | ------------------------ |
-| `Content-Type`    | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token                               |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Response
 
@@ -964,6 +975,7 @@ _HTTP method:_ **[GET]**
 ```
 
 ## **GET JOB**
+
 ### **Get a job by ID**
 
 _Method Url:_ `/api/jobs/:id`
@@ -972,24 +984,22 @@ _HTTP method:_ **[GET]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Parameters
 
-| name   | type    | required | description              |
-| ------ | ------- | -------- | ------------------------ |
-| id | Integer | Yes      | ID of a specific job |
-
+| name | type    | required | description          |
+| ---- | ------- | -------- | -------------------- |
+| id   | Integer | Yes      | ID of a specific job |
 
 #### Response
 
 ##### 200 (OK)
 
-> 
-If a job with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+> If a job with the specified ID in the URL parameters is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
 
 ```
 {
@@ -1028,7 +1038,9 @@ If a job with the specified ID in the URL parameters is found in the database, t
     message: 'Sorry, but something went wrong while retrieving the job.'
 }
 ```
+
 ## **ADD JOB**
+
 ### **Add a job**
 
 _Method Url:_ `/api/jobs`
@@ -1037,21 +1049,21 @@ _HTTP method:_ **[POST]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Body
 
-| name                 | type    | required | description                            |
-| -------------------- | ------- | -------- | -------------------------------------- |
-| `companyId`             | Integer | Yes      | Must match a company's id in the database |
-| `jobName`        | String  | Yes      | Cannot be an empty field               |
-| `jobDescription` | String  | Yes      | Cannot be an empty field               |
-| `jobExperienceRequired`            | String  | Yes      | Cannot be an empty field               |
-| `jobExperiencePreferred`              | String  | Yes      | Cannot be an empty field               |
-| `jobApplyBy`               | String  | Yes      | Cannot be an empty field               |
+| name                     | type    | required | description                               |
+| ------------------------ | ------- | -------- | ----------------------------------------- |
+| `companyId`              | Integer | Yes      | Must match a company's id in the database |
+| `jobName`                | String  | Yes      | Cannot be an empty field                  |
+| `jobDescription`         | String  | Yes      | Cannot be an empty field                  |
+| `jobExperienceRequired`  | String  | Yes      | Cannot be an empty field                  |
+| `jobExperiencePreferred` | String  | Yes      | Cannot be an empty field                  |
+| `jobApplyBy`             | String  | Yes      | Cannot be an empty field                  |
 
 _example:_
 
@@ -1116,28 +1128,27 @@ _HTTP method:_ **[PUT]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Parameters
 
-| name   | type    | required | description              |
-| ------ | ------- | -------- | ------------------------ |
-| id | Integer | Yes      | ID of a specific job |
-
+| name | type    | required | description          |
+| ---- | ------- | -------- | -------------------- |
+| id   | Integer | Yes      | ID of a specific job |
 
 #### Body
 
-| name                 | type    | required | description                            |
-| -------------------- | ------- | -------- | -------------------------------------- |
-| `companyId`             | Integer | Yes      | Must match a user's id in the database |
-| `jobName`        | String  | Yes      | Cannot be an empty field               |
-| `jobDescription` | String  | Yes      | Cannot be an empty field               |
-| `jobExperienceRequired`            | String  | Yes      | Cannot be an empty field               |
-| `jobExperiencePreferred`              | String  | Yes      | Cannot be an empty field               |
-| `jobApplyBy`               | String  | Yes      | Cannot be an empty field               |
+| name                     | type    | required | description                            |
+| ------------------------ | ------- | -------- | -------------------------------------- |
+| `companyId`              | Integer | Yes      | Must match a user's id in the database |
+| `jobName`                | String  | Yes      | Cannot be an empty field               |
+| `jobDescription`         | String  | Yes      | Cannot be an empty field               |
+| `jobExperienceRequired`  | String  | Yes      | Cannot be an empty field               |
+| `jobExperiencePreferred` | String  | Yes      | Cannot be an empty field               |
+| `jobApplyBy`             | String  | Yes      | Cannot be an empty field               |
 
 _example:_
 
@@ -1195,6 +1206,7 @@ _example:_
 ```
 
 ## DELETE JOB
+
 ### **Delete a Job by company ID**
 
 _Method Url:_ `/api/jobs/:id`
@@ -1203,16 +1215,16 @@ _HTTP method:_ **[DELETE]**
 
 #### Headers
 
-| name           | type   | required | description              |
-| -------------- | ------ | -------- | ------------------------ |
-| `Content-Type` | String | Yes      | Must be application/json |
-| `Authorization` | String | Yes      | JSON Web Token |
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
 
 #### Parameters
 
-| name   | type    | required | description              |
-| ------ | ------- | -------- | ------------------------ |
-| id | Integer | Yes      | ID of a specific company |
+| name | type    | required | description              |
+| ---- | ------- | -------- | ------------------------ |
+| id   | Integer | Yes      | ID of a specific company |
 
 #### Response
 
@@ -1228,8 +1240,8 @@ _HTTP method:_ **[DELETE]**
 
 #### 404 (Not Found)
 
-> 
-If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+> If no companies for the specified id can be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
 ```
 {
   "message": 'The job could not be found.'
@@ -1239,7 +1251,7 @@ If no companies for the specified id can be found in the database, the endpoint 
 #### 500 (Bad Request)
 
 > If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
-> 
+
 ```
 {
   "message": "Sorry, but something went wrong while deleting the job."

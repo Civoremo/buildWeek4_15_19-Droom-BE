@@ -13,8 +13,8 @@ async function add({ userId, seekerExperience }) {
 	seekerId = id;
 
 	// add seekerId prop to experience object
-	const updatedExperience = seekerExperience.map(edu => {
-		return { seekerId, ...edu };
+	const updatedExperience = seekerExperience.map(exp => {
+		return { seekerId, ...exp };
 	});
 
 	// add experience to db

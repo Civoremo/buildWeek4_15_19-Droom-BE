@@ -10,7 +10,7 @@ module.exports = {
 // Add education to seeker profile
 async function add({ userId, seekerEducation }) {
 	let { id } = await findSeeker(userId);
-	seekerId = id;
+	let seekerId = id;
 
 	// add seekerId prop to education object
 	const updatedEducation = seekerEducation.map(edu => {

@@ -7,6 +7,7 @@ module.exports = {
 
 function companyValidation(req, res, next) {
 	const { userId, company } = req.body;
+
 	const {
 		companyName,
 		companyDescription,
@@ -15,6 +16,7 @@ function companyValidation(req, res, next) {
 		city,
 		zipcode
 	} = company;
+
 	if (!userId) {
 		return res.status(400).json({
 			message: 'Please provide a user id for this company.'
