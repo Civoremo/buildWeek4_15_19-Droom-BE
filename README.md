@@ -2,11 +2,16 @@
 
 Back-end build week project for droom
 
-## Deployed Backend
+# **Maintainers**
+
+[@Fractured2K](https://github.com/fractured2k)
+[@AAsriyan](https://github.com/AAsriyan)
+
+# **Deployed Backend**
 
 - https://droom-buildweek-4-15-19.herokuapp.com/
 
-## **Technologies**
+# **Technologies**
 
 #### Production
 
@@ -28,7 +33,7 @@ Back-end build week project for droom
 
 - [Nodemon](https://www.npmjs.com/package/nodemon): `nodemon is a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected`
 
-## Setup
+# **Setup**
 
 (# <--- signifies comment)
 
@@ -42,7 +47,7 @@ npm install
 npm run server
 ```
 
-## Table of Contents
+# **Table of Contents**
 
 - [Test User Accounts](#test-user-accounts)
 - [Summary Table of API Endpoints](#summary-table-of-api-endpoints)
@@ -82,7 +87,7 @@ npm run server
      - [Update Job](##update-job)
      - [Delete Job](##delete-job)
 
-# SUMMARY TABLE OF API ENDPOINTS
+# **SUMMARY TABLE OF API ENDPOINTS**
 
 | Table | Method | Endpoint           | Description                                                                                                                                                                                    |
 | ----- | ------ | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -932,6 +937,362 @@ _example:_
 ```
 {
   "message": "Sorry, but something went wrong while deleting education"
+}
+```
+
+# EXPERIENCE ROUTES
+
+## **GET EXPERIENCE**
+
+### **Get experience by user id**
+
+_Method Url:_ `/api/experience/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Response
+
+##### 200 (OK)
+
+> If seeker experience is found in the database, the endpoint will return an HTTP response with a status code 200 and a body as below.
+
+_example:_
+
+```
+[
+    {
+        "id": 1,
+        "seekerId": 1,
+        "jobTitle": "Front-end Developer",
+        "jobCompany": "Facebook",
+        "jobDescription": "Built out facebook market place with react",
+        "jobStart": "1-25-2018",
+        "jobEnd": "9-2-2019"
+    },
+    {
+        "id": 2,
+        "seekerId": 1,
+        "jobTitle": "Back-end Developer",
+        "jobCompany": "Nexient",
+        "jobDescription": "Created apis and servers with golang",
+        "jobStart": "10-31-2019",
+        "jobEnd": "6-31-2020"
+    }
+]
+```
+
+#### 404 (Not Found)
+
+> A `404` (Not Found) response has `two` possible outcomes one if the `user` profile doesn't have any education or if the provided `user` doesn't have a profile, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but that profile doesn't have any experience"
+}
+```
+
+or
+
+```
+{
+    "message": "Sorry, but that user doesn't have a profile"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but something went wrong while trying to get experience"
+}
+```
+
+## **ADD EXPERIENCE**
+
+### **Add experience by user id**
+
+_Method Url:_ `/api/experience`
+
+_HTTP method:_ **[POST]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Body
+
+| name             | type    | required | description                            |
+| ---------------- | ------- | -------- | -------------------------------------- |
+| `userId`         | Integer | Yes      | Must match a user's id in the database |
+| `jobTitle`       | String  | Yes      | Cannot be an empty field               |
+| `jobCompany`     | String  | Yes      | Cannot be an empty field               |
+| `jobDescription` | String  | Yes      | Cannot be an empty field               |
+| `jobStart`       | String  | Yes      | Cannot be an empty field               |
+| `jobEnd`         | String  | Yes      | Cannot be an empty field               |
+
+_example:_
+
+```
+{
+  "userId":1,
+  "seekerExperience": [
+    {
+        "jobTitle":"Back-end Developer",
+        "jobCompany": "Nexient",
+        "jobDescription": "Created apis and servers with golang",
+        "jobStart": "10-31-2019",
+        "jobEnd": "6-31-2020"
+    },
+    {
+        "jobTitle":"Front-end Developer",
+        "jobCompany": "Facebook",
+        "jobDescription": "Built out facebook market place with react",
+        "jobStart": "1-25-2018",
+        "jobEnd": "9-2-2019"
+    }
+  ]
+}
+```
+
+#### Response
+
+##### 201 (Created)
+
+> If you successfully create seeker experience, the endpoint will return an HTTP response with a status code `201` and a body as below.
+
+_example:_
+
+```
+[
+    {
+        "id": 1,
+        "seekerId": 1,
+        "jobTitle": "Back-end Developer",
+        "jobCompany": "Nexient",
+        "jobDescription": "Created apis and servers with golang",
+        "jobStart": "10-31-2019",
+        "jobEnd": "6-31-2020"
+    },
+    {
+        "id": 2,
+        "seekerId": 1,
+        "jobTitle": "Front-end Developer",
+        "jobCompany": "Facebook",
+        "jobDescription": "Built out facebook market place with react",
+        "jobStart": "1-25-2018",
+        "jobEnd": "9-2-2019"
+    }
+]
+```
+
+#### 404 (Not Found)
+
+> If the seeker profile for the specified `userId` can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but that user doesn't have a profile"
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+_example:_
+
+```
+{
+  "message": "Please provide a job title"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but something went wrong while updating experience"
+}
+```
+
+## **UPDATE EXPERIENCE**
+
+### **Update individual experience objects using experience id**
+
+_Method Url:_ `/api/experience/:id`
+
+_HTTP method:_ **[PUT]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description                       |
+| ---- | ------- | -------- | --------------------------------- |
+| id   | Integer | Yes      | ID of a specific education object |
+
+#### Body
+
+| name             | type   | required | description              |
+| ---------------- | ------ | -------- | ------------------------ |
+| `jobTitle`       | String | Yes      | Cannot be an empty field |
+| `jobCompany`     | String | Yes      | Cannot be an empty field |
+| `jobDescription` | String | Yes      | Cannot be an empty field |
+| `jobStart`       | String | Yes      | Cannot be an empty field |
+| `jobEnd`         | String | Yes      | Cannot be an empty field |
+
+_example:_
+
+```
+{
+	"jobTitle":"Front-end Developer Updated",
+	"jobCompany": "Facebook",
+	"jobDescription": "Built out facebook market place with react",
+	"jobStart": "1-25-2018",
+	"jobEnd": "9-2-2019"
+}
+
+```
+
+#### Response
+
+##### 200 (OK)
+
+> If the experience object with the specified ID in the URL parameters is updated successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+_example:_
+
+```
+{
+    "id": 21,
+    "seekerId": 23,
+    "jobTitle": "Front-end Developer Updated",
+    "jobCompany": "Facebook",
+    "jobDescription": "Built out facebook market place with react",
+    "jobStart": "1-25-2018",
+    "jobEnd": "9-2-2019"
+}
+```
+
+#### 404 (Not Found)
+
+> If the education object for the specified id can't be found in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but that experience doesn't exist"
+}
+```
+
+#### 400 (Bad Request)
+
+> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
+
+_example:_
+
+```
+{
+   "message": "Please provide a job title"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Sorry, but something went wrong while updating experience"
+}
+```
+
+## **DELETE EXPERIENCE**
+
+### **Delete experience by experience id**
+
+_Method Url:_ `/api/experience/:id`
+
+_HTTP method:_ **[DELETE]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description             |
+| ---- | ------- | -------- | ----------------------- |
+| id   | Integer | Yes      | ID of experience object |
+
+#### Response
+
+##### 200 (OK)
+
+> If the experience object specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Education successfully deleted"
+}
+```
+
+#### 404 (Not Found)
+
+> If the experience object specified ID in the URL parameters is deleted successfully in the database, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but that experience doesn't exist"
+}
+```
+
+#### 500 (Bad Request)
+
+> If you send in invalid fields, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+  "message": "Sorry, but something went wrong while deleting experience"
 }
 ```
 
