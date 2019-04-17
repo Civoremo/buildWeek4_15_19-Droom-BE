@@ -2,17 +2,37 @@ const db = require('../database/dbConfig');
 const Jobs = require('./Jobs.js');
 
 module.exports = {
-	add
+	get,
+	add,
+	getById
 };
 
-async function add(id, jobId) {
+async function add(userid, jobId) {
 	let seeker = await db('seekers')
-		.where({ userId: id })
+		.where({ userId: userid })
 		.first();
+	//console.log(seeker);
+	//console.log(jobId);
+	let matchedJob = {
+		jobId,
+		seekerId: seeker.id
+	};
 
-	let job = await Jobs.findById(jobId);
+	let [id] = await db('matches')
+		.insert(matchedJob)
+		.returning('id');
+	//console.log(id);
 
-	let matchedJob = { jobId, seekerId: seeker.id };
+	return getById(id);
+}
 
-	return matchedJob;
+function get() {
+	return db('matches');
+}
+
+// Get matched by Id
+function getById(id) {
+	return db('matches')
+		.where({ id })
+		.first();
 }

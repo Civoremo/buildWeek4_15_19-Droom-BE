@@ -2113,6 +2113,7 @@ _example:_
 ```
 
 {
+<<<<<<< HEAD
   "companies": {
   "companyName": "Apple",
   "companyPicture": "url",
@@ -2125,6 +2126,20 @@ _example:_
   }
   },
   "jobs": []
+=======
+    "company": {
+        "companyName": "Apple",
+        "companyPicture": "url",
+        "companyDescription": "An About me for the company",
+        "location": {
+            "country": "United States of America",
+            "state": "California",
+            "city": "Cupertino",
+            "zipcode": "40000"
+        }
+    },
+    "jobs": []
+>>>>>>> 7dc999704f5dfdda4a029ad7730c9c4d4ba70245
 }
 
 ```
