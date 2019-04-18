@@ -3,6 +3,7 @@ const express = require('express');
 const Sentry = require('@sentry/node');
 
 const middleware = require('./middleware/config');
+const authenticate = require('./middleware/authenticate');
 const errorMiddleware = require('./middleware/errorReporting');
 
 const authController = require('./controllers/auth');
@@ -27,15 +28,15 @@ middleware(server);
 
 // controllers
 server.use('/api/auth', authController);
-server.use('/api/seekers', seekerController);
-server.use('/api/education', educationController);
-server.use('/api/experience', experienceController);
-server.use('/api/skills', skillsController);
-server.use('/api/companies', comController);
-server.use('/api/jobs', jobsController);
-server.use('/api/job-skills', jobSkillsController);
-server.use('/api/matches', matchesController);
-server.use('/api/matched', matchedController);
+server.use('/api/seekers', authenticate, seekerController);
+server.use('/api/education', authenticate, educationController);
+server.use('/api/experience', authenticate, experienceController);
+server.use('/api/skills', authenticate, skillsController);
+server.use('/api/companies', authenticate, comController);
+server.use('/api/jobs', authenticate, jobsController);
+server.use('/api/job-skills', authenticate, jobSkillsController);
+server.use('/api/matches', authenticate, matchesController);
+server.use('/api/matched', authenticate, matchedController);
 
 // error reporting middleware (Must be after all requests)
 errorMiddleware(server);

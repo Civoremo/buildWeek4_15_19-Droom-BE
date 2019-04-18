@@ -33,9 +33,9 @@ function find() {
 }
 
 // Find job seeker profile by id
-function findById(id) {
+function findById(userId) {
 	return db('seekers')
-		.where({ userId: id })
+		.where({ userId })
 		.first()
 		.returning('id');
 }
