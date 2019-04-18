@@ -94,6 +94,8 @@ npm run server
      - [Delete Job Skill](#update-job-skill)
 - [Match Routes](#match-routes)
      - [Get Matches](#get-matches)
+       - [Get Company Matches For Seeker](##get-matches-for-seeker)
+       - [Get Seeker Matches For Company](##get-matches-for-company-for-all-jobs)
      - [Get Matched](#get-matched)
      - [Add Match](#add-match)
 
@@ -3037,7 +3039,7 @@ _HTTP method:_ **[DELETE]**
 
 ### **Get matches for seeker**
 
-_Method Url:_ `/api/matches/:id`
+_Method Url:_ `/api/matches/seeker/:id`
 
 _HTTP method:_ **[GET]**
 
@@ -3169,6 +3171,161 @@ _example:_
 }
 
 ```
+
+### **Get matches for company for all jobs**
+
+_Method Url:_ `/api/matches/company/:id`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name | type    | required | description |
+| ---- | ------- | -------- | ----------- |
+| id   | Integer | Yes      | user id     |
+
+#### Response
+
+##### 200 (OK)
+
+> If there are recommended matches, the endpoint will return an HTTP response with a status code `200` and a body as below. This will show a list of all profiles matched with all jobs for that company. Filter by jobId if you want to see it only for each job.
+
+_example:_
+
+```
+[
+    {
+        "skills": [
+            "Golang",
+            "Python",
+            "JavaScript",
+            "Node",
+            "Express",
+            "C++",
+            "C#",
+            "MySQL",
+            "PostgreSQL",
+            "HTML",
+            "Git",
+            "React",
+            "CSS",
+            "Django",
+            "Redux",
+            "Webpack",
+            "Git"
+        ],
+        "seekerId": 2,
+        "jobId": 3,
+        "count": 3,
+        "profile": {
+            "id": 2,
+            "userId": 2,
+            "firstName": "John",
+            "lastName": "Dough",
+            "profilePicture": "http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png",
+            "month": 5,
+            "day": 21,
+            "year": 1994,
+            "country": "United States",
+            "state": "Washington",
+            "city": "Redmond",
+            "zipcode": 98008
+        }
+    },
+    {
+        "skills": [
+            "Java",
+            "JavaScript",
+            "Kafka",
+            "jQuery",
+            "HTML",
+            "CSS",
+            "Bootstrap",
+            "Git"
+        ],
+        "seekerId": 1,
+        "jobId": 3,
+        "count": 2,
+        "profile": {
+            "id": 1,
+            "userId": 1,
+            "firstName": "Sam",
+            "lastName": "Smith",
+            "profilePicture": "http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png",
+            "month": 10,
+            "day": 13,
+            "year": 1990,
+            "country": "United States",
+            "state": "California",
+            "city": "San Francisco",
+            "zipcode": 94016
+        }
+    },
+    {
+        "skills": [
+            "Java",
+            "Spring Framework",
+            "React",
+            "MySQL",
+            "PostgreSQL",
+            "Ruby"
+        ],
+        "seekerId": 3,
+        "jobId": 3,
+        "count": 1,
+        "profile": {
+            "id": 3,
+            "userId": 3,
+            "firstName": "Sally",
+            "lastName": "Jones",
+            "profilePicture": "http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png",
+            "month": 1,
+            "day": 2,
+            "year": 1992,
+            "country": "United States",
+            "state": "Michigan",
+            "city": "Detroit",
+            "zipcode": 48127
+        }
+    }
+]
+```
+
+#### 404 (Not Found)
+
+> If the provided `userId` doesn't have a company, the endpoint will return an HTTP response with a status code `404` and a body as below.
+
+_example:_
+
+```
+
+{
+   "message": "Sorry, but that user doesn't have a company"
+}
+
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+
+{
+  "message": "Sorry, but something went wrong while getting matches"
+}
+
+```
+
 
 ## **GET MATCHED**
 

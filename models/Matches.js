@@ -49,19 +49,19 @@ async function seekerMatches(id) {
 async function companyMatches(id) {
 	// Find company based on user Id
 	let company = await Companies.findById(id);
-	//console.log(company);
 
+	// Find all skills for all jobs and make a new array for each job
 	let arrayJobSkills = await company.jobs.map(job => {
 		let mappedSkills = job.jobSkills.map(skill => {
 			return skill.jobSkill;
 		});
 		return { skills: mappedSkills, jobId: job.id };
 	});
-	console.log(arrayJobSkills);
 
+	// Find all seekers
 	let seekers = await Seekers.find();
-	//console.log(seekers);
 
+	// Find all seeker skills based on seekerId and stitch the skills in with the rest of the seeker object
 	let profiles = await Promise.all(
 		seekers.map(async seeker => {
 			const seekerSkills = await db('seeker_skills').where({
@@ -70,8 +70,8 @@ async function companyMatches(id) {
 			return { ...seeker, seekerSkills };
 		})
 	);
-	//console.log(profiles);
 
+	// Find all seeker skills in an array of strings and stitch them with the profile id
 	let arraySeekerSkills = await profiles.map(profile => {
 		let mappedSkills = profile.seekerSkills.map(skill => {
 			return skill.seekerSkill;
@@ -79,8 +79,7 @@ async function companyMatches(id) {
 		return { skills: mappedSkills, seekerId: profile.id };
 	});
 
-	//console.log(arraySeekerSkills);
-
+	// For each job's skills, search the array of seeker skills and increment the count if it is included in the job skills
 	let updatedProfiles = await arrayJobSkills.map(job => {
 		let updatedSeekerCount = arraySeekerSkills.map(seeker => {
 			let count = 0;
@@ -94,18 +93,14 @@ async function companyMatches(id) {
 				jobId: job.jobId,
 				count
 			};
-			//console.log(updatedUser);
 			return updatedUser;
 		});
 		return updatedSeekerCount;
-		//console.log(countedUsers);
 	});
 
-	//console.log(updatedProfiles[0]);
-
+	// Finds seeker based on seekerId then stitches in the profile
 	let stitchedProfiles = await Promise.all(
 		updatedProfiles[0].map(async countProfile => {
-			//console.log(countProfile);
 			let profile = await Seekers.findById(
 				countProfile.seekerId
 			);
@@ -113,12 +108,11 @@ async function companyMatches(id) {
 				...countProfile,
 				profile
 			};
-			//console.log(stitched);
 			return stitched;
 		})
 	);
-	console.log(stitchedProfiles);
 
+	// Sort the seeker profiles in descending order
 	let sortedProfiles = stitchedProfiles.sort((a, b) => b.count - a.count);
 
 	return sortedProfiles;

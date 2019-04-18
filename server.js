@@ -44,6 +44,14 @@ server.get('/', (req, res) => {
 	res.status(200).json({ message: 'Sanity check' });
 });
 
-server.listen(process.env.PORT, () => {
-	console.log('Server now up and running on http://localhost:5000');
-});
+if (require.main == module) {
+	server.listen(process.env.PORT, () => {
+		console.log(
+			`Server is running at http://localhost:${
+				process.env.PORT
+			}/`
+		);
+	});
+} else {
+	module.exports = server;
+}
