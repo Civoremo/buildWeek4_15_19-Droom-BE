@@ -1,33 +1,40 @@
 const db = require('../database/dbConfig');
+const Jobs = require('./Jobs');
 
 module.exports = {
-	getMatchedJobs
+	getMatchedJobs,
+	getMatchedSeekers
 };
 
-async function getMatchedJobs(id) {
-	const seekerId = db('seekers')
-		.where({ userId: id })
+async function getMatchedJobs(userId) {
+	let { id } = await db('seekers')
+		.where({ userId })
 		.first()
 		.returning('id');
-	console.log(seekerId);
-	const matches = await db('matches').where({ seekerId });
 
-	return seekerId;
+	const matches = await db('matches').where({ seekerId: id });
+
+	let jobs = matches.filter(job => job.matched);
+
+	jobs = await Promise.all(
+		jobs.map(async job => await Jobs.findById(job.jobId))
+	);
+	return jobs;
 }
 
-/* 
+async function getMatchedSeekers(jobId) {
+	let matches = await db('matches').where({ jobId });
+	let seekers = matches.filter(match => match.matched);
 
-query database to get all matches related to seekerId
-
-hold on to jobId from matches table
-
-query database for jobs based on jobId
-
-
-
-
-
-
-
-
-*/
+	seekers = await Promise.all(
+		seekers.map(
+			async seeker =>
+				await db('seekers')
+					.where({
+						id: seeker.seekerId
+					})
+					.first()
+		)
+	);
+	return seekers;
+}
