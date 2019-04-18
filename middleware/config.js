@@ -6,7 +6,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 
 module.exports = server => {
-	server.use(Sentry.Handlers.requestHandler()); // needs to be before all request middleware
+	server.use(Sentry.Handlers.requestHandler()); // needs to be before all request
 	server.use(express.json());
 	server.use(bodyParser.json());
 	server.use(helmet());
