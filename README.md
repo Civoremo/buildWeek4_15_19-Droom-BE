@@ -3054,7 +3054,7 @@ _HTTP method:_ **[GET]**
 
 | name | type    | required | description |
 | ---- | ------- | -------- | ----------- |
-| id   | Integer | Yes      | user id     |
+| id   | Integer | Yes      | seeker id   |
 
 #### Response
 
@@ -3189,7 +3189,7 @@ _HTTP method:_ **[GET]**
 
 | name | type    | required | description |
 | ---- | ------- | -------- | ----------- |
-| id   | Integer | Yes      | user id     |
+| id   | Integer | Yes      | company id  |
 
 #### Response
 
@@ -3329,9 +3329,9 @@ _example:_
 
 ## **GET MATCHED**
 
-### **Get seeker profile by user id**
+### **Get matched jobs by user id**
 
-_Method Url:_ `/api/matched/:id`
+_Method Url:_ `/api/matched/seeker/:id`
 
 _HTTP method:_ **[GET]**
 
@@ -3352,12 +3352,31 @@ _HTTP method:_ **[GET]**
 
 ##### 200 (OK)
 
-> If the user has matched with any jobs, the endpoint will return an HTTP response with a status code 200 and a body as below.
+> If the user has matched with any jobs, the endpoint will return an HTTP response with a status code `200` and a body as below.
 
 _example:_
 
 ```
-[{}]
+[
+    {
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Frontend Software Engineer",
+        "jobDescription": "Are you excited by the prospect of creating simple, intuitive experiences that delight users? Do you like building services that will be used by hundreds of millions of users across the world? Microsoft Developer Center Norway is growing, and we’re looking for developers with a strong passion for building delightful and smart experiences that will be used on a global scale. Come join our team!",
+        "jobExperienceRequired": "<ul><li>Masters or Bachelor’s degree or equivalent in computer science or related technical disciplines.</li><li>Experience with software engineering best practices (code quality, repo hygiene, code reviews, unit testing, design documentation, continuous integration, deployment).</li><li>Experience in the JavaScript ecosystem and related technologies such as React, React Native, TypeScript, Redux, HTML5, CSS.</li></ul>",
+        "jobExperiencePreferred": "<ul><li>Experience in building performant experiences using technologies such as webpack and npm to optimize bundles and package dependencies.</li><li>Experience in experimentation framework and understanding how to measure end user success.</li><li>Thrives in dynamic, fast-paced environments where passion for customer engagement and great experience are at the forefront of all design & development.</li></ul>",
+        "jobApplyBy": "30 May 2019"
+    },
+    {
+        "id": 2,
+        "companyId": 2,
+        "jobName": "Frontend Software Engineer",
+        "jobDescription": "As a Front End Engineer you will be responsible for building the next generation of client side user experiences for our industry leading Music Subscription service. We are a team that conceptualizes, iterates, and executes new features on an ongoing basis, which contributes to an overall dynamic and creative atmosphere.We need a highly motivated and skillful engineer with JavaScript programming proficiency, plus a solid grasp of the performance and compatibility issues that arise when delivering a comprehensive web solution. Attention to detail and a dedication to deliver a high-quality, stable delivery is essential. To be successful you are self-motivated; driven to achieve and exceed commitments. You also need to exude strong collaboration skills, including the ability to mentor and be mentored. Possess a strong passion to work in a growing, energizing environment of innovation. If you want to be part of this amazing team, this position is for you.",
+        "jobExperienceRequired": "<ul><li>Proficient JavaScript programmer</li><li>Experience with JS frameworks is highly desirable: React, Angular, etc.</li><li>Experience with CSS3 and Less/Sass in large scale applications</li></ul>",
+        "jobExperiencePreferred": "<ul><li>Knowledge of media streaming, HTML5 MSE/EME, encryption standards a plus</li><li>Strong problem solving and critical thinking skills</li><li>Passion for quality and close attention to details</li></ul>",
+        "jobApplyBy": "30 May 2019"
+    }
+]
 ```
 
 #### 404 (Not Found)
@@ -3388,13 +3407,11 @@ _example:_
 
 ```
 
-## **ADD MATCH**
+### **Get matched profiles by job id**
 
-### **Add a seeker**
+_Method Url:_ `/api/matched/company/:id`
 
-_Method Url:_ `/api/matched:id`
-
-_HTTP method:_ **[POST]**
+_HTTP method:_ **[GET]**
 
 #### Headers
 
@@ -3407,61 +3424,59 @@ _HTTP method:_ **[POST]**
 
 | name | type    | required | description |
 | ---- | ------- | -------- | ----------- |
-| id   | Integer | Yes      | user id     |
-
-#### Body
-
-| name    | type    | required | description                  |
-| ------- | ------- | -------- | ---------------------------- |
-| `jobId` | Integer | Yes      | Job id user being matched to |
-
-|
-
-_example:_
-
-```
-{
-    "jobId": 4
-}
-```
+| id   | Integer | Yes      | job id      |
 
 #### Response
 
-##### 201 (Created)
+##### 200 (OK)
 
-> If you successfully create a seeker profile, the endpoint will return an HTTP response with a status code `201` and a body as below.
+> If the user has matched with any jobs, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+_example:_
+
+```
+[
+    {
+        "id": 2,
+        "userId": 12,
+        "firstName": "John",
+        "lastName": "Dough",
+        "profilePicture": "http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png",
+        "month": 5,
+        "day": 21,
+        "year": 1994,
+        "country": "United States",
+        "state": "Washington",
+        "city": "Redmond",
+        "zipcode": 98008
+    },
+    {
+        "id": 1,
+        "userId": 11,
+        "firstName": "Sam",
+        "lastName": "Smith",
+        "profilePicture": "http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png",
+        "month": 10,
+        "day": 13,
+        "year": 1990,
+        "country": "United States",
+        "state": "California",
+        "city": "San Francisco",
+        "zipcode": 94016
+    }
+]
+```
+
+#### 404 (Not Found)
+
+> If the provided `jobId` doesn't exist, the endpoint will return an HTTP response with a status code `404` and a body as below.
 
 _example:_
 
 ```
 
 {
-  "id": 1,
-  "userId": 6,
-  "firstName": "John",
-  "lastName": "Dough",
-  "profilePicture": "",
-  "month": 2,
-  "day": 4,
-  "year": 1994,
-  "country": "US",
-  "state": "California",
-  "city": "San Francisco",
-  "zipcode": 93552
-}
-
-```
-
-#### 400 (Bad Request)
-
-> If you are missing any of the required field(s), the endpoint will return an HTTP response with a status code `400` and a body as below relating to the missing field(s).
-
-_example:_
-
-```
-
-{
-  "message": "Please provide a first name"
+  "message": "Sorry, but that job doesn't exist"
 }
 
 ```
@@ -3475,7 +3490,150 @@ _example:_
 ```
 
 {
-  "message": "Sorry, but something went wrong while creating that profile"
+  "message": "Sorry, but something went wrong while getting that job."
 }
 
 ```
+
+## **ADD MATCH**
+
+### **Add a seeker match for job**
+
+_Method Url:_ `/api/matches/seeker/:id/match/job/:jobId`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name  | type    | required | description |
+| ----- | ------- | -------- | ----------- |
+| id    | Integer | Yes      | user id     |
+| jobId | Integer | Yes      | job id      |
+
+
+#### Response
+
+##### 200 (OK)
+
+> If you successfully create a seeker profile, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+_example:_
+
+```
+{
+    "message": "Seeker has sent a match request successfully.",
+    "match": [
+        7
+    ]
+}
+```
+
+#### 404 (Not found)
+
+> If the user Id or Job Id cannot find a profile then `404` and a body as below relating to the missing field(s).
+
+_example:_
+
+```
+{
+    "message": "Sorry, but that job does not exist"
+}
+```
+
+```
+{
+    "message": "Sorry, but that profile does not exist"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+			message:
+				'Sorry, but something went wrong while creating match',
+			err: err
+}
+```
+### **Add a job match for seeker**
+
+_Method Url:_ `/api/matches/job/:id/match/seeker/:seekerId`
+
+_HTTP method:_ **[GET]**
+
+#### Headers
+
+| name            | type   | required | description              |
+| --------------- | ------ | -------- | ------------------------ |
+| `Content-Type`  | String | Yes      | Must be application/json |
+| `Authorization` | String | Yes      | JSON Web Token           |
+
+#### Parameters
+
+| name     | type    | required | description |
+| -------- | ------- | -------- | ----------- |
+| id       | Integer | Yes      | job id      |
+| seekerId | Integer | Yes      | seeker id   |
+
+
+#### Response
+
+##### 200 (OK)
+
+> If you successfully create a seeker profile, the endpoint will return an HTTP response with a status code `200` and a body as below.
+
+_example:_
+
+```
+
+{
+    "message": "Job has sent a match request successfully.",
+    "match": 1
+}
+
+```
+
+#### 404 (Not found)
+
+> If the user Id or Job Id cannot find a profile then `404` and a body as below relating to the missing field(s).
+
+_example:_
+
+```
+{
+    "message": "Sorry, but that job does not exist"
+}
+```
+
+```
+{
+    "message": "Sorry, but that profile does not exist"
+}
+```
+
+#### 500 (Internal Server Error)
+
+> If there is a server or database error, the endpoint will return an HTTP response with a status code `500` and a body as below.
+
+_example:_
+
+```
+{
+			message:
+				'Sorry, but something went wrong while creating match',
+			err: err
+}
+```
+
+

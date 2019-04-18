@@ -43,6 +43,16 @@ async function seekerMatches(id) {
 		return { ...job, count };
 	});
 
+	let matches = await db('matches').where({
+		seekerId: seeker.id,
+		matched: false
+	});
+	console.log(matches);
+
+	// let filteredJobs = updatedJobs.filter(job => {
+
+	// })
+
 	// sort updated jobs based on count
 	return updatedJobs.sort((a, b) => b.count - a.count);
 }
