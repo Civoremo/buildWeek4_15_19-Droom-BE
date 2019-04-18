@@ -47,11 +47,15 @@ async function seekerMatches(id) {
 		seekerId: seeker.id,
 		matched: false
 	});
-	console.log(matches);
 
-	// let filteredJobs = updatedJobs.filter(job => {
+	let mappedMatches = matches.map(match => match.jobId);
+	console.log(mappedMatches);
 
-	// })
+	let filteredJobs = updatedJobs.filter(job => {
+		return mappedMatches.includes(job.id);
+	});
+
+	console.log(filteredJobs);
 
 	// sort updated jobs based on count
 	return updatedJobs.sort((a, b) => b.count - a.count);
