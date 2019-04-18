@@ -24,8 +24,9 @@ router.get('/:id', async (req, res) => {
 	try {
 		const { id } = req.params;
 		const jobs = await Jobs.findById(id);
+		console.log(jobs);
 		const message = 'The job was retrieved successfully.';
-		if (!jobs.length) {
+		if (!jobs) {
 			res.status(404).json({
 				jobs: [],
 				message:
