@@ -1,6 +1,7 @@
 const db = require('../database/dbConfig');
 const Jobs = require('./Jobs.js');
 const Seekers = require('./Seekers');
+const Skills = require('./Skills');
 const Companies = require('./Companies');
 
 module.exports = {
@@ -47,7 +48,78 @@ async function seekerMatches(id) {
 
 async function companyMatches(id) {
 	// Find company based on user Id
-	let company = await db('companies')
-		.where({ userId: id })
-		.first();
+	let company = await Companies.findById(id);
+	//console.log(company);
+
+	let arrayJobSkills = await company.jobs.map(job => {
+		let mappedSkills = job.jobSkills.map(skill => {
+			return skill.jobSkill;
+		});
+		return { skills: mappedSkills, jobId: job.id };
+	});
+	console.log(arrayJobSkills);
+
+	let seekers = await Seekers.find();
+	//console.log(seekers);
+
+	let profiles = await Promise.all(
+		seekers.map(async seeker => {
+			const seekerSkills = await db('seeker_skills').where({
+				seekerId: seeker.id
+			});
+			return { ...seeker, seekerSkills };
+		})
+	);
+	//console.log(profiles);
+
+	let arraySeekerSkills = await profiles.map(profile => {
+		let mappedSkills = profile.seekerSkills.map(skill => {
+			return skill.seekerSkill;
+		});
+		return { skills: mappedSkills, seekerId: profile.id };
+	});
+
+	//console.log(arraySeekerSkills);
+
+	let updatedProfiles = await arrayJobSkills.map(job => {
+		let updatedSeekerCount = arraySeekerSkills.map(seeker => {
+			let count = 0;
+			seeker.skills.forEach(skill => {
+				if (job.skills.includes(skill)) {
+					count++;
+				}
+			});
+			let updatedUser = {
+				...seeker,
+				jobId: job.jobId,
+				count
+			};
+			//console.log(updatedUser);
+			return updatedUser;
+		});
+		return updatedSeekerCount;
+		//console.log(countedUsers);
+	});
+
+	//console.log(updatedProfiles[0]);
+
+	let stitchedProfiles = await Promise.all(
+		updatedProfiles[0].map(async countProfile => {
+			//console.log(countProfile);
+			let profile = await Seekers.findById(
+				countProfile.seekerId
+			);
+			let stitched = {
+				...countProfile,
+				profile
+			};
+			//console.log(stitched);
+			return stitched;
+		})
+	);
+	console.log(stitchedProfiles);
+
+	let sortedProfiles = stitchedProfiles.sort((a, b) => b.count - a.count);
+
+	return sortedProfiles;
 }

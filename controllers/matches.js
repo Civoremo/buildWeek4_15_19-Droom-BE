@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const Matches = require('../models/Matches');
 const Seekers = require('../models/Seekers');
+const Companies = require('../models/Companies');
 
 router.get('/seeker/:id', async (req, res) => {
 	try {
