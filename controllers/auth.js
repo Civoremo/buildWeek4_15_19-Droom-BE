@@ -4,7 +4,7 @@ const db = require('../database/dbConfig');
 const Users = require('../models/Users');
 const { generateToken } = require('../helpers/generateToken');
 
-const { authValidation } = require('../middleware/validation');
+const { authValidation } = require('../middleware/validation/index');
 
 router.post('/register', authValidation, async (req, res) => {
 	try {

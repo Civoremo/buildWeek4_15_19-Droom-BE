@@ -3,7 +3,7 @@ const Jobs = require('../models/Jobs.js');
 const {
 	jobValidation,
 	updateJobValidation
-} = require('../middleware/validation');
+} = require('../middleware/validation/index');
 
 router.get('/', async (req, res) => {
 	try {

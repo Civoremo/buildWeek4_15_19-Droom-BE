@@ -3,7 +3,8 @@ const Skills = require('../models/JobSkills.js');
 const {
 	jobSkillsValidation,
 	updateJobSkillsValidation
-} = require('../middleware/validation');
+} = require('../middleware/validation/index');
+
 router.get('/', async (req, res) => {
 	try {
 		const skills = await Skills.find();

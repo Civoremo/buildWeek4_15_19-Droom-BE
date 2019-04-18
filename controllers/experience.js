@@ -4,7 +4,7 @@ const Experience = require('../models/Experience');
 const {
 	experienceValidation,
 	updateExperienceValidation
-} = require('../middleware/validation');
+} = require('../middleware/validation/index');
 
 // Add seeker experience
 router.post('/', experienceValidation, async (req, res) => {
