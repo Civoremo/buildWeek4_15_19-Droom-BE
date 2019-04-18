@@ -4,7 +4,7 @@ const Companies = require('../models/Companies.js');
 const {
 	companyValidation,
 	updateCompanyValidation
-} = require('../middleware/validation');
+} = require('../middleware/validation/index');
 
 router.get('/', async (req, res) => {
 	try {

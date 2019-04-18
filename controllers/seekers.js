@@ -4,7 +4,7 @@ const Seekers = require('../models/Seekers');
 const {
 	seekerValidation,
 	updateSeekerValidation
-} = require('../middleware/validation');
+} = require('../middleware/validation/index');
 
 // Create seeker profile
 router.post('/', seekerValidation, async (req, res) => {
