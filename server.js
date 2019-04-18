@@ -47,3 +47,5 @@ server.get('/', (req, res) => {
 server.listen(process.env.PORT, () => {
 	console.log('Server now up and running on http://localhost:5000');
 });
+
+module.exports = server;
