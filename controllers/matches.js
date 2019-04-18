@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const Matches = require('../models/Matches');
-const Matched = require('../models/Matched');
 const Seekers = require('../models/Seekers');
 const Jobs = require('../models/jobs');
 const Companies = require('../models/Companies');
@@ -47,7 +46,7 @@ router.post('/seeker/:id/match/job/:jobId', async (req, res) => {
 				message: 'Sorry, but that job does not exist'
 			});
 
-		const match = await Matched.seekerMatch(id, jobId);
+		const match = await Matches.seekerMatch(id, jobId);
 
 		res.status(201).json({
 			message:
@@ -106,7 +105,7 @@ router.post('/job/:id/match/seeker/:seekerId', async (req, res) => {
 					'Sorry, but that profile does not exist'
 			});
 
-		const match = await Matched.jobMatch(id, seekerId);
+		const match = await Matches.jobMatch(id, seekerId);
 
 		res.status(201).json({
 			message: 'Job has sent a match request successfully.',

@@ -1,106 +1,33 @@
 const db = require('../database/dbConfig');
 
 module.exports = {
-	get,
-	add,
-	getById,
-	seekerMatch,
-	jobMatch
+	getMatchedJobs
 };
 
-async function add(userid, jobId) {
-	let seeker = await db('seekers')
-		.where({ userId: userid })
-		.first();
-
-	let matchedJob = {
-		jobId,
-		seekerId: seeker.id
-	};
-
-	let [id] = await db('matches')
-		.insert(matchedJob)
-		.returning('id');
-
-	return getById(id);
-}
-
-function get() {
-	return db('matches');
-}
-
-// Get matched by Id
-function getById(id) {
-	return db('matches')
-		.where({ id })
-		.first();
-}
-
-async function seekerMatch(userId, jobId) {
-	let { id } = await db('seekers')
-		.where({ userId })
+async function getMatchedJobs(id) {
+	const seekerId = db('seekers')
+		.where({ userId: id })
 		.first()
 		.returning('id');
+	console.log(seekerId);
+	const matches = await db('matches').where({ seekerId });
 
-	let matched = await db('matches')
-		.where({ seekerId: id, jobId })
-		.first();
-
-	if (matched && matched.jobMatch) {
-		const updateMatched = {
-			jobId,
-			seekerId: id,
-			seekerMatch: true,
-			jobMatch: true,
-			matched: true
-		};
-		return await db('matches')
-			.where({ seekerId: id, jobId })
-			.update(updateMatched);
-	} else if (matched && matched.seekerMatch) {
-		return 'match already exists';
-	} else {
-		const createMatch = {
-			jobId,
-			seekerId: id,
-			seekerMatch: true,
-			jobMatch: false,
-			matched: false
-		};
-		return await db('matches')
-			.where({ seekerId: id, jobId })
-			.insert(createMatch);
-	}
+	return seekerId;
 }
 
-async function jobMatch(jobId, seekerId) {
-	let matched = await db('matches')
-		.where({ jobId, seekerId })
-		.first();
+/* 
 
-	if (matched && matched.seekerMatch) {
-		const updateMatched = {
-			jobId,
-			seekerId,
-			seekerMatch: true,
-			jobMatch: true,
-			matched: true
-		};
-		return await db('matches')
-			.where({ jobId, seekerId })
-			.update(updateMatched);
-	} else if (matched && matched.jobMatch) {
-		return 'match already exists';
-	} else {
-		const createMatch = {
-			jobId,
-			seekerId,
-			seekerMatch: false,
-			jobMatch: true,
-			matched: false
-		};
-		return await db('matches')
-			.where({ jobId, seekerId })
-			.insert(createMatch);
-	}
-}
+query database to get all matches related to seekerId
+
+hold on to jobId from matches table
+
+query database for jobs based on jobId
+
+
+
+
+
+
+
+
+*/
