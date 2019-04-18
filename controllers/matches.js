@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const Matches = require('../models/Matches');
 const Seekers = require('../models/Seekers');
-const Jobs = require('../models/jobs');
+const Jobs = require('../models/Jobs');
 const Companies = require('../models/Companies');
 const Users = require('../models/Users');
 
