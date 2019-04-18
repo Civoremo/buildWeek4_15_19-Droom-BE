@@ -1,10 +1,6 @@
 const router = require('express').Router();
 const Matches = require('../models/Matches');
 const Matched = require('../models/Matched');
-const Seekers = require('../models/Seekers');
-const Jobs = require('../models/jobs');
-const Companies = require('../models/Companies');
-const Users = require('../models/Users');
 
 router.get('/seeker/:id', async (req, res) => {
 	try {
