@@ -4,7 +4,8 @@ module.exports = {
 	add,
 	findById,
 	update,
-	remove
+	remove,
+	findSeeker
 };
 
 // Add job seeker profile
@@ -51,4 +52,13 @@ async function remove(id) {
 		.del();
 
 	return parseInt(id, 10);
+}
+
+// Find seekerId by userId
+function findSeeker(id) {
+	return db('seekers')
+		.where({ userId: id })
+		.select('id')
+		.first()
+		.returning('id');
 }

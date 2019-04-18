@@ -1,15 +1,16 @@
 const db = require('../database/dbConfig');
 const Jobs = require('./Jobs.js');
+const Seekers = require('./Seekers');
+const Companies = require('./Companies');
 
 module.exports = {
-	get
+	seekerMatches,
+	companyMatches
 };
 
-async function get(id) {
+async function seekerMatches(id) {
 	// Find seeker based on userId
-	let seeker = await db('seekers')
-		.where({ userId: id })
-		.first();
+	let seeker = await Seekers.findById(id);
 
 	// Get all seeker skills
 	let seekerSkills = await db('seeker_skills').where({
@@ -17,9 +18,8 @@ async function get(id) {
 	});
 
 	// Map through seeker skills and push them to arraySkills
-	let arraySkills = [];
-	await seekerSkills.map(skill => {
-		return arraySkills.push(skill.seekerSkill);
+	let arraySkills = await seekerSkills.map(skill => {
+		return skill.seekerSkill;
 	});
 
 	// Find all jobs
@@ -43,4 +43,11 @@ async function get(id) {
 
 	// sort updated jobs based on count
 	return updatedJobs.sort((a, b) => b.count - a.count);
+}
+
+async function companyMatches(id) {
+	// Find company based on user Id
+	let company = await db('companies')
+		.where({ userId: id })
+		.first();
 }
