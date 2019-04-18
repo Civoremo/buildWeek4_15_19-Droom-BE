@@ -6,6 +6,8 @@ router.post('/:id', async (req, res) => {
 		const { id } = req.params;
 		const jobId = req.body;
 		const matched = await Matched.add(id, jobId);
+
+		res.status(matched);
 	} catch (err) {
 		res.status(500).json({
 			message:

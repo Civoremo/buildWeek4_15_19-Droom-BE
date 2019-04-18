@@ -45,7 +45,7 @@ async function findById(id) {
 			const jobSkills = await db('jobs_skills').where({
 				jobId: job.id
 			});
-			console.log(jobSkills);
+			//console.log(jobSkills);
 			return { ...job, jobSkills };
 		})
 	);
@@ -54,7 +54,7 @@ async function findById(id) {
 		...company,
 		jobs: mappedJobs
 	};
-	console.log(stitchedCompany);
+	//console.log(stitchedCompany);
 	return stitchedCompany;
 }
 
