@@ -3,7 +3,7 @@ const server = require('../server');
 const db = require('../database/dbConfig');
 
 describe('Job seeker endpoint tests', () => {
-	beforeEach(async () => {
+	afterEach(async () => {
 		await db('users').truncate();
 		await db('seekers').truncate();
 		await db('users').insert({

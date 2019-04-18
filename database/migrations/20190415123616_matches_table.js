@@ -17,6 +17,10 @@ exports.up = function(knex) {
 			.inTable('seekers')
 			.onDelete('CASCADE')
 			.onUpdate('CASCADE');
+
+		tbl.boolean('seekerMatch').defaultTo(false);
+		tbl.boolean('jobMatch').defaultTo(false);
+		tbl.boolean('matched').defaultTo(false);
 	});
 };
 
