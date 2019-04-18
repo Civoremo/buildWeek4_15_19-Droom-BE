@@ -1,7 +1,7 @@
 exports.seed = function(knex, Promise) {
 	return knex('seekers').insert([
 		{
-			userId: 1,
+			userId: 11,
 			firstName: 'Sam',
 			lastName: 'Smith',
 			profilePicture:
@@ -15,7 +15,7 @@ exports.seed = function(knex, Promise) {
 			zipcode: 94016
 		},
 		{
-			userId: 2,
+			userId: 12,
 			firstName: 'John',
 			lastName: 'Dough',
 			profilePicture:
@@ -29,7 +29,7 @@ exports.seed = function(knex, Promise) {
 			zipcode: 98008
 		},
 		{
-			userId: 3,
+			userId: 13,
 			firstName: 'Sally',
 			lastName: 'Jones',
 			profilePicture:
