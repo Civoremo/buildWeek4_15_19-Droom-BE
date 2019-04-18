@@ -7,7 +7,7 @@ describe('Authentication endpoint tests', () => {
 		await db('users').truncate();
 	});
 
-	describe('POST /register', () => {
+	describe('POST /api/auth/register', () => {
 		it('should return status code of 400 (Bad Request) if there are any missing fields', async () => {
 			const user = {
 				password: 'password'
@@ -20,7 +20,7 @@ describe('Authentication endpoint tests', () => {
 			expect(response.status).toBe(400);
 		});
 
-		it('should return status code of 200 (OK) after registering user', async () => {
+		it('should return status code of 201 (Created) after registering user', async () => {
 			const user = {
 				email: 'john@gmail.com',
 				password: 'password'
@@ -47,7 +47,7 @@ describe('Authentication endpoint tests', () => {
 		});
 	});
 
-	describe('POST /login', () => {
+	describe('POST /api/auth/login', () => {
 		it('should return status code of 400 (Bad Request) if there are any missing fields', async () => {
 			const user = {
 				password: 'password'
