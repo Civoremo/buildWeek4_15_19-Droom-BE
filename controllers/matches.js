@@ -27,7 +27,7 @@ router.get('/seeker/:id', async (req, res) => {
 	}
 });
 
-router.post('/seeker/:id/match/job/:jobId', async (req, res) => {
+router.get('/seeker/:id/match/job/:jobId', async (req, res) => {
 	try {
 		const { id, jobId } = req.params;
 
@@ -48,7 +48,7 @@ router.post('/seeker/:id/match/job/:jobId', async (req, res) => {
 
 		const match = await Matches.seekerMatch(id, jobId);
 
-		res.status(201).json({
+		res.status(200).json({
 			message:
 				'Seeker has sent a match request successfully.',
 			match
@@ -86,7 +86,7 @@ router.get('/company/:id', async (req, res) => {
 	}
 });
 
-router.post('/job/:id/match/seeker/:seekerId', async (req, res) => {
+router.get('/job/:id/match/seeker/:seekerId', async (req, res) => {
 	try {
 		const { id, seekerId } = req.params;
 
@@ -107,7 +107,7 @@ router.post('/job/:id/match/seeker/:seekerId', async (req, res) => {
 
 		const match = await Matches.jobMatch(id, seekerId);
 
-		res.status(201).json({
+		res.status(200).json({
 			message: 'Job has sent a match request successfully.',
 			match
 		});
