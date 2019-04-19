@@ -9,9 +9,9 @@ module.exports = {
 	findSeeker
 };
 
-async function setSeeker() {
+async function setSeeker(id) {
 	let { email, password, seeker, employer } = await db('users')
-		.where({ id: userId })
+		.where({ id })
 		.first()
 		.returning('id');
 
@@ -20,7 +20,7 @@ async function setSeeker() {
 	user = { email, password, seeker, employer };
 
 	await db('users')
-		.where({ id: userId })
+		.where({ id })
 		.update(user);
 }
 
