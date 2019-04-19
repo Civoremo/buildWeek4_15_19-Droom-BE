@@ -4,7 +4,7 @@ const Companies = require('../models/Companies.js');
 const {
 	companyValidation,
 	updateCompanyValidation
-} = require('../middleware/validation');
+} = require('../middleware/validation/index');
 
 router.get('/', async (req, res) => {
 	try {
@@ -53,7 +53,7 @@ router.post('/', companyValidation, async (req, res) => {
 			message:
 				'Sorry, but something went wrong while adding the company.'
 		});
-
+		console.log(err);
 		throw new Error(err);
 	}
 });

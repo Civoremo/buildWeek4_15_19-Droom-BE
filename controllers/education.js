@@ -4,7 +4,7 @@ const Education = require('../models/Education');
 const {
 	educationValidation,
 	updateEducationValidation
-} = require('../middleware/validation');
+} = require('../middleware/validation/index');
 
 // Create job seeker education
 router.post('/', educationValidation, async (req, res) => {

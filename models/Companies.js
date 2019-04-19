@@ -11,10 +11,24 @@ module.exports = {
 
 // Create a company
 async function add(userId, company) {
+	let { email, password, seeker, employer } = await db('users')
+		.where({ id: userId })
+		.first()
+		.returning('id');
+
+	employer = true;
+
+	user = { email, password, seeker, employer };
+
+	await db('users')
+		.where({ id: userId })
+		.update(user);
+
 	const newCompany = {
 		userId,
 		...company
 	};
+
 	const [id] = await db('companies')
 		.insert(newCompany)
 		.returning('id');

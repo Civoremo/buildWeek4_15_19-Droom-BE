@@ -4,7 +4,7 @@ const db = require('../database/dbConfig');
 const Users = require('../models/Users');
 const { generateToken } = require('../helpers/generateToken');
 
-const { authValidation } = require('../middleware/validation');
+const { authValidation } = require('../middleware/validation/index');
 
 router.post('/register', authValidation, async (req, res) => {
 	try {
@@ -20,7 +20,7 @@ router.post('/register', authValidation, async (req, res) => {
 		let newUser = await Users.add(user);
 		token = await generateToken(newUser);
 
-		res.status(201).json({ newUser, token });
+		res.status(201).json(token);
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({

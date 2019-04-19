@@ -4,7 +4,7 @@ const Skills = require('../models/Skills');
 const {
 	skillsValidation,
 	updateSkillsValidation
-} = require('../middleware/validation');
+} = require('../middleware/validation/index');
 
 // Create skills
 router.post('/', skillsValidation, async (req, res) => {
@@ -76,6 +76,7 @@ router.put('/:id', updateSkillsValidation, async (req, res) => {
 
 		res.status(200).json(updatedSkills);
 	} catch (err) {
+		console.log(err);
 		res.status(500).json({
 			message:
 				'Sorry, but something went wrong while updating skill'
