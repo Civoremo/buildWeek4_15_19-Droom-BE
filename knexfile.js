@@ -29,7 +29,7 @@ module.exports = {
 		}
 	},
 
-	testing: {
+	production: {
 		client: 'sqlite3',
 		useNullAsDefault: true,
 		connection: {
@@ -49,8 +49,16 @@ module.exports = {
 	},
 
 	production: {
-		client: 'pg',
-		connection: dbConnection,
+		client: 'sqlite3',
+		useNullAsDefault: true,
+		connection: {
+			filename: './database/test.sqlite3'
+		},
+		pool: {
+			afterCreate: (conn, done) => {
+				conn.run('PRAGMA foreign_keys = ON', done);
+			}
+		},
 		migrations: {
 			directory: './database/migrations'
 		},
