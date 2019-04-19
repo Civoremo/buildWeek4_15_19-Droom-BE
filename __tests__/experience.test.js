@@ -177,4 +177,34 @@ describe('Job seeker endpoint tests', () => {
 			expect(response.body).toEqual(expectedExperience);
 		});
 	});
+
+	describe('DELETE /api/experience/:id', () => {
+		it('should return 404 (Not Found) status code if specified experience does not exist', async () => {
+			response = await request(server)
+				.delete('/api/experience/1')
+				.set(auth);
+
+			await expect(response.status).toBe(404);
+		});
+
+		it('should return 200 (OK) on successful deletion', async () => {
+			let expectedExperience = {
+				userId: 1,
+				seekerExperience
+			};
+
+			let response = await request(server)
+				.post('/api/experience')
+				.send(expectedExperience)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+
+			response = await request(server)
+				.delete('/api/experience/1')
+				.set(auth);
+
+			await expect(response.status).toBe(200);
+		});
+	});
 });
