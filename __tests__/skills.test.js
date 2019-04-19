@@ -80,4 +80,38 @@ describe('Job seeker skills endpoint tests', () => {
 			await expect(response.body).toEqual(expectedSkills);
 		});
 	});
+
+	describe('POST /api/skills', () => {
+		it('should return 404 (Not Found) status code if user id passed in the body does not have a profile', async () => {
+			let expectedSkills = {
+				skills: {
+					userId: 5,
+					seekerSkills
+				}
+			};
+
+			let response = await request(server)
+				.post('/api/skills')
+				.send(expectedSkills)
+				.set(auth);
+
+			await expect(response.status).toBe(404);
+		});
+
+		it('should return 201 (Created) status code skills are successfully created', async () => {
+			let expectedSkills = {
+				skills: {
+					userId: 1,
+					seekerSkills
+				}
+			};
+
+			let response = await request(server)
+				.post('/api/skills')
+				.send(expectedSkills)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+		});
+	});
 });
