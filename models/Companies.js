@@ -15,9 +15,9 @@ async function setCompany(id) {
 		.first()
 		.returning('id');
 
-	company = true;
+	employer = true;
 
-	user = { email, password, seeker, employer };
+	let user = { email, password, seeker, employer };
 
 	await db('users')
 		.where({ id })
