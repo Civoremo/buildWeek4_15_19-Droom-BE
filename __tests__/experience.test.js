@@ -49,11 +49,51 @@ describe('Job seeker endpoint tests', () => {
 		}
 	];
 
-	const updatedEducation = {
+	const updatedExperience = {
 		jobTitle: 'Front-end Developer Updated',
 		jobCompany: 'Facebook',
 		jobDescription: 'Built out facebook market place with react',
 		jobStart: '1-25-2018',
 		jobEnd: '9-2-2019'
 	};
+
+	describe('GET /api/experience/:id', () => {
+		it('should return status code 404 (Not Found) if experience does not exist based off of userId', async () => {
+			const response = await request(server)
+				.get('/api/experience/22')
+				.set(auth);
+
+			await expect(response.status).toEqual(404);
+		});
+
+		it('should return seeker profile experience', async () => {
+			let expectedExperience = {
+				userId: 1,
+				seekerExperience
+			};
+
+			let response = await request(server)
+				.post('/api/experience')
+				.send(expectedExperience)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+
+			response = await request(server)
+				.get('/api/experience/1')
+				.set(auth);
+
+			let id = 0;
+			expectedExperience = seekerExperience.map(exp => {
+				id++;
+				return {
+					id,
+					seekerId: 1,
+					...exp
+				};
+			});
+
+			await expect(response.body).toEqual(expectedExperience);
+		});
+	});
 });
