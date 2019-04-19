@@ -94,8 +94,8 @@ npm run server
      - [Delete Job Skill](#update-job-skill)
 - [Match Routes](#match-routes)
      - [Get Matches](#get-matches)
-       - [Get Company Matches For Seeker](##get-matches-for-seeker)
-       - [Get Seeker Matches For Company](##get-matches-for-company-for-all-jobs)
+       - [Get Company Matches For Seeker](#get-matches-for-seeker)
+       - [Get Seeker Matches For Company](#get-matches-for-company-for-all-jobs)
      - [Get Matched](#get-matched)
      - [Add Match](#add-match)
 
