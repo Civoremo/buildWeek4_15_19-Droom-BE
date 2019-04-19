@@ -45,7 +45,7 @@ describe('Job seeker endpoint tests', () => {
 
             let response = await request(server).set(auth)
                 .post('/api/seekers')
-                .send(seeker).set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMiwiaWF0IjoxNTU1NjE2OTUxLCJleHAiOjE1NTU3MDMzNTF9.T6KAX9pLI9o7LgWsPwJKD-qBTlDzdys17RHNXVQIp98');
+                .send(seeker).set('Authorization', response.body.token);
 
             expect(response.status).toBe(201);
 
