@@ -2,8 +2,6 @@ const request = require('supertest');
 const server = require('../server');
 const db = require('../database/dbConfig');
 
-// const auth = ['Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjoxMiwiaWF0IjoxNTU1NjE2OTUxLCJleHAiOjE1NTU3MDMzNTF9.T6KAX9pLI9o7LgWsPwJKD - qBTlDzdys17RHNXVQIp98']
-
 describe('Job seeker endpoint tests', () => {
 	beforeAll(async () => {
 		await db('users').truncate();
