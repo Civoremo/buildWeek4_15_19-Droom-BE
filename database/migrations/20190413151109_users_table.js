@@ -7,6 +7,9 @@ exports.up = function(knex) {
 			.unique();
 
 		tbl.string('password', 128).notNullable();
+
+		tbl.boolean('seeker').defaultTo(false);
+		tbl.boolean('employer').defaultTo(false);
 	});
 };
 

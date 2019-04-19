@@ -9,8 +9,25 @@ module.exports = {
 	findSeeker
 };
 
+async function setSeeker(id) {
+	let { email, password, seeker, employer } = await db('users')
+		.where({ id })
+		.first()
+		.returning('id');
+
+	seeker = true;
+
+	user = { email, password, seeker, employer };
+
+	await db('users')
+		.where({ id })
+		.update(user);
+}
+
 // Add job seeker profile
 async function add(profile) {
+	setSeeker(profile.userId);
+
 	let { userId, seeker } = profile;
 
 	let newSeeker = {
