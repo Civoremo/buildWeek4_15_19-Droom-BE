@@ -94,8 +94,8 @@ npm run server
      - [Delete Job Skill](#update-job-skill)
 - [Match Routes](#match-routes)
      - [Get Matches](#get-matches)
-       - [Get Company Matches For Seeker](##get-matches-for-seeker)
-       - [Get Seeker Matches For Company](##get-matches-for-company-for-all-jobs)
+       - [Get Company Matches For Seeker](#get-matches-for-seeker)
+       - [Get Seeker Matches For Company](#get-matches-for-company-for-all-jobs)
      - [Get Matched](#get-matched)
      - [Add Match](#add-match)
 
@@ -3409,7 +3409,7 @@ _example:_
 
 ### **Get matched profiles by job id**
 
-_Method Url:_ `/api/matched/company/:id`
+_Method Url:_ `/api/matched/job/:id`
 
 _HTTP method:_ **[GET]**
 
