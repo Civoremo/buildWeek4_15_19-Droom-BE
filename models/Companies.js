@@ -9,21 +9,6 @@ module.exports = {
 	remove
 };
 
-// async function setCompany(id) {
-// 	let { email, password, seeker, employer } = await db('users')
-// 		.where({ id })
-// 		.first()
-// 		.returning('id');
-
-// 	employer = true;
-
-// 	let user = { email, password, seeker, employer };
-
-// 	await db('users')
-// 		.where({ id })
-// 		.update(user);
-// }
-
 // Create a company
 async function add(userId, company) {
 	const newCompany = {

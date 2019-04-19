@@ -8,9 +8,9 @@ exports.seed = function(knex, Promise) {
 			jobDescription:
 				'Are you excited by the prospect of creating simple, intuitive experiences that delight users? Do you like building services that will be used by hundreds of millions of users across the world? Microsoft Developer Center Norway is growing, and we’re looking for developers with a strong passion for building delightful and smart experiences that will be used on a global scale. Come join our team!',
 			jobExperienceRequired:
-				'<ul><li>Masters or Bachelor’s degree or equivalent in computer science or related technical disciplines.</li><li>Experience with software engineering best practices (code quality, repo hygiene, code reviews, unit testing, design documentation, continuous integration, deployment).</li><li>Experience in the JavaScript ecosystem and related technologies such as React, React Native, TypeScript, Redux, HTML5, CSS.</li></ul>',
+				'Masters or Bachelor’s degree or equivalent in computer science or related technical disciplines.</li><li>Experience with software engineering best practices (code quality, repo hygiene, code reviews, unit testing, design documentation, continuous integration, deployment).</li><li>Experience in the JavaScript ecosystem and related technologies such as React, React Native, TypeScript, Redux, HTML5, CSS.</li></ul>',
 			jobExperiencePreferred:
-				'<ul><li>Experience in building performant experiences using technologies such as webpack and npm to optimize bundles and package dependencies.</li><li>Experience in experimentation framework and understanding how to measure end user success.</li><li>Thrives in dynamic, fast-paced environments where passion for customer engagement and great experience are at the forefront of all design & development.</li></ul>',
+				'Experience in building performant experiences using technologies such as webpack and npm to optimize bundles and package dependencies.Experience in experimentation framework and understanding how to measure end user success.Thrives in dynamic, fast-paced environments where passion for customer engagement and great experience are at the forefront of all design & development.',
 			jobApplyBy: '30 May 2019'
 		},
 		{
