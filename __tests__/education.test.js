@@ -91,4 +91,34 @@ describe('Job seeker endpoint tests', () => {
 			await expect(response.body).toEqual(expectedEducation);
 		});
 	});
+
+	describe('POST /api/education', () => {
+		it('should return 404 (Not Found) status code if user id passed in the body does not have a profile', async () => {
+			let expectedEducation = {
+				userId: 4,
+				seekerEducation
+			};
+
+			response = await request(server)
+				.post('/api/education')
+				.send(expectedEducation)
+				.set(auth);
+
+			await expect(response.status).toBe(404);
+		});
+
+		it('should return 201 (Created) status code when education is successfully created', async () => {
+			let expectedEducation = {
+				userId: 1,
+				seekerEducation
+			};
+
+			response = await request(server)
+				.post('/api/education')
+				.send(expectedEducation)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+		});
+	});
 });
