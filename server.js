@@ -28,7 +28,7 @@ middleware(server);
 
 // controllers
 server.use('/api/auth', authController);
-server.use('/api/seekers', seekerController);
+server.use('/api/seekers', authenticate, seekerController);
 server.use('/api/education', authenticate, educationController);
 server.use('/api/experience', authenticate, experienceController);
 server.use('/api/skills', authenticate, skillsController);
