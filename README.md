@@ -3409,7 +3409,7 @@ _example:_
 
 ### **Get matched profiles by job id**
 
-_Method Url:_ `/api/matched/company/:id`
+_Method Url:_ `/api/matched/job/:id`
 
 _HTTP method:_ **[GET]**
 
