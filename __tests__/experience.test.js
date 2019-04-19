@@ -126,4 +126,55 @@ describe('Job seeker endpoint tests', () => {
 			await expect(response.status).toBe(201);
 		});
 	});
+
+	describe('UPDATE /api/experience/:id', () => {
+		it('should return 400 (Bad Request) if fields are properly filled out', async () => {
+			response = await request(server)
+				.put('/api/experience/5')
+				.send()
+				.set(auth);
+
+			expect(response.status).toBe(400);
+		});
+
+		it('should return 404 (Not Found) status code if the specified experience object does not exist', async () => {
+			let expectedExperience = updatedExperience;
+
+			response = await request(server)
+				.put('/api/experience/5')
+				.send(expectedExperience)
+				.set(auth);
+
+			expect(response.status).toBe(404);
+		});
+
+		it('should return updated experience object', async () => {
+			let expectedExperience = {
+				userId: 1,
+				seekerExperience
+			};
+
+			let response = await request(server)
+				.post('/api/experience')
+				.send(expectedExperience)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+
+			expectedExperience = updatedExperience;
+
+			response = await request(server)
+				.put('/api/experience/1')
+				.send(expectedExperience)
+				.set(auth);
+
+			expectedExperience = {
+				id: 1,
+				seekerId: 1,
+				...updatedExperience
+			};
+
+			expect(response.body).toEqual(expectedExperience);
+		});
+	});
 });
