@@ -107,13 +107,13 @@ describe('Job seeker endpoint tests', () => {
                 .send(seeker)
                 .set(auth);
 
-            const newSkeer = {
+            const newSeeker = {
                 id: 1,
                 userId: 1,
                 ...seekerProfile
             };
 
-            expect(response.body).toEqual(newSkeer);
+            expect(response.body).toEqual(newSeeker);
         });
     });
 

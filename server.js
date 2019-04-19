@@ -32,7 +32,7 @@ server.use('/api/seekers', authenticate, seekerController);
 server.use('/api/education', authenticate, educationController);
 server.use('/api/experience', authenticate, experienceController);
 server.use('/api/skills', authenticate, skillsController);
-server.use('/api/companies', comController);
+server.use('/api/companies', authenticate, comController);
 server.use('/api/jobs', authenticate, jobsController);
 server.use('/api/job-skills', authenticate, jobSkillsController);
 server.use('/api/matches', authenticate, matchesController);

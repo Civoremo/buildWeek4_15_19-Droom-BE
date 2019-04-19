@@ -125,7 +125,7 @@ async function companyMatches(id) {
     );
 
     let matches = await db('matches').where({ matched: true });
-    console.log(matches);
+
     // For each match check if matches any profile, if it does match, filter it out
     for (let i = 0; i < matches.length; i++) {
         let unmatched = [];
