@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "server": "nodemon server.js",
-    "test": "cross-env DB_ENV=testing jest --watch --verbose=false"
+    "test": "knex --env=testing migrate:latest && cross-env DB_ENV=testing jest --watch --verbose=false"
   },
   "repository": {
     "type": "git",
