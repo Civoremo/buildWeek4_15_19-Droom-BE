@@ -2,7 +2,9 @@ const jwt = require('jsonwebtoken');
 
 function generateToken(user) {
 	const payload = {
-		subject: user.id
+		subject: user.id,
+		seeker: user.seeker,
+		employer: user.employer
 	};
 
 	const options = {

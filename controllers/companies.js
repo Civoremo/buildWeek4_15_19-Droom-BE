@@ -53,7 +53,7 @@ router.post('/', companyValidation, async (req, res) => {
 			message:
 				'Sorry, but something went wrong while adding the company.'
 		});
-
+		console.log(err);
 		throw new Error(err);
 	}
 });
