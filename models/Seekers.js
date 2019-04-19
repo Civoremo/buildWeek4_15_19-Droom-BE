@@ -26,7 +26,7 @@ async function setSeeker(id) {
 
 // Add job seeker profile
 async function add(profile) {
-	setSeeker(profile.userId);
+	await setSeeker(profile.userId);
 
 	let { userId, seeker } = profile;
 

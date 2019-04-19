@@ -26,7 +26,7 @@ async function setCompany(id) {
 
 // Create a company
 async function add(userId, company) {
-	setCompany(userId);
+	await setCompany(userId);
 
 	const newCompany = {
 		userId,
