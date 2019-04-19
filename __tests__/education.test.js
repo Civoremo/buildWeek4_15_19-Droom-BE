@@ -181,4 +181,34 @@ describe('Job seeker endpoint tests', () => {
 			expect(response.body).toEqual(expectedEducation);
 		});
 	});
+
+	describe('DELETE /api/education/:id', () => {
+		it('should return 404 (Not Found) status code if specified education does not exist', async () => {
+			response = await request(server)
+				.delete('/api/education/1')
+				.set(auth);
+
+			await expect(response.status).toBe(404);
+		});
+
+		it('should return 200 (OK) on successful deletion', async () => {
+			let expectedEducation = {
+				userId: 1,
+				seekerEducation
+			};
+
+			let response = await request(server)
+				.post('/api/education')
+				.send(expectedEducation)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+
+			response = await request(server)
+				.delete('/api/education/1')
+				.set(auth);
+
+			await expect(response.status).toBe(200);
+		});
+	});
 });
