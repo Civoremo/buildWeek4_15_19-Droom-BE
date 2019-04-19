@@ -165,4 +165,36 @@ describe('Job seeker skills endpoint tests', () => {
 			expect(response.body).toEqual(expectedSkill);
 		});
 	});
+
+	describe('DELETE /api/skills/:id', () => {
+		it('should return 404 (Not Found) status code if specified skill does not exist', async () => {
+			response = await request(server)
+				.delete('/api/skills/1')
+				.set(auth);
+
+			await expect(response.status).toBe(404);
+		});
+
+		it('should return 200 (OK) on successful deletion', async () => {
+			let expectedSkill = {
+				skills: {
+					userId: 1,
+					seekerSkills
+				}
+			};
+
+			let response = await request(server)
+				.post('/api/skills')
+				.send(expectedSkill)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+
+			response = await request(server)
+				.delete('/api/skills/1')
+				.set(auth);
+
+			await expect(response.status).toBe(200);
+		});
+	});
 });
