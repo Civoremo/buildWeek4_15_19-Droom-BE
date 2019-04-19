@@ -3,7 +3,7 @@ const server = require('../server');
 const db = require('../database/dbConfig');
 
 describe('Job seeker endpoint tests', () => {
-	beforeAll(async () => {
+	beforeEach(async () => {
 		await db('users').truncate();
 		await db('seekers').truncate();
 		await db('education').truncate();
@@ -52,6 +52,15 @@ describe('Job seeker endpoint tests', () => {
 		}
 	];
 
+	const updatedEducation = {
+		eduSchool: 'San Francisco State University Updated',
+		eduCredential: 'Bachelor of Science in Computer Engineering',
+		eduDescription:
+			'Computer Engineering combines Electrical Engineering and Computer Science and deals with the design and application of computer systems. These computer systems can range from large super computers to tiny microprocessors that are embedded in all kinds of equipment, such as automobiles, appliances, cellular phones, medical devices, office equipment, etc. The goal of the Computer Engineering program at SFSU is to provide students with a practical, hands-on education that emphasizes applications.',
+		eduStart: '1-1-2019',
+		eduEnd: '1-1-2023'
+	};
+
 	describe('GET /api/education/:id', () => {
 		it('should return status code 404 (Not Found) if education does not exist based off of userId', async () => {
 			const response = await request(server)
@@ -67,7 +76,7 @@ describe('Job seeker endpoint tests', () => {
 				seekerEducation
 			};
 
-			response = await request(server)
+			let response = await request(server)
 				.post('/api/education')
 				.send(expectedEducation)
 				.set(auth);
@@ -99,7 +108,7 @@ describe('Job seeker endpoint tests', () => {
 				seekerEducation
 			};
 
-			response = await request(server)
+			let response = await request(server)
 				.post('/api/education')
 				.send(expectedEducation)
 				.set(auth);
@@ -113,12 +122,63 @@ describe('Job seeker endpoint tests', () => {
 				seekerEducation
 			};
 
-			response = await request(server)
+			let response = await request(server)
 				.post('/api/education')
 				.send(expectedEducation)
 				.set(auth);
 
 			await expect(response.status).toBe(201);
+		});
+	});
+
+	describe('UPDATE /api/education/:id', () => {
+		it('should return 400 (Bad Request) if fields are properly filled out', async () => {
+			response = await request(server)
+				.put('/api/education/5')
+				.send()
+				.set(auth);
+
+			expect(response.status).toBe(400);
+		});
+
+		it('should return 404 (Not Found) status code if the specified education object does not exist', async () => {
+			let expectedEducation = updatedEducation;
+
+			response = await request(server)
+				.put('/api/education/5')
+				.send(expectedEducation)
+				.set(auth);
+
+			expect(response.status).toBe(404);
+		});
+
+		it('should return updated education object', async () => {
+			let expectedEducation = {
+				userId: 1,
+				seekerEducation
+			};
+
+			let response = await request(server)
+				.post('/api/education')
+				.send(expectedEducation)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+
+			expectedEducation = updatedEducation;
+
+			response = await request(server)
+				.put('/api/education/1')
+				.send(expectedEducation)
+				.set(auth);
+
+			expectedEducation = {
+				id: 1,
+				seekerId: 1,
+				...updatedEducation
+			};
+
+			expect(response.body).toEqual(expectedEducation);
 		});
 	});
 });
