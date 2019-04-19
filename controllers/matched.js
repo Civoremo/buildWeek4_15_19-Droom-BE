@@ -21,15 +21,13 @@ router.get('/job/:id', async (req, res) => {
 		const matched = await Matched.getMatchedSeekers(req.params.id);
 		res.status(200).json(matched);
 	} catch (err) {
-		console.log(err);
 		res.status(500).json({
 			message:
 				'Sorry, there was an error getting the matches.',
 			err
 		});
+		throw new Error(err);
 	}
-
-	throw new Error(err);
 });
 
 module.exports = router;

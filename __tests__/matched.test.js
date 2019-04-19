@@ -86,4 +86,22 @@ describe('Job seeker experience endpoint tests', () => {
 			await expect(response.status).toEqual(404);
 		});
 	});
+
+	describe('GET /api/matched/job/:id', () => {
+		it('should return 200 (OK) status if provided job has matches', async () => {
+			const response = await request(server)
+				.get('/api/matched/job/1')
+				.set(auth);
+
+			await expect(response.status).toEqual(200);
+		});
+
+		it('should return 404 (Not Found) status if provided job does not exist', async () => {
+			const response = await request(server)
+				.get('/api/matches/job/5')
+				.set(auth);
+
+			await expect(response.status).toEqual(404);
+		});
+	});
 });
