@@ -20,7 +20,7 @@ const matchedController = require('./controllers/matched');
 // initializations
 const server = express();
 Sentry.init({
-	dsn: process.env.SENTRY_DSN
+    dsn: process.env.SENTRY_DSN
 });
 
 // middleware
@@ -42,17 +42,17 @@ server.use('/api/matched', authenticate, matchedController);
 errorMiddleware(server);
 
 server.get('/', (req, res) => {
-	res.status(200).json({ message: 'Sanity check' });
+    res.status(200).json({ message: 'Sanity check' });
 });
 
 if (require.main == module) {
-	server.listen(process.env.PORT, () => {
-		console.log(
-			`Server is running at http://localhost:${
+    server.listen(process.env.PORT, () => {
+        console.log(
+            `Server is running at http://localhost:${
 				process.env.PORT
 			}/`
-		);
-	});
+        );
+    });
 } else {
-	module.exports = server;
+    module.exports = server;
 }

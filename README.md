@@ -94,8 +94,8 @@ npm run server
      - [Delete Job Skill](#update-job-skill)
 - [Match Routes](#match-routes)
      - [Get Matches](#get-matches)
-       - [Get Company Matches For Seeker](#get-matches-for-seeker)
-       - [Get Seeker Matches For Company](#get-matches-for-company-for-all-jobs)
+          - [Get Company Matches For Seeker](#get-matches-for-seeker)
+          - [Get Seeker Matches For Company](#get-matches-for-company-for-all-jobs)
      - [Get Matched](#get-matched)
      - [Add Match](#add-match)
 
@@ -2090,7 +2090,6 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
-
 {
   "userId": 1,
   "companies": {
@@ -2103,32 +2102,28 @@ _example:_
     "zipcode": 4000
   }
 }
-
 ```
 
 #### Response
 
 ##### 201 (Created)
 
-> If you successfully register a user the endpoint will return an HTTP response with a status code `201` and a body as below.
+> If you successfully register a company the endpoint will return an HTTP response with a status code `201` and a body as below.
 
 ```
-
 {
+  "message": "Apple has been successfully added.",
   "companies": {
-  "companyName": "Apple",
-  "companyPicture": "url",
-  "companyDescription": "An About me for the company",
-  "location": {
-  "country": "United States of America",
-  "state": "California",
-  "city": "Cupertino",
-  "zipcode": "40000"
+  	"id": 1,
+    "companyName": "Apple",
+    "companyPicture": "",
+    "companyDescription": "An About me for the company",
+    "country": "United States of America",
+    "state": "California",
+    "city": "Cupertino",
+    "zipcode": 4000
   }
-  },
-  "jobs": []
 }
-
 ```
 
 #### 400 (Bad Request)
@@ -2345,7 +2340,8 @@ _HTTP method:_ **[GET]**
       "jobDescription": "An About me for the job",
       "jobExperienceRequired": "jobExperienceRequired",
       "jobExperiencePreferred": "jobExperiencePreferred",
-      "jobApplyBy": "jobApplyBy"
+      "jobApplyBy": "jobApplyBy",
+      "jobSkills": [...]
     },
     {
       "id": 2,
@@ -2354,7 +2350,8 @@ _HTTP method:_ **[GET]**
       "jobDescription": "An About me for the job",
       "jobExperienceRequired": "jobExperienceRequired",
       "jobExperiencePreferred": "jobExperiencePreferred",
-      "jobApplyBy": "jobApplyBy"
+      "jobApplyBy": "jobApplyBy",
+      "jobSkills": [...]
     },
     {
       "id": 4,
@@ -2363,7 +2360,8 @@ _HTTP method:_ **[GET]**
       "jobDescription": "An About me for the job",
       "jobExperienceRequired": "jobExperienceRequired",
       "jobExperiencePreferred": "jobExperiencePreferred",
-      "jobApplyBy": "jobApplyBy"
+      "jobApplyBy": "jobApplyBy",
+      "jobSkills": [...]
     }
   ]
 }
@@ -2423,18 +2421,16 @@ _HTTP method:_ **[GET]**
 
 ```
 {
-  "message": "The job was retrieved successfully.",
-  "job": {
-      "id": 1,
-      "companyId": 1,
-      "jobName": "Software Engineer",
-      "jobDescription": "An About me for the job",
-      "jobExperienceRequired": "jobExperienceRequired",
-      "jobExperiencePreferred": "jobExperiencePreferred",
-      "jobApplyBy": "jobApplyBy",
-      "jobSkills": []
+    "message": "The job was retrieved successfully.",
+    "jobs": {
+        "id": 1,
+        "companyId": 1,
+        "jobName": "Frontend Software Engineer",
+        "jobDescription": "Are you excited by the prospect of creating simple, intuitive experiences that delight users? Do you like building services that will be used by hundreds of millions of users across the world? Microsoft Developer Center Norway is growing, and we’re looking for developers with a strong passion for building delightful and smart experiences that will be used on a global scale. Come join our team!",
+        "jobExperienceRequired": "<ul><li>Masters or Bachelor’s degree or equivalent in computer science or related technical disciplines.</li><li>Experience with software engineering best practices (code quality, repo hygiene, code reviews, unit testing, design documentation, continuous integration, deployment).</li><li>Experience in the JavaScript ecosystem and related technologies such as React, React Native, TypeScript, Redux, HTML5, CSS.</li></ul>",
+        "jobExperiencePreferred": "<ul><li>Experience in building performant experiences using technologies such as webpack and npm to optimize bundles and package dependencies.</li><li>Experience in experimentation framework and understanding how to measure end user success.</li><li>Thrives in dynamic, fast-paced environments where passion for customer engagement and great experience are at the forefront of all design & development.</li></ul>",
+        "jobApplyBy": "30 May 2019"
     }
-  }
 }
 ```
 
@@ -2488,19 +2484,20 @@ _HTTP method:_ **[POST]**
 _example:_
 
 ```
-
 {
-"userId": 1,
-"job": {
-  "jobName": "Back-end Engineer 11",
-  "jobDescription": "An About me for the job",
-  "jobExperienceRequired": "jobExperienceRequired",
-  "jobExperiencePreferred": "jobExperiencePreferred",
-  "jobApplyBy": "jobApplyBy"
-},
-"jobSkills": ["Skill4", "Skill5"]
+    "userId": 1,
+    "job": {
+        "jobName": "Back-end Engineer 11",
+        "jobDescription": "An About me for the job",
+        "jobExperienceRequired": "jobExperienceRequired",
+        "jobExperiencePreferred": "jobExperiencePreferred",
+        "jobApplyBy": "jobApplyBy"
+    },
+    "jobSkills": [
+        "Skill4",
+        "Skill5"
+    ]
 }
-
 ```
 
 #### Response
@@ -2608,15 +2605,14 @@ _example:_
 {
   "message": "The job was updated successfully",
   "jobs": {
-  "id": 2,
-  "companyId": 1,
-  "jobName": "Back-end Engineer updated",
-  "jobDescription": "An About me for the job",
-  "jobExperienceRequired": "jobExperienceRequired",
-  "jobExperiencePreferred": "jobExperiencePreferred",
-  "jobApplyBy": "jobApplyBy"
+    "id": 2,
+    "companyId": 1,
+    "jobName": "Back-end Engineer updated",
+    "jobDescription": "An About me for the job",
+    "jobExperienceRequired": "jobExperienceRequired",
+    "jobExperiencePreferred": "jobExperiencePreferred",
+    "jobApplyBy": "jobApplyBy"
 }
-
 ```
 
 #### 406 (Not Acceptable)
@@ -2859,7 +2855,7 @@ _example:_
 
 ##### 201 (Created)
 
-> If you successfully register a job the endpoint will return an HTTP response with a status code `201` and a body as below (returns all job skills fo r the jobId, not just the created jobs).
+> If you successfully register a job, the endpoint will return an HTTP response with a status code `201` and a body as below (returns all job skills for the jobId, not just the created jobs).
 
 ```
 {
@@ -3326,7 +3322,6 @@ _example:_
 
 ```
 
-
 ## **GET MATCHED**
 
 ### **Get matched jobs by user id**
@@ -3517,7 +3512,6 @@ _HTTP method:_ **[GET]**
 | id    | Integer | Yes      | user id     |
 | jobId | Integer | Yes      | job id      |
 
-
 #### Response
 
 ##### 200 (OK)
@@ -3566,6 +3560,7 @@ _example:_
 			err: err
 }
 ```
+
 ### **Add a job match for seeker**
 
 _Method Url:_ `/api/matches/job/:id/match/seeker/:seekerId`
@@ -3585,7 +3580,6 @@ _HTTP method:_ **[GET]**
 | -------- | ------- | -------- | ----------- |
 | id       | Integer | Yes      | job id      |
 | seekerId | Integer | Yes      | seeker id   |
-
 
 #### Response
 
@@ -3635,5 +3629,3 @@ _example:_
 			err: err
 }
 ```
-
-
