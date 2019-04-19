@@ -96,4 +96,34 @@ describe('Job seeker endpoint tests', () => {
 			await expect(response.body).toEqual(expectedExperience);
 		});
 	});
+
+	describe('POST /api/experience', () => {
+		it('should return 404 (Not Found) status code if user id passed in the body does not have a profile', async () => {
+			let expectedExperience = {
+				userId: 4,
+				seekerExperience
+			};
+
+			let response = await request(server)
+				.post('/api/experience')
+				.send(expectedExperience)
+				.set(auth);
+
+			await expect(response.status).toBe(404);
+		});
+
+		it('should return 201 (Created) status code when experience is successfully created', async () => {
+			let expectedExperience = {
+				userId: 1,
+				seekerExperience
+			};
+
+			let response = await request(server)
+				.post('/api/experience')
+				.send(expectedExperience)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+		});
+	});
 });
