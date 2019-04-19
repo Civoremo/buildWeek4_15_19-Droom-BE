@@ -114,4 +114,55 @@ describe('Job seeker skills endpoint tests', () => {
 			await expect(response.status).toBe(201);
 		});
 	});
+
+	describe('UPDATE /api/skills/:id', () => {
+		it('should return 400 (Bad Request) if fields are properly filled out', async () => {
+			let response = await request(server)
+				.put('/api/skills/1')
+				.send()
+				.set(auth);
+
+			expect(response.status).toBe(400);
+		});
+
+		it('should return 404 (Not Found) if skill is not found', async () => {
+			let response = await request(server)
+				.put('/api/skills/50')
+				.send({
+					seekerSkill: 'Python'
+				})
+				.set(auth);
+
+			expect(response.status).toBe(404);
+		});
+
+		it('should return updated skill object', async () => {
+			let expectedSkill = {
+				skills: {
+					userId: 1,
+					seekerSkills
+				}
+			};
+
+			let response = await request(server)
+				.post('/api/skills')
+				.send(expectedSkill)
+				.set(auth);
+
+			await expect(response.status).toBe(201);
+
+			expectedSkill = {
+				seekerSkill: 'Python'
+			};
+
+			response = await request(server)
+				.put('/api/skills/1')
+				.send(expectedSkill)
+				.set(auth);
+
+			expectedSkill = updatedSkill;
+
+			expect(response.body).toEqual(expectedSkill);
+		});
+	});
 });
