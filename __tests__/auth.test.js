@@ -3,7 +3,7 @@ const server = require('../server');
 const db = require('../database/dbConfig');
 
 describe('Authentication endpoint tests', () => {
-	beforeEach(async () => {
+	afterEach(async () => {
 		await db('users').truncate();
 	});
 

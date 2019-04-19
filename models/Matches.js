@@ -45,20 +45,17 @@ async function seekerMatches(id) {
 
 	let matches = await db('matches').where({
 		seekerId: seeker.id,
-		matched: false
+		matched: true
 	});
 
 	let mappedMatches = matches.map(match => match.jobId);
-	console.log(mappedMatches);
 
 	let filteredJobs = updatedJobs.filter(job => {
-		return mappedMatches.includes(job.id);
+		return !mappedMatches.includes(job.id);
 	});
 
-	console.log(filteredJobs);
-
 	// sort updated jobs based on count
-	return updatedJobs.sort((a, b) => b.count - a.count);
+	return filteredJobs.sort((a, b) => b.count - a.count);
 }
 
 async function companyMatches(id) {
